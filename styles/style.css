@@ -1,0 +1,324 @@
+/*
+    Incognito's experinmental:
+    STYLE GUIDE - How to make your css classes more readable
+    +-------------------------------------------------------------------------------------------------+
+    |1. Content sizes (not font sizes), priority: margin. border, padding, width, height, etc         |
+    |2. Font sizes, biggest header has priority                                                       |
+    |4. Colors, priority goes, bg, fg(if there is a foreground color used), border, anything else.    |
+    |                                                                                                 |
+    |Others such as the z-index go last.                                                              |
+    +-------------------------------------------------------------------------------------------------+
+*/
+
+
+
+
+/*
+    GLOBAL CSS
+    - Applies everwhere
+*/
+
+:root {
+    /* COLORS */
+    --bg-color: white;
+    --fg-color: rgb(245, 245, 245);
+    --detail-color: #cecece;
+    --text-color: black;
+    --accent-color: var(--detail-color);
+
+    /* LIGHT MODE COLORS */
+    --l-bg-color: white;
+    --l-fg-color: rgb(245, 245, 245);
+    --l-detail-color: #cecece;
+    --l-text-color: black;
+    --l-accent-color: var(--detail-color);
+
+    /* DARK MODE COLORS */
+    --d-bg-color: rgb(22, 22, 22);
+    --d-fg-color: rgb(59, 59, 59);
+    --d-detail-color: #cecece;
+    --d-text-color: white;
+    --d-accent-color: var(--d-bg-color);
+
+    /* SIZES */
+    --sidenav-width:         13vw;
+    --sidenav-offset:      calc(var(--sidenav-width) + var(--tb-padding));
+    --tb-padding:             1vw;
+    --main-font-size:      0.75vw;
+    --hr-height:              2px;
+    --content-side-padding: 2%;
+
+    /* OTHER */
+    --border: 1px solid #cecece;
+    --v-pad: calc(var(--tb-padding)/2);
+}
+
+*{
+    margin: 0;
+    font-size: var(--main-font-size);
+
+    color: var(--text-color);
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+body {
+    align-items: center;
+    overflow-y:hidden;
+}
+
+hr {
+    height: var(--hr-height); /* uses border thickness even though its not a border*/
+    background-color: var(--detail-color);
+    border: none;
+}
+
+button {
+    background-color: var(--fg-color);
+    outline: none;
+    box-shadow: none;
+    border-radius: 2px;
+    text-align: center;
+    display: inline-block;
+    border: none;
+    border-top: var(--border);
+    border-bottom: var(--border);
+}
+
+
+
+
+
+/* 
+    CLASSES
+    - Applies only to classes and their children.
+*/
+
+.sidenav {
+    margin-top: 0;
+    width: var(--sidenav-width); 
+    height: 100%;
+
+    background-color:  var(--fg-color);
+    border-right: var(--border);
+    
+    float: left;
+    position: fixed;
+    z-index: 3;
+    padding: var(--content-padding);
+}
+
+.sidenav-button {
+    padding-left: 0;
+    height: 6vh;
+    width: 100%;
+    float: right;
+    padding-right: 0;
+    text-align: left;
+    justify-content: center;
+    align-items: center;
+    display: inline;
+}
+
+.sidenav-button:hover {
+    background-color: var(--accent-color);
+}
+
+.sidenav-button > ion-icon {
+    width: 2vw;
+    height: 2vw;
+    float: left;
+    
+    z-index: 20;
+}
+
+.head {
+    display: none;
+    width: 100%;
+    background-color: var(--fg-color);
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-bottom: var(--border);
+    position: fixed;
+    overflow: hidden;
+    z-index: 2;
+}
+
+#sidenavtoggle {
+    display: none;
+}
+
+/* Contains the interactibe content */
+.content {
+    margin-left: var(--sidenav-offset);
+    padding-left: var(--content-side-padding);
+    padding-bottom: 5.5vh;
+    width: 45%;
+    height: 100%;
+    padding-right: 25%;
+    
+    background-color: var(--bg-color);
+    position: fixed;
+    overflow-x: hidden;
+    padding-right: calc(calc(100vw - var(--sidenav-offset)) - calc(var(--content-side-padding) - 45%));
+}
+
+
+/* Contrasts the content class */
+.container {
+    margin-top: 2.5%;
+    padding: var(--content-padding);
+    width: calc(100% - var(--content-side-padding));
+    min-height: 25%;
+    border-radius: 0.8%;
+
+    background-color: var(--fg-color);
+    border: var(--border);
+
+    box-shadow: 2px;
+
+    padding-bottom: 0;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.sub-container-column {
+    width: calc(50% - 1%);
+    padding-bottom: 1%;
+}
+
+.sub-container {
+    border: var(--border);
+    border-radius: 3px; 
+    height: fit-content;
+    margin-bottom: 4%;
+}
+
+.sub-container > div { /* span didnt work*/
+    padding: var(--content-padding);
+    border-bottom: var(--border);
+    height: min-content;
+}
+
+.sub-container > div:last-child { /* span didnt work*/
+    border-bottom: none;
+}
+
+.sub-container > div:first-child { /* span didnt work*/
+    background-color: var(--accent-color);
+    display: flex;
+}
+
+.thumbnail-img {
+    width: 60%; /* 20% the size of the inside of the container class */
+}
+
+.foot {
+    margin-top: 4%;
+    padding-top: 4%;
+    border-top: 2px solid #cecece;
+    width: 100%;
+    margin-bottom: 15%;
+    display: inline-flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+
+
+/*
+    MEDIA CSS
+    - Applies to different sizes of screens
+*/
+
+/* MOBILE */
+@media screen and (max-width: 850px) {
+    :root {
+        /* SIZES */
+        --sidenav-width:         80vw;
+        --sidenav-offset:         0vw;
+        --topnav-height:          4vh;
+        --topnav-offset:          5vh;
+        --main-font-size:       2.4vw;
+        --hr-height:              2px;
+    
+        /* OTHER */
+        --border: 1px solid #cecece;
+        --content-padding: 0.5vh 0.5vh 0.5vh 0.5vh; /* TOP, RIGHT, BOTTOM, LEFT */
+    }
+
+    * {
+        font-size: 3vw;
+    }
+
+    .sidenav {
+        display: none;
+        font-size: 3vw;
+        padding: 0.5vh 0.5vh 0.5vh 0.5vh;
+    }
+
+    .sidenav > * {
+        font-size: 5vw;
+    }
+
+    .sidenav > a > * {
+        font-size: 5vw;
+    }
+
+    .sidenav > * > ion-icon {
+        height: 20vh;
+        height: 4vh; width: 7vw;
+    }
+
+    .sidenav > * > * > ion-icon {
+        height: 20vh;
+        height: 4vh; width: 7vw;
+    }
+
+    ion-icon {
+        height: 20vh;
+        height: 4vh; width: 7vw;
+    }
+
+    .head {
+        display: inherit;
+    }
+
+    #sidenavtoggle {
+        display: inherit;
+    }
+
+    .content {
+        margin-top: 14%;
+        margin-left: var(--sidenav-offset);
+        padding-left: 2%;
+        padding-right: 2%;
+        padding-bottom: 5.5vh;
+        width: 96%;
+        height: 100%;
+        
+        background-color: var(--bg-color);
+        position: fixed;
+        overflow-x: hidden;
+    }
+
+    .sub-container-column {
+        width: 100%;
+        padding-bottom: 1%;
+    }
+
+    /* Contrasts the content class */
+    .container {
+        width: 98%;
+        margin-top: 5%;
+        
+        display: block;
+        justify-content: space-between;
+    }
+
+    .foot {
+        margin-top: 10%;
+        padding-top: 10%;
+        margin-bottom: 25%;
+    }
+}
