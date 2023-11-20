@@ -43,10 +43,10 @@
     <div class="sidenav" id="sidenavbar">
         <button onclick="toggleSidenavbar()" id="sidenavtoggle" style="margin-right: 1%; float: right;"><ion-icon name="close"></ion-icon></button>
 
-        <a href="index.html"><button class="sidenav-button"><ion-icon name="home" class="sidenav-icon"></ion-icon>Home</button></a>
-        <a href="schedule/index.html"><button class="sidenav-button"><ion-icon name="calendar" class="sidenav-icon"></ion-icon>Schedule</button></a>
-        <a href="grades/index.html"><button class="sidenav-button"><ion-icon name="pie-chart" class="sidenav-icon"></ion-icon>Grades</button></a>
-        <a href="assignments/index.html"><button class="sidenav-button"><ion-icon name="document-text" class="sidenav-icon"></ion-icon>Assingment</button></a>
+        <a href="#"><button class="sidenav-button"><ion-icon name="home" class="sidenav-icon"></ion-icon>Home</button></a>
+        <a href="#"><button class="sidenav-button"><ion-icon name="calendar" class="sidenav-icon"></ion-icon>Schedule</button></a>
+        <a href="#"><button class="sidenav-button"><ion-icon name="pie-chart" class="sidenav-icon"></ion-icon>Grades</button></a>
+        <a href="#"><button class="sidenav-button"><ion-icon name="document-text" class="sidenav-icon"></ion-icon>Assingment</button></a>
         <button class="sidenav-button" onclick="theme_toggle()"><ion-icon name="sunny" class="sidenav-icon"></ion-icon>Change theme</button>
     </div>
 
