@@ -27,12 +27,13 @@ function checkName($nameToCheck)
 function itemExists($parameterToCheck, $value)
 {
     require 'connect.php';
-    $query = $pdo->prepare("SELECT * FROM name WHERE :parameter = :value");
-    $query->bindParam(':parameter', $parameterToCheck, PDO::PARAM_STR);
+    $query = $pdo->prepare('SELECT * FROM users WHERE '. $parameterToCheck.' = :value');
+    //$query->bindParam(':parameter', $parameterToCheck, PDO::PARAM_STR);
     $query->bindParam(':value', $value, PDO::PARAM_STR);
     $query->execute();
     $table = $query->fetchAll();
-    return empty($table);
+    echo print_r($table);
+    return !empty($table);
 }
 
 ?>
