@@ -32,7 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt = null;
 
-        header("location: ../homedemo/home.html");
+        header("location: ../homedemo/home.php");
     }
 }
 ?>

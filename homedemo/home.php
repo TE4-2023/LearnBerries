@@ -1,3 +1,11 @@
+<?php
+
+include_once "../Includes/header.php";
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="se"> <!-- Change to "en" when translated -->
 <head>

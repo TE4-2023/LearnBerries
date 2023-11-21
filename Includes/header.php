@@ -14,12 +14,10 @@
 
 if(!isset($_SESSION['uid'])) { //switch this out
     //Going back to login page
-    header("location: login.php");
+    header("location: ../index.php");
 }
 else {
     echo($_SESSION['uid']." ");
-    ?>
-    <a href="Includes/logout.php">Log out</a>
-    <?php
+    
 }
 ?>
