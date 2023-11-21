@@ -5,15 +5,15 @@
 
 :root {
     /* COLORS */
-    --bg-color: rgb(114, 104, 90);
-    --fg-color: rgb(88, 80, 68);
+    --bg-color: #E3E8F4;
+    --fg-color: #DEC6B4;
     --detail-color: #cecece;
-    --text-color: rgb(255, 255, 255);
+    --text-color: #55451C;
     --accent-color: var(--detail-color);
 
     /* SIZES */
-    --sidenav-width:         13vw;
-    --sidenav-offset:      calc(var(--sidenav-width) + var(--tb-padding));
+    --sidenav-width:         15vw;
+    --sidenav-offset:      var(--sidenav-width) ;
     --tb-padding:             1vw;
     --main-font-size:      0.75vw;
     --hr-height:              2px;
@@ -31,6 +31,8 @@
 
     color: var(--text-color);
     font-family: 'Roboto Condensed', sans-serif;
+
+    text-decoration: underline black;
 }
 
 body {
@@ -71,31 +73,13 @@ button {
     float: left;
     position: fixed;
     z-index: 3;
-    padding: var(--content-padding);
-}
-
-.sidenav-button {
-    padding-left: 0;
-    height: 6vh;
-    width: 100%;
-    float: right;
-    padding-right: 0;
-    text-align: left;
     justify-content: center;
-    align-items: center;
-    display: inline;
 }
 
-.sidenav-button:hover {
-    background-color: var(--accent-color);
-}
-
-.sidenav-button > ion-icon {
-    width: 2vw;
-    height: 2vw;
-    float: left;
-    
-    z-index: 20;
+.sidenav > a {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
 }
 
 .head {
@@ -170,6 +154,10 @@ button {
         font-size: 5vw;
     }
 
+    .sidenav > a {
+        font-size: 2rem;
+    }
+
     .sidenav > * > ion-icon {
         height: 20vh;
         height: 4vh; width: 7vw;
@@ -191,6 +179,7 @@ button {
 
     #sidenavtoggle {
         display: inherit;
+        padding-left: 100%;
     }
 
     .content {
