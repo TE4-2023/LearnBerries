@@ -1,0 +1,113 @@
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #DEC6B4;
+  height: 100px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+.bild {
+  height: 72px;
+  width: auto;
+  margin-top: 0.75rem;
+  margin-left: 12rem;
+}
+
+.header {
+  margin-top: 1.8rem;
+  margin-left: 6rem;
+  text-decoration: underline;
+}
+
+.parentContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+  align-items: center;
+}
+
+.createAccount {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #DEC6B4;
+  min-height: 60vh;
+  width: 45%;
+  padding: 20px; /* Added padding for better aesthetics */
+  border-radius: 24px;
+}
+
+.createAccount p {
+  font-size: 24px;
+  margin-bottom: 8px; /* Added margin for better spacing */
+}
+
+.createAccount input {
+  height: 25px;
+  width: 100%; /* Adjusted width to 100% for responsiveness */
+  margin-bottom: 8px; /* Added margin for better spacing */
+}
+
+.createAccount h2 {
+  text-align: center;
+}
+
+.createAccount button {
+  width: 12rem;
+  height: 2rem;
+  margin-top: 1rem;
+  margin-left: auto;
+}
+
+
+.left-nav {
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+.left-nav li {
+  list-style-type: none;
+  margin-top: 1rem;
+}
+
+.left-nav li a {
+  color: black;
+  font-size: 24px;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  margin-right: 16px;
+}
+
+.left-nav li a:hover:not(.active) {
+  color: #6a6a6a;
+  background-color: transparent;
+}
