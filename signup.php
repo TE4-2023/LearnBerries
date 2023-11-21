@@ -27,6 +27,7 @@ if (isset($_POST))
         if(itemExists("ssn", $SSN) or itemExists("email", $email))
         {
             header('Location: demoSignup.html?taken=true');
+            exit();
         }
         else
         {
@@ -51,27 +52,6 @@ if (isset($_POST))
             $query->execute($data);
         }
 
-
-
-        $nameID = checkName($name);
-        $lastNameID = checkName($lastName);
-        echo ($nameID . $lastNameID);
-
-        $query = $pdo->prepare('
-                INSERT INTO users (name_ID, lastname_ID, email, ssn, role_ID, password)
-                VALUES (:nameID, :lastNameID, :email, :ssn, :roleID, SHA(:password));
-    ');
-    
-    $data = array(
-        ':nameID' => $nameID,
-        ':lastNameID' => $lastNameID,
-        ':password' => $password,
-        ':email' => $email,
-        ':ssn' => $SSN,
-        ':roleID' => $roleID
-    );
-    
-    $query->execute($data);
         //header('Location: index.php');
         
         }
