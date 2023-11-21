@@ -19,21 +19,36 @@
       </ul>
     </nav>
 
-      <div class="parentContainer">
-        <div class="createAccount">
-          <h2>Skapa konto</h2>
-          <p>Förnamn</p>
-          <input type="text" />
-          <p>Efternamn</p>
-          <input type="text" />
-          <p>Personnummer</p>
-          <input type="text" />
-          <p>E-postadress</p>
-          <input type="email" />
-          <p>Lösenord</p>
-          <input type="password" />
-          <button>Skapa konto</button>
-        </div>
+    <div class="parentContainer">
+        
+      <div class="createAccount">
+        <form action="signup.php" method="post">
+        <h2>Skapa konto</h2>
+        <p>Förnamn</p>
+        <input type="text" id="name" name="name" required>
+
+        <p>Efternamn</p>
+        <input type="text" id="lastName" name="lastName" required>
+
+        <p>Personnummer (YYMMDD-XXXX):</p>
+        <input type="text" id="ssn" name="ssn" pattern="\d{6}-\d{4}" title="Enter a valid Swedish personnummer (YYMMDD-XXXX)" required>
+
+        <p>E-postadress</p>
+        <input type="email" id="email" name="email" required>
+
+        <p>Lösenord</p>
+        <input type="password" id="password" name="password" required>
+        
+        <p>Roll</p>
+        <select id="role" name="role" required>
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
+        </select>
+
+        <button type="submit">Sign Up</button>
+      </form>
       </div>
+    
+  </div>
   </body>
 </html>

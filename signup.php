@@ -26,7 +26,7 @@ if (isset($_POST))
     try {
         if(itemExists("ssn", $SSN) or itemExists("email", $email))
         {
-            header('Location: demoSignup.html?taken=true');
+            header('Location: create.html?taken=true');
             exit();
         }
         else
