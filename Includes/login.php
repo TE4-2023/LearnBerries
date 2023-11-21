@@ -2,7 +2,7 @@
 
 session_start();
 
-include_once "connect.php";
+include_once "loginconnect.php";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     //Grabbing the data
@@ -21,7 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(mysqli_num_rows($result) == 0) {
         $stmt = null;
         echo("No rows.");
-        header("location: .");
+        //header("location: .");
     }
     else {
         $row = mysqli_fetch_row($result);
@@ -32,25 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt = null;
 
-        header("location: home.php");
+        header("location: ../home.php");
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <form action="login.php" method="post">
-        <input type="text" name="email" placeholder="Email">                                        <!-- UNIQUE -->
-        <input type="password" name="password" placeholder="Password">          <!-- UNIQUE -->
-        <input type="submit" value="Submit">
-    </form>
-
-</body>
-</html>

@@ -19,7 +19,7 @@ if(!isset($_SESSION['uid'])) { //switch this out
 else {
     echo($_SESSION['uid']." ");
     ?>
-    <a href="logout.php">Log out</a>
+    <a href="Includes/logout.php">Log out</a>
     <?php
 }
 ?>
