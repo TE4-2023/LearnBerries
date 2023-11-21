@@ -52,7 +52,7 @@ if (isset($_POST))
             $query->execute($data);
         }
 
-        //header('Location: index.php');
+        header('Location: login.html');
         
         }
         catch(PDOException $e)
