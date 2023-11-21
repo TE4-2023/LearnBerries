@@ -10,3 +10,16 @@
     <title>Document</title>
 </head>
 <body>
+<?php
+
+if(!isset($_SESSION['uid'])) { //switch this out
+    //Going back to login page
+    header("location: login.php");
+}
+else {
+    echo($_SESSION['uid']." ");
+    ?>
+    <a href="logout.php">Log out</a>
+    <?php
+}
+?>
