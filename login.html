@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skolsida</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+
+    <nav>
+      <ul>
+        <li><img class="bild" src="logga.png" alt="logga" /></li>
+        <li>
+          <h1 class="header">Logga in</h1>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="logruta">
+      <form action="Includes/login.php" method="post">
+        <div class="txtrut">
+          <span>Mailadress:</span>
+          <input type="text" name="email" placeholder="exempel@test.se">
+
+          <br />
+          <span>Lösenord:</span>
+          <input type="password" name="password" placeholder="Tänk på att använda ett stark lösenord">
+
+          
+          <br />
+        </div>
+        <input class="logbtn" type="submit" value="Logga in">
+      </form>
+    </div>
+  
+  </body>
+
+</html>
