@@ -11,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt = $conn->prepare("SELECT *
                         FROM `webschool`.`users`
-                        WHERE `email`=? AND `password`=?;"); // BAD SQL STATEMENT
+                        WHERE `email`=? AND `password`= SHA(?);"); // BAD SQL STATEMENT
     $stmt->bind_param("ss", $email, $password);
 
     $stmt->execute();
@@ -21,6 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(mysqli_num_rows($result) == 0) {
         $stmt = null;
         echo("No rows.");
+        header('Location: ../login.html?error=notfound');
         //header("location: .");
     }
     else {
@@ -32,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt = null;
 
-        header("location: ../home.php");
+        header("location: ../homedemo/home.php");
     }
 }
 ?>
