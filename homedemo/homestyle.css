@@ -1,0 +1,209 @@
+/*
+    GLOBAL CSS
+    - Applies everwhere
+*/
+
+:root {
+    /* COLORS */
+    --bg-color: rgb(114, 104, 90);
+    --fg-color: rgb(88, 80, 68);
+    --detail-color: #cecece;
+    --text-color: rgb(255, 255, 255);
+    --accent-color: var(--detail-color);
+
+    /* SIZES */
+    --sidenav-width:         13vw;
+    --sidenav-offset:      calc(var(--sidenav-width) + var(--tb-padding));
+    --tb-padding:             1vw;
+    --main-font-size:      0.75vw;
+    --hr-height:              2px;
+    --content-side-padding:    2%;
+
+    /* OTHER */
+    --border: 1px solid #cecece;
+    --v-pad: calc(var(--tb-padding)/2);
+    --content-padding: var(--v-pad) var(--v-pad) var(--v-pad) var(--v-pad); /* TOP, RIGHT, BOTTOM, LEFT */
+}
+
+*{
+    margin: 0;
+    font-size: var(--main-font-size);
+
+    color: var(--text-color);
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+body {
+    align-items: center;
+    overflow-y:hidden;
+}
+
+hr {
+    height: var(--hr-height); /* uses border thickness even though its not a border*/
+    background-color: var(--detail-color);
+    border: none;
+}
+
+button {
+    background-color: var(--fg-color);
+    outline: none;
+    box-shadow: none;
+    border-radius: 2px;
+    text-align: center;
+    display: inline-block;
+    border: none;
+    
+}
+
+
+/* 
+    CLASSES
+    - Applies only to classes and their children.
+*/
+
+.sidenav {
+    margin-top: 0;
+    width: var(--sidenav-width); 
+    height: 100%;
+
+    background-color:  var(--fg-color);
+    
+    float: left;
+    position: fixed;
+    z-index: 3;
+    padding: var(--content-padding);
+}
+
+.sidenav-button {
+    padding-left: 0;
+    height: 6vh;
+    width: 100%;
+    float: right;
+    padding-right: 0;
+    text-align: left;
+    justify-content: center;
+    align-items: center;
+    display: inline;
+}
+
+.sidenav-button:hover {
+    background-color: var(--accent-color);
+}
+
+.sidenav-button > ion-icon {
+    width: 2vw;
+    height: 2vw;
+    float: left;
+    
+    z-index: 20;
+}
+
+.head {
+    display: none;
+    width: 100%;
+    background-color: var(--fg-color);
+    padding-top: 2%;
+    padding-bottom: 2%;
+    position: fixed;
+    overflow: hidden;
+    z-index: 2;
+}
+
+#sidenavtoggle {
+    display: none;
+}
+
+/* Contains the interactibe content */
+.content {
+    margin-left: var(--sidenav-offset);
+    padding-left: var(--content-side-padding);
+    padding-bottom: 5.5vh;
+    width: 45%;
+    height: 100%;
+    padding-right: 25%;
+    
+    background-color: var(--bg-color);
+    position: fixed;
+    overflow-x: hidden;
+    padding-right: calc(calc(100vw - var(--sidenav-offset)) - calc(var(--content-side-padding) - 45%));
+}
+
+
+
+
+/*
+    MEDIA CSS
+    - Applies to different sizes of screens
+*/
+
+/* MOBILE */
+@media screen and (max-width: 850px) {
+    :root {
+        /* SIZES */
+        --sidenav-width:         80vw;
+        --sidenav-offset:         0vw;
+        --topnav-height:          4vh;
+        --topnav-offset:          5vh;
+        --main-font-size:       2.4vw;
+        --hr-height:              2px;
+    
+        /* OTHER */
+        --border: 1px solid #cecece;
+        --content-padding: 0.5vh 0.5vh 0.5vh 0.5vh; /* TOP, RIGHT, BOTTOM, LEFT */
+    }
+
+    * {
+        font-size: 3vw;
+    }
+
+    .sidenav {
+        display: none;
+        font-size: 3vw;
+        padding: 0.5vh 0.5vh 0.5vh 0.5vh;
+    }
+
+    .sidenav > * {
+        font-size: 5vw;
+    }
+
+    .sidenav > a > * {
+        font-size: 5vw;
+    }
+
+    .sidenav > * > ion-icon {
+        height: 20vh;
+        height: 4vh; width: 7vw;
+    }
+
+    .sidenav > * > * > ion-icon {
+        height: 20vh;
+        height: 4vh; width: 7vw;
+    }
+
+    ion-icon {
+        height: 20vh;
+        height: 4vh; width: 7vw;
+    }
+
+    .head {
+        display: inherit;
+    }
+
+    #sidenavtoggle {
+        display: inherit;
+    }
+
+    .content {
+        margin-top: 11.5%;
+        margin-left: var(--sidenav-offset);
+        padding-left: 2%;
+        padding-right: 2%;
+        padding-bottom: 5.5vh;
+        width: 96%;
+        height: 100%;
+        
+        background-color: var(--bg-color);
+        position: fixed;
+        overflow-x: hidden;
+    }
+}
