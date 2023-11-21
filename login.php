@@ -21,6 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(mysqli_num_rows($result) == 0) {
         $stmt = null;
         echo("No rows.");
+        header("location: .");
     }
     else {
         $row = mysqli_fetch_row($result);
