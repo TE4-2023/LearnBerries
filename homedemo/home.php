@@ -26,6 +26,16 @@ include_once "../Includes/header.php";
 </head>
 
 <body>
+    <nav>
+      <ul>
+        <li><img class="bild" src="../logga.png" alt="logga" /></li>
+        <li>
+          <h1 class="header">Logga in</h1>
+        </li>
+      </ul>
+    </nav>
+
+
     <div class="head">
         <button onclick="toggleSidenavbar()" style="margin-left: 1%;"><ion-icon name="reorder-four" ></ion-icon></button>
     </div>
@@ -33,12 +43,15 @@ include_once "../Includes/header.php";
     <!-- Will contains links to useful pages making it easier to navigate compared to other websites -->
     <div class="sidenav" id="sidenavbar">
         <button onclick="toggleSidenavbar()" id="sidenavtoggle" style="margin-right: 1%; float: right;"><ion-icon name="close"></ion-icon></button><br><br><br>
-        <a href="#">Home</a><br>
-        <a href="#">Schedule</a><br>
-        <a href="#">Grades</a><br>
-        <a href="#">Assingment</a><br>
+        
+        <a href="#"><img id="imgtoggle" src="../logga.png" alt="logga" /></a>
 
-        <a href="../Includes/logout.php" style="vertical-align: bottom;">Log out</a><br>
+        <a href="#">Hem</a><br>
+        <a href="#">Schema</a><br>
+        <a href="#">Elevmatris</a><br>
+        <a href="#">Inlämningar</a><br>
+
+        <a href="../Includes/logout.php" style="vertical-align: bottom;">Logga ut</a><br>
     </div>
 
     <!-- Contains content for the landing page -->
