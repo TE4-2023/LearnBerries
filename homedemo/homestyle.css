@@ -1,3 +1,91 @@
+/*EXPERIMENTAL*/
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0%;
+    background-color: #e3e8f4;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #dec6b4;
+    height: 100px;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  h1{
+    font-size: 1.5rem;
+  }
+  
+  li a:hover:not(.active) {
+    background-color: #111;
+  }
+  
+  .active {
+    background-color: #04aa6d;
+  }
+  
+  .bild {
+    height: 68px;
+    width: auto;
+    margin-top: 1rem;
+    margin-left: 6rem;
+  }
+  
+  .header {
+    margin-top: 1.8rem;
+    margin-left: 6rem;
+    text-decoration: underline;
+  }
+  
+  .logruta {
+    position: relative;
+    width: 20rem;
+    height: 16rem;
+    background-color: #dec6b4;
+    margin: auto;
+    margin-top: 150px;
+    padding: 20px;
+    font-size: 22px;
+    border-radius: 15px;
+  }
+  
+  .logbtn {
+    height: 35px;
+    width: 90px;
+    margin: 0;
+    position: absolute;
+    top: 85%;
+    left: 80%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  
+  .txtrut {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3.5rem;
+  }
+  
+
+
+
+
 /*
     GLOBAL CSS
     - Applies everwhere
@@ -97,6 +185,10 @@ button {
     display: none;
 }
 
+#imgtoggle {
+    display: none;
+}
+
 /* Contains the interactibe content */
 .content {
     margin-left: var(--sidenav-offset);
@@ -140,6 +232,10 @@ button {
         font-size: 3vw;
     }
 
+    nav {
+        display: none;
+    }
+
     .sidenav {
         display: none;
         font-size: 3vw;
@@ -180,6 +276,13 @@ button {
     #sidenavtoggle {
         display: inherit;
         padding-left: 100%;
+    }
+
+    #imgtoggle {
+        display: inherit;
+        padding: 0;
+        width: 30%;
+        padding-bottom: 5%;
     }
 
     .content {
