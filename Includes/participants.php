@@ -6,7 +6,7 @@ require 'functions.php';
         $query = $pdo->prepare('
             SELECT users.*
             FROM users
-            INNER JOIN course_enrollments ON users.ID = course_enrollments.user_ID
+            INNER JOIN course_enrollments ON users.user_ID = course_enrollments.user_ID
         ');
 
         $query->execute();

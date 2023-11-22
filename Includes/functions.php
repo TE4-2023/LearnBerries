@@ -13,7 +13,7 @@ function checkName($nameToCheck)
             $query->bindParam(':name', $nameToCheck, PDO::PARAM_STR);
             $query->execute();
         }
-        $query = $pdo->prepare("SELECT ID FROM name WHERE name = :name LIMIT 1");
+        $query = $pdo->prepare("SELECT * FROM name WHERE name = :name LIMIT 1");
         $query->bindParam(':name', $nameToCheck, PDO::PARAM_STR);
         $query->execute();
         $nameID = $query->fetch();

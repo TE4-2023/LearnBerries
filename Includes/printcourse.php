@@ -7,7 +7,7 @@ require 'functions.php';
             SELECT *, HEX(course.color)
             FROM course
             LEFT JOIN name 
-            ON course.name_ID = name.ID
+            ON course.name_ID = name.name_ID
         ');
 
         $query->execute();
@@ -15,20 +15,20 @@ require 'functions.php';
         // Fetch and display the results
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-            echo '<div style="background-color: #'.$row['HEX(course.color)'].';length: 60px;">ID: ' . $row['ID'] . ', Name: ' . $row['name']. '  active: ' . $row['active'].'<br>';
+            echo '<div style="background-color: #'.$row['HEX(course.color)'].';length: 60px;">ID: ' . $row['course_ID'] . ', Name: ' . $row['name']. '  active: ' . $row['active'].'<br>';
    
         $users = $pdo->prepare('
-            SELECT *, users.ID AS user_ID
+            SELECT *
             FROM users
             LEFT JOIN name 
-            ON users.name_ID = name.ID
+            ON users.name_ID = name.name_ID
         ');
         $users->execute();
 
         // Fetch and display the results
         while ($usersRow = $users->fetch(PDO::FETCH_ASSOC)) {
             // echo 'ID: ' . $row['ID'] . ', Name: ' . $row['name_ID'] . ', Last Name: ' . $row['lastname_ID'] . '<br>' ;
-            echo '<button type="button" onclick ="addUser(this);" value = "'.$usersRow['user_ID'].'">'.$usersRow['name'].'</button><br>';
+            echo '<button type="button" onclick ="addUser(this);" data-value="'.$row['course_ID'].'" value = "'.$usersRow['user_ID'].'">'.$usersRow['name'].'</button><br>';
         }
 
             
@@ -49,6 +49,10 @@ require 'functions.php';
   
 
 function addUser(user) {
-    console.log(user.value);
+
+
+
+
+    console.log(user.value + " " + user.getAttribute("data-value"));
 } 
   </script> 
