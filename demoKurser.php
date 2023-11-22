@@ -34,17 +34,17 @@
 
           <label for="color">Color:</label>
         <select id="color" name="color" onchange="changeColor(this)" required>
-            <option style="background-color: white;" value="costum">custom</option>
-            <option style="background-color: #B88A67;"value="B88A67"></option>
-            <option style="background-color: #B86767;"value="B86767"></option>
-            <option style="background-color: #86B867;"value="86B867"></option>
-            <option style="background-color: #679BB8;"value="679BB8"></option>
-            <option style="background-color: #B667B8;"value="B667B8"></option>
+            <option style="background-color: white;" value="custom">custom</option>
+            <option style="background-color: #B88A67;"value="#B88A67"></option>
+            <option style="background-color: #B86767;"value="#B86767"></option>
+            <option style="background-color: #86B867;"value="#86B867"></option>
+            <option style="background-color: #679BB8;"value="#679BB8"></option>
+            <option style="background-color: #B667B8;"value="#B667B8"></option>
             
         </select>
 
-          <span>customColor:</span>
-          <input type="color" name="customColor">
+          <span>custom color:</span>
+          <input type="color" name="customcolor">
 
         </div>
         <input class="logbtn" type="submit" value="add">

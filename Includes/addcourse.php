@@ -7,7 +7,8 @@ if (!isset($_POST))
     exit;
 }
 $name = $_POST['name'];
-$color =  ($_POST['color'] == "costum") ? $_POST['costumColor'] : $_POST['color'];
+$color =  ($_POST['color'] == "custom") ? $_POST['customcolor'] : $_POST['color'];
+$color = ltrim($color, '#');
 echo ($name . $color);
 try {
 
