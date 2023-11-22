@@ -1,6 +1,6 @@
 <?php
 
-include_once "../Includes/header.php";
+include_once "Includes/header.php";
 
 ?>
 
@@ -28,9 +28,9 @@ include_once "../Includes/header.php";
 <body>
     <nav>
       <ul>
-        <li><img class="bild" src="../logga.png" alt="logga" /></li>
+        <li><img class="bild" src="logga.png" alt="logga" /></li>
         <li>
-          <h1 class="header">Logga in</h1>
+          <p class="header">Hem</p>
         </li>
       </ul>
     </nav>
@@ -44,14 +44,14 @@ include_once "../Includes/header.php";
     <div class="sidenav" id="sidenavbar">
         <button onclick="toggleSidenavbar()" id="sidenavtoggle" style="margin-right: 1%; float: right;"><ion-icon name="close"></ion-icon></button><br><br><br>
         
-        <a href="#"><img id="imgtoggle" src="../logga.png" alt="logga" /></a>
+        <a href="#"><img id="imgtoggle" src="logga.png" alt="logga" /></a>
 
-        <a href="#">Hem</a><br>
+        <a href="./home.php">Hem</a><br>
         <a href="#">Schema</a><br>
         <a href="#">Elevmatris</a><br>
         <a href="#">Inlämningar</a><br>
 
-        <a href="../Includes/logout.php" style="vertical-align: bottom;">Logga ut</a><br>
+        <a href="Includes/logout.php" style="vertical-align: bottom;">Logga ut</a><br>
     </div>
 
     <!-- Contains content for the landing page -->
