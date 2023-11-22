@@ -10,6 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="kurser_style.css">
     <title>Document</title>
 </head>
 
@@ -18,7 +20,7 @@
         <ul>
             <li><img class="bild" src="logga.png" alt="logga" /></li>
             <li>
-                <h1 class="header">Skapa konto</h1>
+                <h1 class="header">Alla dina kurser</h1>
             </li>
 
             <div class="left-nav">
@@ -26,6 +28,23 @@
             </div>
         </ul>
     </nav>
+
+    <nav>
+        <div class="vert-nav">
+            <ul>
+                <li><a href=""><i class="fa-solid fa-house"></i> Hem</a></li>
+                <li><a href=""><i class="fa-solid fa-house"></i> Kurser</a></li>
+                <li><a href=""><i class="fa-solid fa-house"></i> Scheman</a></li>
+                <li><a href=""><i class="fa-solid fa-house"></i> Närvaro</a></li>
+                <li><a href=""><i class="fa-solid fa-house"></i> Nyheter</a></li>
+                <li><a href=""><i class="fa-solid fa-house"></i> Kontakter</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+    
 </body>
 
 </html>
