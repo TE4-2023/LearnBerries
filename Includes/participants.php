@@ -13,7 +13,6 @@ require 'functions.php';
 
         // Fetch and display the results
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            // echo 'ID: ' . $row['ID'] . ', Name: ' . $row['name_ID'] . ', Last Name: ' . $row['lastname_ID'] . '<br>' ;
             echo print_r($row) . "<br/>";
         }
 

@@ -27,7 +27,6 @@ require 'functions.php';
 
         // Fetch and display the results
         while ($usersRow = $users->fetch(PDO::FETCH_ASSOC)) {
-            // echo 'ID: ' . $row['ID'] . ', Name: ' . $row['name_ID'] . ', Last Name: ' . $row['lastname_ID'] . '<br>' ;
             echo '<button type="button" onclick ="addUser(this);" data-value="'.$row['course_ID'].'" value = "'.$usersRow['user_ID'].'">'.$usersRow['name'].'</button><br>';
         }
 
@@ -49,10 +48,27 @@ require 'functions.php';
   
 
 function addUser(user) {
+    userID = user.value;
+    courseID =  user.getAttribute("data-value");
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', "enrolluser.php", true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                alert('Enrollment successful!');
+                // Optionally, you can redirect the user or perform other actions here
+            } else {
+                alert('Error during enrollment: ' + xhr.responseText);
+            }
+        }
+    };
+
+    var data = 'userID=' + encodeURIComponent(userID) + '&courseID=' + encodeURIComponent(courseID);
+    xhr.send(data);
 
 
-
-
-    console.log(user.value + " " + user.getAttribute("data-value"));
+    console.log(userID + "   " + courseID);
 } 
   </script> 

@@ -17,7 +17,7 @@ function checkName($nameToCheck)
         $query->bindParam(':name', $nameToCheck, PDO::PARAM_STR);
         $query->execute();
         $nameID = $query->fetch();
-        return $nameID['ID'];
+        return $nameID['name_ID'];
     }
     catch(PDOException $e)
     {
