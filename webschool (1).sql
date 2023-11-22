@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 21 nov 2023 kl 14:38
+-- Tid vid skapande: 22 nov 2023 kl 09:22
 -- Serverversion: 10.4.28-MariaDB
 -- PHP-version: 8.2.4
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Databas: `webschool`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `course`
+--
+
+CREATE TABLE `course` (
+  `ID` int(11) NOT NULL,
+  `namn_ID` int(11) NOT NULL,
+  `color` text NOT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `course_enrollments`
+--
+
+CREATE TABLE `course_enrollments` (
+  `ID` int(11) NOT NULL,
+  `course_ID` int(11) NOT NULL,
+  `user_ID` int(11) NOT NULL,
+  `grade` char(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -46,7 +72,10 @@ INSERT INTO `name` (`ID`, `name`) VALUES
 (7, 'Linus'),
 (8, 'beg'),
 (9, 'po'),
-(10, 'abdi');
+(10, 'abdi'),
+(11, 'das'),
+(12, 'kevin'),
+(13, 'kos');
 
 -- --------------------------------------------------------
 
@@ -91,11 +120,26 @@ INSERT INTO `users` (`ID`, `name_ID`, `lastname_ID`, `email`, `ssn`, `role_ID`, 
 (1, 3, 4, 'Big@Big.Big', '000000-9999', 3, '5c322d4b606d774bdfbd7f31fdec6015634410c6'),
 (2, 5, 6, 'smargi@gmail.com', '999999-0000', 3, '5c322d4b606d774bdfbd7f31fdec6015634410c6'),
 (17, 7, 9, 'linus@pob.com', '123456-1234', 2, '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
-(21, 10, 10, 'abdi@abdi', '010101-0101', 3, 'ac5da1eca9af0de80a7f135970e6357b75d940bd');
+(21, 10, 10, 'abdi@abdi', '010101-0101', 3, 'ac5da1eca9af0de80a7f135970e6357b75d940bd'),
+(22, 11, 11, 's@s.com', '222222-2222', 2, '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
+(23, 12, 13, 'kevin@k.com', '111111-1111', 3, '056eafe7cf52220de2df36845b8ed170c67e23e3'),
+(24, 3, 4, 'hej@h.com', '202020-2020', 3, '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 
 --
 -- Index för dumpade tabeller
 --
+
+--
+-- Index för tabell `course`
+--
+ALTER TABLE `course`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Index för tabell `course_enrollments`
+--
+ALTER TABLE `course_enrollments`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Index för tabell `name`
@@ -120,10 +164,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT för tabell `course`
+--
+ALTER TABLE `course`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT för tabell `course_enrollments`
+--
+ALTER TABLE `course_enrollments`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT för tabell `name`
 --
 ALTER TABLE `name`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT för tabell `role`
@@ -135,7 +191,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT för tabell `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -51,6 +51,7 @@ body {
     margin-top: 1.8rem;
     margin-left: 6rem;
     text-decoration: underline;
+    font-size: 1.8rem;
   }
   
   .logruta {
@@ -165,7 +166,7 @@ button {
 }
 
 .sidenav > a {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     display: flex;
     justify-content: center;
 }
@@ -251,7 +252,7 @@ button {
     }
 
     .sidenav > a {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .sidenav > * > ion-icon {
