@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 22 nov 2023 kl 09:22
+-- Tid vid skapande: 22 nov 2023 kl 14:48
 -- Serverversion: 10.4.28-MariaDB
 -- PHP-version: 8.2.4
 
@@ -24,15 +24,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tabellstruktur `color`
+--
+
+CREATE TABLE `color` (
+  `ID` int(11) NOT NULL,
+  `hex` binary(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellstruktur `course`
 --
 
 CREATE TABLE `course` (
   `ID` int(11) NOT NULL,
-  `namn_ID` int(11) NOT NULL,
-  `color` text NOT NULL,
+  `name_ID` int(11) NOT NULL,
+  `color` binary(3) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumpning av Data i tabell `course`
+--
+
+INSERT INTO `course` (`ID`, `name_ID`, `color`, `active`) VALUES
+(1, 14, 0xb86767, 0),
+(2, 15, 0x679bb8, 0),
+(3, 16, 0xb667b8, 1),
+(4, 18, 0xff0000, 1);
 
 -- --------------------------------------------------------
 
@@ -75,7 +96,12 @@ INSERT INTO `name` (`ID`, `name`) VALUES
 (10, 'abdi'),
 (11, 'das'),
 (12, 'kevin'),
-(13, 'kos');
+(13, 'kos'),
+(14, 'Matte2c'),
+(15, 'svenska5'),
+(16, 'fysik2'),
+(17, 'eng7'),
+(18, 'Matte5');
 
 -- --------------------------------------------------------
 
@@ -130,6 +156,12 @@ INSERT INTO `users` (`ID`, `name_ID`, `lastname_ID`, `email`, `ssn`, `role_ID`, 
 --
 
 --
+-- Index för tabell `color`
+--
+ALTER TABLE `color`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Index för tabell `course`
 --
 ALTER TABLE `course`
@@ -164,10 +196,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT för tabell `color`
+--
+ALTER TABLE `color`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT för tabell `course`
 --
 ALTER TABLE `course`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT för tabell `course_enrollments`
@@ -179,7 +217,7 @@ ALTER TABLE `course_enrollments`
 -- AUTO_INCREMENT för tabell `name`
 --
 ALTER TABLE `name`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT för tabell `role`
