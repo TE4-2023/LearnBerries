@@ -16,6 +16,7 @@
 </head>
 
 <body>
+<div class="container">
     <nav>
         <div class="navbar">
         <ul>
@@ -31,6 +32,30 @@
         </div>
     </nav>
 
+<div class="kurser-grid">
+
+    <div class="kurs-1">
+        <h2>Engelska</h2>
+        <span>testestet</span>
+    </div>
+
+    <div class="kurs-2">
+        <h2>Engelska</h2>
+        <span>testestet</span>
+    </div>
+
+    <div class="kurs-3">
+        <h2>Engelska</h2>
+        <span>testestet</span>
+    </div>
+
+    <div class="kurs-4">
+        <h2>Engelska</h2>
+        <span>testestet</span>
+    </div>
+
+    </div>
+
     <nav>
         <div class="vert-nav">
             <ul>
@@ -43,6 +68,9 @@
             </ul>
         </div>
     </nav>
+
+    </div>
+
 </body>
 
 </html>
