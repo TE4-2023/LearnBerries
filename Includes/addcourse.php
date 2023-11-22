@@ -1,6 +1,9 @@
 <?php
 require 'connect.php';
 require 'functions.php';
+session_start();
+
+
 if (!isset($_POST))
 {
     header('Location: ../demoKurser.php');
