@@ -55,7 +55,7 @@
 <script>
     function changeColor(selected)
     {
-        selected.style.backgroundColor = selected.options[e.selectedIndex].style.backgroundColor;
+        selected.style.backgroundColor = selected.options[selected.selectedIndex].style.backgroundColor;
     }
 </script>
 </html>

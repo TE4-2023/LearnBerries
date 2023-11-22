@@ -3,7 +3,7 @@ require 'connect.php';
 require 'functions.php';
 if (!isset($_POST))
 {
-    header('Location: demoKurser.php');
+    header('Location: ../demoKurser.php');
     exit;
 }
 $name = $_POST['name'];
@@ -15,7 +15,7 @@ try {
 
     $query = $pdo->prepare('
             INSERT INTO course (name_ID, color, active)
-            VALUES (:nameID, UNHEX(:color), "TRUE");
+            VALUES (:nameID, UNHEX(:color), TRUE);
         ');
 
     $data = array(
@@ -24,6 +24,7 @@ try {
     );
 
     $query->execute($data);
+    header('Location: printcourse.php');
 }
 
 catch(PDOException $e)
@@ -32,7 +33,6 @@ catch(PDOException $e)
         //header('Location: signup.html');
             
 } 
-
    
 
 ?>
