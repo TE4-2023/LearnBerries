@@ -17,6 +17,7 @@
 
 <body>
     <nav>
+        <div class="navbar">
         <ul>
             <li><img class="bild" src="logga.png" alt="logga" /></li>
             <li>
@@ -27,6 +28,7 @@
                 <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
             </div>
         </ul>
+        </div>
     </nav>
 
     <nav>
@@ -44,7 +46,7 @@
 
 
 
-    
+
 </body>
 
 </html>
