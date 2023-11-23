@@ -29,3 +29,5 @@ include 'Includes/courseview.php';
 <!-- SCRIPTS -->
    
 <script src="homescript.js"></script>
+
+<!-- div for members and leader? -->
