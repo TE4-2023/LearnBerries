@@ -13,11 +13,11 @@ function checkName($nameToCheck)
             $query->bindParam(':name', $nameToCheck, PDO::PARAM_STR);
             $query->execute();
         }
-        $query = $pdo->prepare("SELECT ID FROM name WHERE name = :name LIMIT 1");
+        $query = $pdo->prepare("SELECT * FROM name WHERE name = :name LIMIT 1");
         $query->bindParam(':name', $nameToCheck, PDO::PARAM_STR);
         $query->execute();
         $nameID = $query->fetch();
-        return $nameID['ID'];
+        return $nameID['name_ID'];
     }
     catch(PDOException $e)
     {
@@ -34,6 +34,19 @@ function itemExists($parameterToCheck, $value)
     $table = $query->fetchAll();
     echo print_r($table);
     return !empty($table);
+}
+
+function getUserID($userSSN)
+{
+    require 'connect.php';
+    $query = $pdo->prepare('SELECT * FROM users WHERE  :userSSN = ssn');
+    $query->bindParam(':userSSN', $userSSN, PDO::PARAM_STR);
+    $query->execute();
+    while ($table = $query->fetch())
+    {
+        return $table['user_ID'];
+    }
+
 }
 
 ?>

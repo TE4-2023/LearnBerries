@@ -50,7 +50,8 @@ body {
   .header {
     margin-top: 1.8rem;
     margin-left: 6rem;
-    text-decoration: underline;
+    text-decoration: underline black;
+    font-size: 1.8rem;
   }
   
   .logruta {
@@ -120,7 +121,7 @@ body {
     color: var(--text-color);
     font-family: 'Roboto Condensed', sans-serif;
 
-    text-decoration: underline black;
+    /*text-decoration: underline black;*/
 }
 
 body {
@@ -165,7 +166,7 @@ button {
 }
 
 .sidenav > a {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     display: flex;
     justify-content: center;
 }
@@ -194,7 +195,7 @@ button {
     margin-left: var(--sidenav-offset);
     padding-left: var(--content-side-padding);
     padding-bottom: 5.5vh;
-    width: 45%;
+    width:85%;
     height: 100%;
     padding-right: 25%;
     
@@ -251,22 +252,12 @@ button {
     }
 
     .sidenav > a {
-        font-size: 2rem;
-    }
-
-    .sidenav > * > ion-icon {
-        height: 20vh;
-        height: 4vh; width: 7vw;
-    }
-
-    .sidenav > * > * > ion-icon {
-        height: 20vh;
-        height: 4vh; width: 7vw;
+        font-size: 1.8rem;
     }
 
     ion-icon {
-        height: 20vh;
         height: 4vh; width: 7vw;
+        /* H:4vh W:7vw */
     }
 
     .head {
@@ -286,12 +277,12 @@ button {
     }
 
     .content {
-        margin-top: 11%;
+        margin-top: calc(4vh + 5%);
         margin-left: var(--sidenav-offset);
         padding-left: 2%;
         padding-right: 2%;
         padding-bottom: 5.5vh;
-        width: 96%;
+        width: 100%;
         height: 100%;
         
         background-color: var(--bg-color);
