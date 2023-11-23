@@ -96,3 +96,54 @@ function getCourseName() {
         $stmt = null;
     }
 }
+
+function isUserParticipant() {
+    $userid = "";
+
+    $conn = $GLOBALS['conn']; //accesses conn variable in global scope (1 layer above in this case)
+
+    $kursid = (int)$_GET['kursid'];
+
+    $stmt = $conn->prepare("SELECT *
+                            FROM `webschool`.`users`
+                            WHERE `ssn`=?;");
+    $stmt->bind_param("s", $_SESSION['uid']);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result(); // FETCHES RESULT FROM STATEMENT CHECK FOR IF THERE ANY ROWS THAT MATCH TO 
+
+    if(mysqli_num_rows($result) == 0) {
+    $stmt = null;
+    echo("No rows.");
+    header('Location: ./kevinstempcodetransferfile.php?error=notfound');
+    //header("location: .");
+    }
+    else {
+    $row = mysqli_fetch_row($result);
+    $userid = $row[4];
+
+    $stmt = null;
+    }
+
+    $stmt = $conn->prepare("SELECT *
+                            FROM `webschool`.`course_enrollments`
+                            WHERE `course_ID`=? AND `user_ID`=?;");
+    $stmt->bind_param("i", $kursid, $userid);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result(); // FETCHES RESULT FROM STATEMENT CHECK FOR IF THERE ANY ROWS THAT MATCH TO 
+
+    if(mysqli_num_rows($result) == 0) {
+        $stmt = null;
+        echo("No rows.");
+        header('Location: ./home.php');
+        //header("location: .");
+    }
+    else {
+        echo("enrolled");
+
+        $stmt = null;
+    }
+}

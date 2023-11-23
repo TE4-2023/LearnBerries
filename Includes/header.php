@@ -31,6 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed&family=Roboto+Slab:wght@400;600&display=swap" rel="stylesheet">
 
     <script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
 
     
 </head>
@@ -46,7 +47,7 @@
     </nav>
 
 
-    <div class="head">
+    <div class="head" style="width:100vw;">
         <button onclick="toggleSidenavbar()" style="margin-left: 1%;"><ion-icon name="reorder-four" ></ion-icon></button>
     </div>
 
