@@ -1,0 +1,149 @@
+/* Reset styles */
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background-color: #E3E8F4;
+}
+
+/* Navbar styles */
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #DEC6B4;
+    max-height: 100px;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.navbar .active {
+    background-color: #04AA6D;
+}
+
+/* Logo styles */
+.bild {
+    height: 72px;
+    width: auto;
+    margin-top: 0.75rem;
+    margin-left: 2rem;
+}
+
+/* Header styles */
+.header {
+    margin-top: 1.8rem;
+    margin-left: 6rem;
+    text-decoration: underline;
+}
+
+/* Left navigation styles */
+.left-nav {
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+.left-nav li {
+    list-style-type: none;
+    margin-top: 1rem;
+}
+
+.left-nav li a {
+    color: black;
+    font-size: 24px;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    margin-right: 16px;
+}
+
+.left-nav li a:hover:not(.active) {
+    color: #6a6a6a;
+    background-color: transparent;
+}
+
+/* Vertical navigation styles */
+.vert-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #DEC6B4;
+    max-width: 160px;
+    min-height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items from the left */
+}
+
+.vert-nav li a {
+    display: block;
+    margin-top: 3rem;
+    margin-left: 2rem;
+    color: black;
+    font-size: 20px;
+    padding: 2px 0px;
+    text-decoration: none;
+    background-image: linear-gradient(#000000, #000000);
+    background-size: 0% 0.1em;
+    background-position-y: 100%;
+    background-position-x: 50%;
+    background-repeat: no-repeat;
+    transition: background-size 0.2s ease-in-out;
+}
+
+.vert-nav li a:hover,
+.vert-nav li a:focus,
+.vert-nav li a:active {
+    background-size: 100% 0.1em;
+}
+
+/* Kurser grid styles */
+.kurser-grid {
+    float: right;
+    margin-right: 12rem;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 8rem;
+}
+
+/* Kurs styles */
+.kurs {
+    margin-top: 2rem;
+    padding: 12px 18px;
+    border-top-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    min-width: 24rem;
+    max-width: 24rem;
+    background: linear-gradient(to bottom, blue 45%, white -100%);
+}
+
+.kurs h2 {
+    margin-top: 0.5rem;
+}
+
+.kurs span {
+    margin-top: 1.5rem;
+}
+
+/* Top color section styles */
+.kurs.top-color {
+    color: white;
+    /* Padding and other styles specific to the top color section */
+}

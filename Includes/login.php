@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+$r=session_id();
 
 include_once "loginconnect.php";
 
@@ -33,7 +34,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt = null;
 
-        header("location: ../homedemo/home.php");
+        header("location: ../kurser.php"); //Direktar till kurser för test
+        
+
     }
 }
 ?>
