@@ -8,7 +8,7 @@ $courseID = $_POST['courseID'];
 try{
     $query = $pdo->prepare('
     INSERT INTO course_enrollments (course_ID, user_ID)
-    VALUES (courseID, userID);
+    VALUES (:courseID, :userID);
 ');
 
 $data = array(
@@ -20,7 +20,7 @@ $query->execute($data);
 echo "Enrollment successful!";
 }
 catch(PDOException $e){
-    echo "ERROR" . $e;
+    echo "ERROR: " . $e;
 }
 
 

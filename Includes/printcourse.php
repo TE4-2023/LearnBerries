@@ -58,7 +58,7 @@ function addUser(user) {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 alert('Enrollment successful!');
-                // Optionally, you can redirect the user or perform other actions here
+                user.remove();
             } else {
                 alert('Error during enrollment: ' + xhr.responseText);
             }
