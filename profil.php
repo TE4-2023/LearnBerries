@@ -3,8 +3,7 @@
 require 'Includes/connect.php';
 
 session_start();
-$_SESSION['uid'];
-
+echo $_SESSION['uid'];
 ?>
 
 
@@ -48,10 +47,11 @@ $_SESSION['uid'];
 
         try {
             $query = $pdo->prepare('
-                SELECT * FROM `name`
-                JOIN users 
-                ON name.name_ID = users.name_ID
-                WHERE ssn = :uid
+            SELECT * , name.name AS firstname , A.name AS lastname 
+            FROM `users` 
+            INNER JOIN name ON users.name_ID = name.name_ID
+            INNER JOIN name AS A ON users.lastname_ID = A.name_ID 
+            WHERE users.ssn = :uid;
             ');
 
             $data = array(
@@ -62,7 +62,7 @@ $_SESSION['uid'];
 
             // Fetch and display the results
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                $username = $row['name'] . ' ' . $row['name'];
+                $username = $row['firstname'] . ' ' . $row['lastname'];
                 echo $username . '<br>';
             }
 
