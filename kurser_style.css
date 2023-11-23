@@ -132,6 +132,7 @@ body {
     min-width: 24rem;
     max-width: 24rem;
     background: linear-gradient(to bottom, blue 45%, white -100%);
+    cursor: pointer;
 }
 
 .kurs h2 {

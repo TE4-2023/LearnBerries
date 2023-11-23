@@ -55,7 +55,8 @@
 
                 
 
-                echo('<div onmouseover="selected(this)" onclick ="goToCourse('.$row['course_ID'].');" class="kurs" style=" cursor: pointer; background: linear-gradient(to bottom, #'. $row['HEX(course.color)'].' 45%, white -100%);">
+                echo('<div onmouseover="selected(this)" onclick ="goToCourse('.$row['course_ID'].');" 
+                class="kurs" style="background: linear-gradient(to bottom, #'. $row['HEX(course.color)'].' 45%, white -100%);">
                     <h2>'.$row['name'].'</h2>
                     <span>testestet</span>
                 </div>
