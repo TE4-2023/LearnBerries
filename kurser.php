@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+$_SESSION['uid'];
 
 ?>
 
@@ -26,7 +27,7 @@
             </li>
 
             <div class="left-nav">
-                <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
+                <li><a href="login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
             </div>
         </ul>
         </div>
@@ -53,6 +54,7 @@
         <h2>Engelska</h2>
         <span>testestet</span>
     </div>
+    
 
     </div>
 
@@ -70,6 +72,11 @@
     </nav>
 
     </div>
+
+    <!-- <p><?php echo $_SESSION['uid'];
+    
+    
+    ?></p> -->
 
 </body>
 
