@@ -1,5 +1,9 @@
 <?php
 
+require 'Includes/connect.php';
+
+session_start();
+$_SESSION['uid'];
 
 ?>
 
@@ -38,7 +42,38 @@
         <br>
         <img class="profilbild" src="logga.png">
         <br>
-        <h2>Namn, efternamn</h2>
+        <h2><?php 
+        require 'Includes/connect.php';
+        $loggedInUserID = $_SESSION['uid'];
+
+        try {
+            $query = $pdo->prepare('
+                SELECT * FROM `name`
+                JOIN users 
+                ON name.name_ID = users.name_ID
+                WHERE ssn = :uid
+            ');
+
+            $data = array(
+                ':uid' => $loggedInUserID
+            );
+
+            $query->execute($data);
+
+            // Fetch and display the results
+            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                $username = $row['name'] . ' ' . $row['name'];
+                echo $username . '<br>';
+            }
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            // Handle the exception or redirect as needed
+            // header('Location: login.html');
+        }
+        
+        ?>
+        </h2>
         <hr class="hr">
 
         <div class="info">
