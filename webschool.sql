@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 22 nov 2023 kl 14:48
+-- Tid vid skapande: 22 nov 2023 kl 14:58
 -- Serverversion: 10.4.28-MariaDB
 -- PHP-version: 8.2.4
 
@@ -24,22 +24,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `color`
---
-
-CREATE TABLE `color` (
-  `ID` int(11) NOT NULL,
-  `hex` binary(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Tabellstruktur `course`
 --
 
 CREATE TABLE `course` (
-  `ID` int(11) NOT NULL,
+  `course_ID` int(11) NOT NULL,
   `name_ID` int(11) NOT NULL,
   `color` binary(3) NOT NULL,
   `active` tinyint(1) NOT NULL
@@ -49,7 +38,7 @@ CREATE TABLE `course` (
 -- Dumpning av Data i tabell `course`
 --
 
-INSERT INTO `course` (`ID`, `name_ID`, `color`, `active`) VALUES
+INSERT INTO `course` (`course_ID`, `name_ID`, `color`, `active`) VALUES
 (1, 14, 0xb86767, 0),
 (2, 15, 0x679bb8, 0),
 (3, 16, 0xb667b8, 1),
@@ -62,7 +51,7 @@ INSERT INTO `course` (`ID`, `name_ID`, `color`, `active`) VALUES
 --
 
 CREATE TABLE `course_enrollments` (
-  `ID` int(11) NOT NULL,
+  `courseEnrollment_ID` int(11) NOT NULL,
   `course_ID` int(11) NOT NULL,
   `user_ID` int(11) NOT NULL,
   `grade` char(1) NOT NULL
@@ -75,7 +64,7 @@ CREATE TABLE `course_enrollments` (
 --
 
 CREATE TABLE `name` (
-  `ID` int(11) NOT NULL,
+  `name_ID` int(11) NOT NULL,
   `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -83,7 +72,7 @@ CREATE TABLE `name` (
 -- Dumpning av Data i tabell `name`
 --
 
-INSERT INTO `name` (`ID`, `name`) VALUES
+INSERT INTO `name` (`name_ID`, `name`) VALUES
 (1, 'Student'),
 (2, 'Teacher'),
 (3, 'Erwin'),
@@ -110,7 +99,7 @@ INSERT INTO `name` (`ID`, `name`) VALUES
 --
 
 CREATE TABLE `role` (
-  `ID` int(11) NOT NULL,
+  `role_ID` int(11) NOT NULL,
   `name_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -118,7 +107,7 @@ CREATE TABLE `role` (
 -- Dumpning av Data i tabell `role`
 --
 
-INSERT INTO `role` (`ID`, `name_ID`) VALUES
+INSERT INTO `role` (`role_ID`, `name_ID`) VALUES
 (2, 1),
 (3, 2);
 
@@ -129,7 +118,7 @@ INSERT INTO `role` (`ID`, `name_ID`) VALUES
 --
 
 CREATE TABLE `users` (
-  `ID` int(11) NOT NULL,
+  `user_ID` int(11) NOT NULL,
   `name_ID` int(11) NOT NULL,
   `lastname_ID` int(11) NOT NULL,
   `email` text NOT NULL,
@@ -142,7 +131,7 @@ CREATE TABLE `users` (
 -- Dumpning av Data i tabell `users`
 --
 
-INSERT INTO `users` (`ID`, `name_ID`, `lastname_ID`, `email`, `ssn`, `role_ID`, `password`) VALUES
+INSERT INTO `users` (`user_ID`, `name_ID`, `lastname_ID`, `email`, `ssn`, `role_ID`, `password`) VALUES
 (1, 3, 4, 'Big@Big.Big', '000000-9999', 3, '5c322d4b606d774bdfbd7f31fdec6015634410c6'),
 (2, 5, 6, 'smargi@gmail.com', '999999-0000', 3, '5c322d4b606d774bdfbd7f31fdec6015634410c6'),
 (17, 7, 9, 'linus@pob.com', '123456-1234', 2, '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
@@ -156,81 +145,73 @@ INSERT INTO `users` (`ID`, `name_ID`, `lastname_ID`, `email`, `ssn`, `role_ID`, 
 --
 
 --
--- Index för tabell `color`
---
-ALTER TABLE `color`
-  ADD PRIMARY KEY (`ID`);
-
---
 -- Index för tabell `course`
 --
 ALTER TABLE `course`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`course_ID`);
 
 --
 -- Index för tabell `course_enrollments`
 --
 ALTER TABLE `course_enrollments`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`courseEnrollment_ID`);
 
 --
 -- Index för tabell `name`
 --
 ALTER TABLE `name`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`name_ID`);
 
 --
 -- Index för tabell `role`
 --
 ALTER TABLE `role`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`role_ID`);
 
 --
 -- Index för tabell `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`user_ID`);
 
 --
 -- AUTO_INCREMENT för dumpade tabeller
 --
 
 --
--- AUTO_INCREMENT för tabell `color`
---
-ALTER TABLE `color`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT för tabell `course`
 --
 ALTER TABLE `course`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `course_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT för tabell `course_enrollments`
 --
 ALTER TABLE `course_enrollments`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `courseEnrollment_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT för tabell `name`
 --
 ALTER TABLE `name`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `name_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT för tabell `role`
 --
 ALTER TABLE `role`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `role_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT för tabell `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
