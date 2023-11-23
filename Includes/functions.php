@@ -46,7 +46,7 @@ function getUserID($userSSN)
     {
         return $table['user_ID'];
     }
-    
+
 }
 
 ?>
