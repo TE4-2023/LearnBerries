@@ -36,4 +36,17 @@ function itemExists($parameterToCheck, $value)
     return !empty($table);
 }
 
+function getUserID($userSSN)
+{
+    require 'connect.php';
+    $query = $pdo->prepare('SELECT * FROM users WHERE  :userSSN = ssn');
+    $query->bindParam(':userSSN', $userSSN, PDO::PARAM_STR);
+    $query->execute();
+    while ($table = $query->fetch())
+    {
+        return $table['user_ID'];
+    }
+    
+}
+
 ?>
