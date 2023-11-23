@@ -41,43 +41,13 @@ echo $_SESSION['uid'];
         <br>
         <img class="profilbild" src="logga.png">
         <br>
-        <h2><?php 
-        require 'Includes/connect.php';
-        $loggedInUserID = $_SESSION['uid'];
-
-        try {
-            $query = $pdo->prepare('
-            SELECT * , name.name AS firstname , A.name AS lastname 
-            FROM `users` 
-            INNER JOIN name ON users.name_ID = name.name_ID
-            INNER JOIN name AS A ON users.lastname_ID = A.name_ID 
-            WHERE users.ssn = :uid;
-            ');
-
-            $data = array(
-                ':uid' => $loggedInUserID
-            );
-
-            $query->execute($data);
-
-            // Fetch and display the results
-            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                $username = $row['firstname'] . ' ' . $row['lastname'];
-                echo $username . '<br>';
-            }
-
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            // Handle the exception or redirect as needed
-            // header('Location: login.html');
-        }
-        
-        ?>
+        <h2><?php   require 'Includes/functions.php';
+                    displayName();?>
         </h2>
         <hr class="hr">
 
         <div class="info">
-            <span>Mailadress: exempel@gmail.com</span>
+            <span>Email:<?php echo displayEmail() . '<br>';?></span>
             <br>
             <br>        
             <span> Telnr: xxx xxx xxx xx </span>
