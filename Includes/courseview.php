@@ -13,17 +13,11 @@ if ($conn->connect_error) {
 }
 
 
-//start
-
-if(!isset($_GET['kursid'])) { //switch this out
-    //Going back to login page
-    header("location: kurser.php"); // This will redirect
-    // differently depending on where you use the code, if you include
-    // it in a file thats in a folder it will not find index.php.
-    // This is because the code is still executed from the original
-    // script.
+if(!isset($_GET['kursid'])) {
+    header("location: ./kurser.php");
 }
 
+isUserParticipant();
 
 function getCourseColor() {
     $conn = $GLOBALS['conn']; //accesses conn variable in global scope (1 layer above in this case)
@@ -42,7 +36,7 @@ function getCourseColor() {
     if(mysqli_num_rows($result) == 0) {
         $stmt = null;
         echo("No rows.");
-        header('Location: ./kevinstempcodetransferfile.php?error=notfound');
+        header('Location: ./kursvy.php?error=notfound');
         //header("location: .");
     }
     else {
@@ -70,7 +64,7 @@ function getCourseName() {
     if(mysqli_num_rows($result) == 0) {
         $stmt = null;
         echo("No rows.");
-        header('Location: ./kevinstempcodetransferfile.php?error=notfound');
+        header('Location: ./kursvy.php?error=notfound');
         //header("location: .");
     }
     else {
@@ -102,8 +96,6 @@ function isUserParticipant() {
 
     $conn = $GLOBALS['conn']; //accesses conn variable in global scope (1 layer above in this case)
 
-    $kursid = (int)$_GET['kursid'];
-
     $stmt = $conn->prepare("SELECT *
                             FROM `webschool`.`users`
                             WHERE `ssn`=?;");
@@ -111,35 +103,40 @@ function isUserParticipant() {
 
     $stmt->execute();
 
-    $result = $stmt->get_result(); // FETCHES RESULT FROM STATEMENT CHECK FOR IF THERE ANY ROWS THAT MATCH TO 
+    $result = $stmt->get_result(); 
 
     if(mysqli_num_rows($result) == 0) {
     $stmt = null;
     echo("No rows.");
-    header('Location: ./kevinstempcodetransferfile.php?error=notfound');
+    header('Location: ./kursvy.php?error=notfound');
     //header("location: .");
     }
     else {
-    $row = mysqli_fetch_row($result);
-    $userid = $row[4];
+        $row = mysqli_fetch_row($result);
+        $userid = $row[0];
 
-    $stmt = null;
+        $stmt = null;
     }
 
     $stmt = $conn->prepare("SELECT *
                             FROM `webschool`.`course_enrollments`
                             WHERE `course_ID`=? AND `user_ID`=?;");
-    $stmt->bind_param("i", $kursid, $userid);
+
+    $courseid = (int)$_GET["kursid"];
+    $stmt->bind_param("is", $courseid, $userid);
 
     $stmt->execute();
 
-    $result = $stmt->get_result(); // FETCHES RESULT FROM STATEMENT CHECK FOR IF THERE ANY ROWS THAT MATCH TO 
+    echo($courseid."/");
+    echo($userid."/");
+    
+
+    $result = $stmt->get_result();
 
     if(mysqli_num_rows($result) == 0) {
         $stmt = null;
         echo("No rows.");
         header('Location: ./home.php');
-        //header("location: .");
     }
     else {
         echo("enrolled");
