@@ -7,7 +7,7 @@ $courseID = $_POST['courseID'];
 
 try{
     $users = $pdo->prepare('
-    SELECT *, user.users_ID AS user
+    SELECT *, users.user_ID AS user
     FROM users
     LEFT JOIN name 
     ON users.name_ID = name.name_ID
