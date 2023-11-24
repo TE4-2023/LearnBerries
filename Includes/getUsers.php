@@ -7,7 +7,7 @@ $courseID = $_POST['courseID'];
 
 try{
     $users = $pdo->prepare('
-    SELECT *
+    SELECT *, user.users_ID AS user
     FROM users
     LEFT JOIN name 
     ON users.name_ID = name.name_ID
@@ -23,7 +23,7 @@ try{
     echo '<div id = "usersDIV">';
     while ($usersRow = $users->fetch(PDO::FETCH_ASSOC)) {
     echo '<button id="course'.$courseID.'" type="button" onclick ="addUser(this);"
-    data-value="'.$courseID.'" value = "'.$usersRow['user_ID'].'">'.$usersRow['name'].'</button><br>';
+    data-value="'.$courseID.'" value = "'.$usersRow['user'].'">'.$usersRow['name'].'</button><br>';
 }
     echo '</div>';
 }
