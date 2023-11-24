@@ -13,7 +13,7 @@ try{
     ON users.name_ID = name.name_ID
     LEFT JOIN course_enrollments
     ON users.user_ID = course_enrollments.user_ID
-    WHERE users.user_ID NOT IN (SELECT course_enrollments.user_ID FROM course_enrollments WHERE course_enrollments.course_ID = :courseID)
+    WHERE users.user_ID IN (SELECT course_enrollments.user_ID FROM course_enrollments WHERE course_enrollments.course_ID = :courseID)
     GROUP BY users.user_ID
 ');
     $data = array(':courseID' => $courseID);
