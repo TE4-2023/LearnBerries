@@ -11,12 +11,10 @@ try{
     FROM users
     LEFT JOIN name 
     ON users.name_ID = name.name_ID
-    RIGHT JOIN course_enrollments
+    LEFT JOIN course_enrollments
     ON users.user_ID = course_enrollments.user_ID
     WHERE users.user_ID NOT IN (SELECT course_enrollments.user_ID FROM course_enrollments WHERE course_enrollments.course_ID = :courseID)
     GROUP BY users.user_ID
-    
-
 ');
     $data = array(':courseID' => $courseID);
     $users->execute($data);
@@ -31,7 +29,5 @@ try{
 }
 catch(PDOException $e){
     echo "ERROR: " . $e;
-}
-        
+}        
 ?>
-            
