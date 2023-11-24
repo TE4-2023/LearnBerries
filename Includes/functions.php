@@ -50,10 +50,10 @@ function getUserID($userSSN)
 
 }
 
-function displayName()
+function displayName($userssn)
 {
     require 'Includes/connect.php';
-    $loggedInUserID = $_SESSION['uid'];
+
 
         try {
             $query = $pdo->prepare('
@@ -65,7 +65,7 @@ function displayName()
             ');
 
             $data = array(
-                ':uid' => $loggedInUserID
+                ':uid' => $userssn
             );
 
             $query->execute($data);
@@ -73,7 +73,7 @@ function displayName()
             // Fetch and display the results
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                 $username = $row['firstname'] . ' ' . $row['lastname'];
-                echo $username . '<br>';
+                return $username;
             }
 
         } catch (PDOException $e) {
@@ -83,10 +83,9 @@ function displayName()
         }
 }
 
-function displayEmail()
+function displayEmail($userssn)
 {
     require 'Includes/connect.php';
-    $loggedInUserID = $_SESSION['uid'];
 
     try{
         $query = $pdo->prepare('
@@ -96,7 +95,7 @@ function displayEmail()
         ');
 
         $data = array(
-            ':uid' => $loggedInUserID
+            ':uid' => $userssn
         );
         $query->execute($data);
 

@@ -42,12 +42,12 @@ echo $_SESSION['uid'];
         <img class="profilbild" src="logga.png">
         <br>
         <h2><?php   require 'Includes/functions.php';
-                    displayName();?>
+                    echo displayName($_SESSION['uid']) . '<br>';?>
         </h2>
         <hr class="hr">
 
         <div class="info">
-            <span>Email:<?php echo displayEmail() . '<br>';?></span>
+            <span>Email:<?php echo displayEmail($_SESSION['uid']) . '<br>';?></span>
             <br>
             <br>        
             <span> Telnr: xxx xxx xxx xx </span>
