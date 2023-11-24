@@ -30,6 +30,43 @@
             </div>
         </nav>
 
+        <div class="kurser-grid">
+
+            <div class="kurs kurs-1">
+                <div class="top-color">
+                    <h2>Engelska</h2>
+                </div>
+                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
+                <a href="">Gå till kurs</a>
+            </div>
+
+            <div class="kurs kurs-2">
+                <h2>Engelska</h2>
+                <span>testestet</span>
+            </div>
+
+            <div class="kurs kurs-3">
+                <h2>Engelska</h2>
+                <span>testestet</span>
+            </div>
+
+            <div class="kurs kurs-4">
+                <h2>Engelska</h2>
+                <span>testestet</span>
+            </div>
+
+            <div class="kurs kurs-5">
+                <h2>Engelska</h2>
+                <span>testestet</span>
+            </div>
+
+            <div class="kurs kurs-6">
+                <h2>Engelska</h2>
+                <span>testestet</span>
+            </div>
+
+        </div>
+
         <nav>
             <div class="vert-nav">
                 <ul>
@@ -84,5 +121,15 @@
     </div>
 
 </body>
+<script>
+    function goToCourse(id)
+    {
+        window.location.href = "kursvy.php?kursid="+id;
+    }
+    function selected(kurs)
+    {
+        
+    }
 
+</script>
 </html>

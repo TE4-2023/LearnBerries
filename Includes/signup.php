@@ -29,7 +29,7 @@ if (!isset($_POST))
     try {
         if(itemExists("ssn", $SSN) or itemExists("email", $email))
         {
-            header('Location: create.html?taken=true');
+            header('Location: ../create.html?taken=true');
             exit();
         }
         else
@@ -55,8 +55,8 @@ if (!isset($_POST))
             $query->execute($data);
         }
 
-        header('Location: login.html');
-        
+        header('Location: ../login.html');
+       
         }
         catch(PDOException $e)
         {

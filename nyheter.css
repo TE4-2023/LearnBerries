@@ -1,16 +1,18 @@
+/* Reset styles */
 body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  background-color: #e3e8f4;
+  background-color: #E3E8F4;
 }
 
+/* Navbar styles */
 .navbar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #dec6b4;
+  background-color: #DEC6B4;
   max-height: 100px;
 }
 
@@ -30,10 +32,11 @@ body {
   background-color: #111;
 }
 
-.active {
-  background-color: #04aa6d;
+.navbar .active {
+  background-color: #04AA6D;
 }
 
+/* Logo styles */
 .bild {
   height: 72px;
   width: auto;
@@ -41,12 +44,14 @@ body {
   margin-left: 2rem;
 }
 
+/* Header styles */
 .header {
   margin-top: 1.8rem;
   margin-left: 6rem;
   text-decoration: underline;
 }
 
+/* Left navigation styles */
 .left-nav {
   float: right;
   display: flex;
@@ -72,12 +77,13 @@ body {
   background-color: transparent;
 }
 
+/* Vertical navigation styles */
 .vert-nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #dec6b4;
+  background-color: #DEC6B4;
   max-width: 160px;
   min-height: 100vh;
   max-height: 100vh;
@@ -108,33 +114,37 @@ body {
   background-size: 100% 0.1em;
 }
 
-.kurser-grid {
+/* Kurser grid styles */
+.nyheter-grid {
   float: right;
-  margin-right: 24rem;
+  margin-right: 12rem;
   display: grid;
   grid-template-columns: auto auto auto;
-  grid-template-rows: auto auto auto;
-  gap: 8rem;
+  gap: 4rem;
 }
 
-.profil {
-  width: 600px;
-  height: 400px;
-  background-color: #e3e8f4;
-  margin-top: 150px;
-  border-radius: 15px;
-  text-align: center;
-}
-
-.profilbild {
-  height: 200px;
-  width: auto;
-}
-
-.hr {
-  width: 300px;
-}
-.info {
+/* Kurs styles */
+.nyheter {
+  margin-top: 3rem;
+  padding: 12px 18px;
+  border-top-right-radius: 24px;
+  border-bottom-left-radius: 24px;
+  min-width: 24rem;
+  max-width: 24rem;
   text-align: left;
-  margin-left: 160px;
+  background-color:#DEC6B4;
+}
+
+.nyheter h2 {
+  margin-top: 0.5rem;
+}
+
+.nyheter span {
+  margin-top: 1.5rem;
+}
+
+/* Top color section styles */
+.nyheter.top-color {
+  color: white;
+  /* Padding and other styles specific to the top color section */
 }

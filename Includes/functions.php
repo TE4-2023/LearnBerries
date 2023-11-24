@@ -36,4 +36,83 @@ function itemExists($parameterToCheck, $value)
     return !empty($table);
 }
 
+function getUserID($userSSN)
+{
+    require 'connect.php';
+    $query = $pdo->prepare('SELECT * FROM users WHERE  :userSSN = ssn');
+    $query->bindParam(':userSSN', $userSSN, PDO::PARAM_STR);
+    $query->execute();
+    while ($table = $query->fetch())
+    {
+        return $table['user_ID'];
+    }
+
+
+}
+
+function displayName($userssn)
+{
+    require 'Includes/connect.php';
+
+
+        try {
+            $query = $pdo->prepare('
+            SELECT * , name.name AS firstname , A.name AS lastname 
+            FROM `users` 
+            INNER JOIN name ON users.name_ID = name.name_ID
+            INNER JOIN name AS A ON users.lastname_ID = A.name_ID 
+            WHERE users.ssn = :uid;
+            ');
+
+            $data = array(
+                ':uid' => $userssn
+            );
+
+            $query->execute($data);
+
+            // Fetch and display the results
+            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                $username = $row['firstname'] . ' ' . $row['lastname'];
+                return $username;
+            }
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            // Handle the exception or redirect as needed
+            // header('Location: login.html');
+        }
+}
+
+function displayEmail($userssn)
+{
+    require 'Includes/connect.php';
+
+    try{
+        $query = $pdo->prepare('
+        SELECT email 
+        FROM users
+        WHERE users.ssn = :uid;
+        ');
+
+        $data = array(
+            ':uid' => $userssn
+        );
+        $query->execute($data);
+
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $useremail = $row['email'] ;
+            return $useremail;
+        }
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        // Handle the exception or redirect as needed
+        // header('Location: login.html');
+    }
+
+
+}
+
+
+
 ?>

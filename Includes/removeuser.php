@@ -7,8 +7,8 @@ $courseID = $_POST['courseID'];
 
 try{
     $query = $pdo->prepare('
-    INSERT INTO course_enrollments (course_ID, user_ID)
-    VALUES (:courseID, :userID);
+    DELETE FROM course_enrollments 
+    WHERE user_ID = :userID AND course_ID= :courseID
 ');
 
 $data = array(
