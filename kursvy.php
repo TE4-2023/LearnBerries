@@ -20,8 +20,8 @@ include 'Includes/courseview.php';
       <p>test</p>
     </div>
 
-    </div>
-
+    <div style="width: 50%; display:flex; flex-direction:column; flex-wrap:wrap; border-top-left-radius:1vh; border-bottom-right-radius:1vh; height: 10%; background-color:white;margin-top:5%;border:1px solid black;">
+    <p>test</p>
     </div>
     <!-- END OF WEBSITE -->
 </body>
