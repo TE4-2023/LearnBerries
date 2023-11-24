@@ -5,13 +5,13 @@ function user(user) {
     userID = user.value;
     courseID =  user.getAttribute("data-value");
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', "enrolluser.php", true);
+    xhr.open('POST', "removeuser.php", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-                //alert('Enrollment successful!');
+                //alert('SEnrollment successful!');
                 getUsers(courseID);
                 // Optionally, you can redirect the user or perform other actions here
             } else {
@@ -41,7 +41,7 @@ function getUsers(courseID) {
             }
         }
     };
-    xhr.open('POST', "getUsers.php", true);
+    xhr.open('POST', "getusernotin.php", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     var data = 'courseID=' + encodeURIComponent(courseID);
     xhr.send(data);

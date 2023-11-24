@@ -1,6 +1,9 @@
 <?php
 
+require 'Includes/connect.php';
 
+session_start();
+echo $_SESSION['uid'];
 ?>
 
 
@@ -38,11 +41,13 @@
         <br>
         <img class="profilbild" src="logga.png">
         <br>
-        <h2>Namn, efternamn</h2>
+        <h2><?php   require 'Includes/functions.php';
+                    echo displayName($_SESSION['uid']) . '<br>';?>
+        </h2>
         <hr class="hr">
 
         <div class="info">
-            <span>Mailadress: exempel@gmail.com</span>
+            <span>Email:<?php echo displayEmail($_SESSION['uid']) . '<br>';?></span>
             <br>
             <br>        
             <span> Telnr: xxx xxx xxx xx </span>
