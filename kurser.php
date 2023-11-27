@@ -43,45 +43,50 @@
             </div>
         </nav>
 
+
+
         <div class="kurser-grid">
+        <?php
+            require 'Includes/connect.php';
+            require 'Includes/functions.php';
+            session_start();
+            
+            $userID = getUserID($_SESSION['uid']);
+            $query = $pdo->prepare('
+            SELECT *, HEX(course.color)
+            FROM course
+            LEFT JOIN name 
+            ON course.name_ID = name.name_ID
+            LEFT JOIN course_enrollments
+            ON course_enrollments.course_ID = course.course_ID
+            WHERE course_enrollments.user_ID = :userID
+            ');
+            $query->bindParam(':userID', $userID, PDO::PARAM_STR);
 
-            <div class="kurs kurs-1">
+            $query->execute();
+
+            // Fetch and display the results
+            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                
+
+                echo('<div onClick="goToCourse('.$row['course_ID'].')" class="kurs" style="background: linear-gradient(to bottom, #'.$row['HEX(course.color)'].' 45%, white -100%);">
                 <div class="top-color">
-                    <h2>Engelska</h2>
+                    <h2>'.$row['name'].'</h2>
                 </div>
                 <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-                <a href="">Gå till kurs</a>
             </div>
+                ');
+            }
 
-            <div class="kurs kurs-2">
-                <div class="top-color">
-                    <h2>Engelska</h2>
-                </div>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-                <a href="">Gå till kurs</a>
-            </div>
+        ?>    
+        </div>
 
-            <div class="kurs kurs-2">
-                <div class="top-color">
-                    <h2>Engelska</h2>
-                </div>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-                <a href="">Gå till kurs</a>
-            </div>
-
-            <div class="kurs kurs-3">
-                <div class="top-color">
-                    <h2>Engelska</h2>
-                </div>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-                <a href="">Gå till kurs</a>
-            </div>
 
             
 
         </div>
         <a class="skapa-kurs" href=""><i class="fa-solid fa-plus"></i> Skapa kurs</a>
-    </div>
 
 </body>
 <script>

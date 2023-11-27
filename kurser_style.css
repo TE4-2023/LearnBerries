@@ -121,7 +121,7 @@ body {
     margin-left: 22rem;
     display: grid;
     grid-template-columns: auto auto auto;
-    gap: 0rem;
+    gap: 2rem;
 }
 
 /* Kurs styles */
@@ -133,6 +133,7 @@ body {
     min-width: 24rem;
     max-width: 24rem;
     background: linear-gradient(to bottom, blue 45%, white -100%);
+    cursor: pointer;
 }
 
 .kurs h2 {
