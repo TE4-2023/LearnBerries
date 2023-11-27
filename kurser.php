@@ -46,53 +46,92 @@
         <div class="kurser-grid">
 
             <div class="kurs kurs-1">
-                <div class="top-color">
-                    <h2>Engelska</h2>
+
+                <h2>Kursnamn</h2>
+                <span>Kurslärare</span>
+
+                <div class="kurs-middle">
+                    <i class="fa-regular fa-circle-user"></i>
                 </div>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-                <a href="">Gå till kurs</a>
+
+                <div class="kurs-bottom">
+                    <span>Nästa lektion: 13:30</span>
+                    <span>Klassrum: Sal 11</span>
+                </div>
+
             </div>
 
             <div class="kurs kurs-2">
-                <div class="top-color">
-                    <h2>Engelska</h2>
-                </div>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-                <a href="">Gå till kurs</a>
-            </div>
 
-            <div class="kurs kurs-2">
-                <div class="top-color">
-                    <h2>Engelska</h2>
+                <h2>Kursnamn</h2>
+                <span>Kurslärare</span>
+
+                <div class="kurs-middle">
+                    <i class="fa-regular fa-circle-user"></i>
                 </div>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-                <a href="">Gå till kurs</a>
+
+                <div class="kurs-bottom">
+                    <span>Nästa lektion: 13:30</span>
+                    <span>Klassrum: Sal 11</span>
+                </div>
+
             </div>
 
             <div class="kurs kurs-3">
-                <div class="top-color">
-                    <h2>Engelska</h2>
+
+                <h2>Kursnamn</h2>
+                <span>Kurslärare</span>
+
+                <div class="kurs-middle">
+                    <i class="fa-regular fa-circle-user"></i>
                 </div>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-                <a href="">Gå till kurs</a>
+
+                <div class="kurs-bottom">
+                    <span>Nästa lektion: 13:30</span>
+                    <span>Klassrum: Sal 11</span>
+                </div>
+
             </div>
 
-            
 
         </div>
-        <a class="skapa-kurs" href=""><i class="fa-solid fa-plus"></i> Skapa kurs</a>
+        <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa kurs</a>
+
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <input class="kurs-titel" type="text" placeholder="Kurstitel">
+                <p>Välj färg</p>
+                <div class="color-picker" id="colorPickerContainer">
+                    <input class="color-wheel" type="color" value="#6026b8">
+                    <i class="fa-solid fa-brush"></i>
+                </div>
+                <br>
+                <a class="members-btn" href="#">Bjud in deltagare</a>
+                <span class="members-amount">&nbsp;(0/100)</span>
+                <div class="create-container">
+                    <a class="c-btn" href="#">Skapa kurs</a>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 </body>
 <script>
-    function goToCourse(id)
-    {
-        window.location.href = "kursvy.php?kursid="+id;
+    function goToCourse(id) {
+        window.location.href = "kursvy.php?kursid=" + id;
     }
-    function selected(kurs)
-    {
-        
+    function selected(kurs) {
+
     }
 
 </script>
+
+<script src="modal.js" defer></script>
+
 </html>
