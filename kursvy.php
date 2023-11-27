@@ -24,18 +24,36 @@ include 'Includes/courseview.php';
         
         // Fetch and display posts
         try {
-            $query = $pdo->prepare('SELECT * FROM posts WHERE course_ID = :courseID ORDER BY publishingDate DESC');
+            $query = $pdo->prepare('
+            SELECT posts.*, name.name 
+            FROM posts 
+            INNER JOIN name 
+            ON posts.name_ID = name.name_ID 
+            WHERE posts.course_ID = :courseID 
+            ORDER BY posts.publishingDate DESC;'
+          );
             $data = array(':courseID' => $_GET['kursid']); 
 
             $query->execute($data);
 
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-              echo '<div style="width: 50%; display:flex; flex-direction:column; flex-wrap:wrap; border-top-left-radius:1vh; border-bottom-right-radius:1vh; height: 10%; margin-top:5%; background-color:white;border:1px solid black;">';
-                echo '<p>Post ID: ' . $row['post_ID'] . '</p>';
-                echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
-                echo '<p>Description: ' . $row['description'] . '</p>';
+                echo '<div style="width: 50%; display:flex; flex-direction:column; flex-wrap:wrap; border-top-left-radius:1vh; border-bottom-right-radius:1vh; height: 10%; margin-top:5%; background-color:white;border:1px solid black;">';
+                if ($row['name'] == ""){
+                echo '<p>Meddelande</p>';
+                }
+                else{
+                echo '<p>Uppgiftsnamn: ' . $row['name'] . '</p>';
+                }
+                
+                if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
+                echo '<p>Deadline: Ingen</p>';
+                } else {
+                  echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
+                }
+            
                 // Add more fields as needed
                 echo '<hr>';
+                echo '<p>Description: ' . $row['description'] . '</p>';
                 echo '</div>';
                 echo '<br>';
             }
