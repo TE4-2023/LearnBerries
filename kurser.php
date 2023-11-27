@@ -46,9 +46,7 @@
             </div>
         </nav>
 
-        <div class="kurser-grid" id="kurserDIV">
-
-             <?php
+        <div class="kurser-grid" id="kurserDIV"><?php
     require 'Includes/connect.php';
     require 'Includes/functions.php';
     session_start();
@@ -94,10 +92,7 @@
          ');
      }
     
-?>
-
-
-        </div>
+?></div>
         <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa kurs</a>
 
         </div>
@@ -126,12 +121,20 @@
 
 </body>
 <script>
+    var kursdiv = document.getElementById('kurserDIV');
+    if(kursdiv.innerHTML==="  ")
+    {
+        console.log("kos");
+        kursdiv.innerText = "NO COURSES";
+    }
+
     function goToCourse(id) {
         window.location.href = "kursvy.php?kursid=" + id;
     }
-    function selected(kurs) {
 
-    }
+
+
+
 
     
 
