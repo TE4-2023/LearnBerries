@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 
 
 if(!isset($_GET['kursid'])) {
-    header("location: ./kurser.php");
+    header("location: ../kurser.php");
 }
 
 $kursid = (int)$_GET['kursid'];
