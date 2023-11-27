@@ -20,7 +20,7 @@
                 <ul>
                     <li><img class="bild" src="logga.png" alt="logga" /></li>
                     <li>
-                        <h1 class="header">Hem</h1>
+                        <h1 class="header">Observera</h1>
                     </li>
 
                     <div class="left-nav">
