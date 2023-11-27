@@ -17,12 +17,14 @@ if(!isset($_GET['kursid'])) {
     header("location: ../kurser.php");
 }
 
+$kursid = (int)$_GET['kursid'];
+
 isUserParticipant();
 
 function getCourseColor() {
     $conn = $GLOBALS['conn']; //accesses conn variable in global scope (1 layer above in this case)
 
-    $kursid = (int)$_GET['kursid'];
+    $kursid = $GLOBALS['kursid'];
 
     $stmt = $conn->prepare("SELECT *
                             FROM `webschool`.`course`
@@ -50,7 +52,7 @@ function getCourseColor() {
 function getCourseName() {
     $conn = $GLOBALS['conn']; //accesses conn variable in global scope (1 layer above in this case)
 
-    $kursid = (int)$_GET['kursid'];
+    $kursid = $GLOBALS['kursid'];
 
     $stmt = $conn->prepare("SELECT *
                             FROM `webschool`.`course`
@@ -127,8 +129,8 @@ function isUserParticipant() {
 
     $stmt->execute();
 
-    echo($courseid."/");
-    echo($userid."/");
+    //echo($courseid."/");
+    //echo($userid."/");
     
 
     $result = $stmt->get_result();
@@ -139,7 +141,54 @@ function isUserParticipant() {
         header('Location: ./home.php');
     }
     else {
-        echo("enrolled");
+        //echo("enrolled");
+
+        $stmt = null;
+    }
+}
+
+function printPost() {
+    $conn = $GLOBALS['conn']; //accesses conn variable in global scope (1 layer above in this case)
+
+    $kursid = $GLOBALS['kursid'];
+
+
+    $stmt = $conn->prepare("SELECT *
+                            FROM `webschool`.`post`
+                            WHERE `course_ID`=?;");
+    $stmt->bind_param("i", $kursid);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result(); // FETCHES RESULT FROM STATEMENT CHECK FOR IF THERE ANY ROWS THAT MATCH TO 
+
+    if(mysqli_num_rows($result) == 0) {
+        $stmt = null;
+        echo("No rows.");
+        header('Location: ./kursvy.php?error=notfound');
+        //header("location: .");
+    }
+    else {
+        $row = mysqli_fetch_row($result);
+        
+
+        $stmt = null;
+
+
+        $stmt = $conn->prepare("SELECT *
+                            FROM `webschool`.`name`
+                            WHERE `name_ID`=?;");
+        $stmt->bind_param("i", $row[1]);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result(); // FETCHES RESULT FROM STATEMENT CHECK FOR IF THERE ANY ROWS THAT MATCH TO 
+
+        $row = mysqli_fetch_row($result);
+
+        echo($row[1]);
+        
+            echo($row);
 
         $stmt = null;
     }
