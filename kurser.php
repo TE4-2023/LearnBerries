@@ -30,42 +30,6 @@
             </div>
         </nav>
 
-        <div class="kurser-grid">
-        <?php
-            require 'Includes/connect.php';
-            require 'Includes/functions.php';
-            session_start();
-            
-            $userID = getUserID($_SESSION['uid']);
-            $query = $pdo->prepare('
-            SELECT *, HEX(course.color)
-            FROM course
-            LEFT JOIN name 
-            ON course.name_ID = name.name_ID
-            LEFT JOIN course_enrollments
-            ON course_enrollments.course_ID = course.course_ID
-            WHERE course_enrollments.user_ID = :userID
-            ');
-            $query->bindParam(':userID', $userID, PDO::PARAM_STR);
-
-            $query->execute();
-
-            // Fetch and display the results
-            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-
-                
-
-                echo('<div onmouseover="selected(this)" onclick ="goToCourse('.$row['course_ID'].');" 
-                class="kurs" style="background: linear-gradient(to bottom, #'. $row['HEX(course.color)'].' 45%, white -100%);">
-                    <h2>'.$row['name'].'</h2>
-                    <span>testestet</span>
-                </div>
-                ');
-            }
-
-        ?>    
-        </div>
-
         <nav>
             <div class="vert-nav">
                 <ul>
@@ -79,6 +43,14 @@
             </div>
         </nav>
 
+        <div class="kurser-grid">
+
+    
+
+            
+
+        </div>
+        <a class="skapa-kurs" href=""><i class="fa-solid fa-plus"></i> Skapa kurs</a>
     </div>
 
 </body>
