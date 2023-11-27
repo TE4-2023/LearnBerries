@@ -177,7 +177,7 @@ body {
     right: 0;
     margin-right: 2rem;
     margin-bottom: 2rem;
-    border: 1px solid black;
+    border: 1px solid #a0a0a0;
     border-top-right-radius: 12px;
     border-bottom-left-radius: 12px;
     border-top-left-radius: 12px;
@@ -191,8 +191,10 @@ body {
 
 
 .skapa-kurs:hover {
-  border-radius: 0px;
-  scale: 1.1;
+    scale: 1.02;
+    box-shadow: 2px 2px 12px rgb(200, 200, 200);
+    border: 1px solid #000000;
+    border-radius: 0px;
   cursor: pointer;
 }
 
