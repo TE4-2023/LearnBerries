@@ -137,6 +137,7 @@ body {
   margin-top: 2rem;
   min-width: 24rem;
   max-width: 24rem;
+  cursor: pointer;
 }
 
 .kurs-top {
