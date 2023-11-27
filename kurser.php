@@ -86,7 +86,32 @@
             
 
         </div>
-        <a class="skapa-kurs" href=""><i class="fa-solid fa-plus"></i> Skapa kurs</a>
+        <a class="skapa-kurs" onClick="newCourse()"><i class="fa-solid fa-plus"></i> Skapa kurs</a>
+
+        <div class="logruta" id="logruta">
+      <form id="courseForm" action="Includes/addcourse.php" method="post">
+        <div class="txtrut">
+          <span>name:</span>
+          <input type="text" name="name" placeholder="name">
+
+          <label for="color">Color:</label>
+        <select id="color" name="color" onchange="changeColor(this)" required>
+            <option style="background-color: white;" value="custom">custom</option>
+            <option style="background-color: #B88A67;"value="#B88A67"></option>
+            <option style="background-color: #B86767;"value="#B86767"></option>
+            <option style="background-color: #86B867;"value="#86B867"></option>
+            <option style="background-color: #679BB8;"value="#679BB8"></option>
+            <option style="background-color: #B667B8;"value="#B667B8"></option>
+            
+        </select>
+
+          <span>custom color:</span>
+          <input type="color" name="customcolor">
+
+        </div>
+        <input class="logbtn" type="submit" value="add">
+      </form>
+    </div>
 
 </body>
 <script>
@@ -94,10 +119,21 @@
     {
         window.location.href = "kursvy.php?kursid="+id;
     }
-    function selected(kurs)
+    function newCourse()
     {
-        
+        var modal = document.getElementById('logruta');
+        var courseForm = document.getElementById('courseForm').reset();
+        modal.style.display = "block";
+
     }
+
+
+
+    window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 
 </script>
 </html>
