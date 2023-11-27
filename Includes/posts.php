@@ -1,26 +1,30 @@
-<?php
-
-session_start();
-require 'connect.php';
-require 'functions.php';
-
-
-if ($_SESSION['role'] < 3)
-{
-    // header('Location: create.html');
-    // exit;
-}
-
-
-
-
-
-
-?>
-
-
-<html lang="en">
+<html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkbox Example</title>
+  <script>
+    function toggleFields() {
+      // Get references to the text fields
+      var field1 = document.getElementById("field1");
+      var field2 = document.getElementById("field2");
+
+      // Get reference to the checkbox
+      var checkbox = document.getElementById("checkbox");
+
+      // Check the checkbox status
+      if (checkbox.checked) {
+        // If checked, hide the text fields
+        field1.style.display = "none";
+        field2.style.display = "none";
+      } else {
+        // If unchecked, show the text fields
+        field1.style.display = "block"; // You can also use "inline" or "inline-block" depending on your layout
+        field2.style.display = "block";
+      }
+    }
+  </script>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Form</title>
@@ -68,9 +72,28 @@ if ($_SESSION['role'] < 3)
         }
     </style>
 </head>
+
+
+<?php
+
+session_start();
+require 'connect.php';
+require 'functions.php';
+
+
+if ($_SESSION['role'] < 3)
+{
+    // header('Location: create.html');
+    // exit;
+}
+
+
+?>
+
+
 <body>
 
-    <form action="" method="post">
+    <form action="insertPosts.php" method="post">
 
     <p>Kurser</p>
 <?php 
@@ -105,13 +128,16 @@ if ($_SESSION['role'] < 3)
 ?>
 
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="field2" name="name">
 
-        <label for="deadline">Deadline Date:</label>
-        <input type="datetime-local" id="deadline" name="deadline" required>
+        <label for="checkbox">Meddelande</label>
+        <input type="checkbox" id="checkbox" onchange="toggleFields()">
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4" required></textarea>
+        <label for="field1">Deadline Date:</label>
+        <input type="datetime-local" id="field1" name="deadline">
+
+        <label for="field2">Description:</label>
+        <textarea id="description" name="description"novalidate rows="4" required></textarea>
 
         <input type="submit" value="Submit">
     </form>
