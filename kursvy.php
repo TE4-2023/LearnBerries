@@ -3,12 +3,14 @@
 require 'Includes/connect.php';
 include_once "Includes/header.php";
 include 'Includes/courseview.php';
-session_start();
 
-if(!isset($_GET['kursid']) || $_SESSION['uid'])
+/* IMPORTANT NOTICE */
+//session_start();
+
+/*if(!isset($_GET['kursid']) || $_SESSION['uid'])
 {
   header("location: login.html");
-}
+}*/
 
 ?>
 
@@ -17,7 +19,7 @@ if(!isset($_GET['kursid']) || $_SESSION['uid'])
         <p style="color:white;text-decoration:none !important;">Lärare A</p>
     </div>
     
-    <div class="pane" style="width:100%;height:100%;display:flex;justify-content:center;flex-direction:column;flex-wrap:wrap; align-items:center;">
+    <div class="pane" style="width:100%;height:100%;display:flex;flex-direction:column;flex-wrap:wrap; align-items:center;">
 
     <?php 
         
@@ -29,7 +31,7 @@ if(!isset($_GET['kursid']) || $_SESSION['uid'])
             $query->execute($data);
 
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-              echo '<div style="width: 50%; display:flex; flex-direction:column; flex-wrap:wrap; border-top-left-radius:1vh; border-bottom-right-radius:1vh; height: 10%; background-color:white;border:1px solid black;">';
+              echo '<div style="width: 50%; display:flex; flex-direction:column; flex-wrap:wrap; border-top-left-radius:1vh; border-bottom-right-radius:1vh; height: 10%; margin-top:5%; background-color:white;border:1px solid black;">';
                 echo '<p>Post ID: ' . $row['post_ID'] . '</p>';
                 echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
                 echo '<p>Description: ' . $row['description'] . '</p>';
