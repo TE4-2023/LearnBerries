@@ -53,7 +53,7 @@ try {
 
 
 
-    header('Location: printcourse.php');
+    header('Location: ../kurser.php');
 }
 
 catch(PDOException $e)
