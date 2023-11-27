@@ -1,5 +1,4 @@
 <?php
-
 require 'Includes/connect.php';
 include_once "Includes/header.php";
 include 'Includes/courseview.php';
@@ -11,10 +10,17 @@ include 'Includes/courseview.php';
 {
   header("location: login.html");
 }*/
-
 ?>
 
-    <div style="width:100%;height:30%;display:flex;justify-content:center;background-color:<?php getCourseColor(); ?>;border-bottom-right-radius:1.5vh;border-bottom-left-radius:1.5vh;align-items:center;flex-direction:column;flex-wrap:wrap;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div style="width:100%;height:30%;display:flex;justify-content:center;background-color:<?php getCourseColor(); ?>;border-bottom-right-radius:1.5vh;border-bottom-left-radius:1.5vh;align-items:center;flex-direction:column;flex-wrap:wrap;">
         <h1 style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
         <p style="color:white;text-decoration:none !important;">Lärare A</p>
     </div>
@@ -49,9 +55,11 @@ include 'Includes/courseview.php';
 
     </div>
 
-</div>
+
 </body>
+
 </html>
+
 <!-- SCRIPTS -->
    
 <script src="homescript.js"></script>
