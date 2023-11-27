@@ -3,6 +3,12 @@
 require 'Includes/connect.php';
 include_once "Includes/header.php";
 include 'Includes/courseview.php';
+session_start();
+
+if(!isset($_GET['kursid']) || $_SESSION['uid'])
+{
+  header("location: login.html");
+}
 
 ?>
 
