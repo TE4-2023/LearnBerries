@@ -12,18 +12,13 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-/*if(isset($_GET['error'])) {
-    header("location: ../noaccess.php");
-}*/
-
-
 if(!isset($_GET['kursid'])) {
     header("location: ../kurser.php");
 }
 
 $kursid = (int)$_GET['kursid'];
 
-//isUserParticipant();
+isUserParticipant();
 
 
 
@@ -52,8 +47,7 @@ function getCourseColor() {
     if(mysqli_num_rows($result) == 0) {
         $stmt = null;
         echo("No rows.");
-        header('Location: ./kursvy.php?error=notfound');
-        //header("location: .");
+        header('Location: ./noaccess.php');
     }
     else {
         $row = mysqli_fetch_row($result);
@@ -71,8 +65,7 @@ function getCourseName() {
     if(mysqli_num_rows($result) == 0) {
         $stmt = null;
         echo("No rows.");
-        header('Location: ./kursvy.php?error=notfound');
-        //header("location: .");
+        header('Location: ./noaccess.php');
     }
     else {
         $row = mysqli_fetch_row($result);
@@ -94,11 +87,11 @@ function isUserParticipant() {
 
     $conn = $GLOBALS['conn']; //accesses conn variable in global scope (1 layer above in this case)
 
-    $result = sqlExec("course","course_ID",$_SESSION['uid'],"i");
+    $result = sqlExec("users","ssn",$_SESSION['uid'],"s");
 
     if(mysqli_num_rows($result) == 0) {
         echo("No rows.");
-        header('Location: ./kursvy.php?error=notfound');
+        header('Location: ./noaccess.php');
         echo("test");
     }
     else {
@@ -115,13 +108,11 @@ function isUserParticipant() {
     
     $result = $stmt->get_result();
 
-    echo(mysqli_fetch_row($result)[0]);
-
-    /*if(mysqli_num_rows($result) == 0) {
+    if(mysqli_num_rows($result) == 0) {
         $stmt = null;
         echo("No rows.");
-        header('Location: ./home.php');
+        header('Location: ./noaccess.php');
     }
-    $stmt = null;*/
+    $stmt = null;
 }
 

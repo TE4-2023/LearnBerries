@@ -30,6 +30,10 @@
             </div>
         </nav>
 
+        <div style="right: 50%; top: 50%; position:fixed;">
+            <p>Någonting gick snett.</p>
+        </div>
+
         <nav>
             <div class="vert-nav">
                 <ul>
