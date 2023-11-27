@@ -1,72 +1,39 @@
 <?php
 
-// work in progress
+session_start();
 require 'connect.php';
 require 'functions.php';
-if (!isset($_POST))
-{
-    header('Location: create.html');
-    exit;
+
+if ($_SESSION['role'] < 3) {
+
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Form is submitted, process the data
+
+    $courseID = $_POST['course'];
     $name = $_POST['name'];
-    $lastName = $_POST['lastName'];
-    $SSN = $_POST['ssn'];
-    $password = $_POST['password'];
-    $email = $_POST['email'];
-    $role = $_POST['role'];
-    $roleID = 0;
-    switch($role)
-    {
-        case 'student':
-            $roleID = 2;
-            break;
-        case 'teacher':
-            $roleID = 3;
-            break;
-        default:
-        $roleID = 2;
-    }
-    
-    echo ($database_name . $role);
+    $deadline = $_POST['deadline'];
+    $description = $_POST['description'];
+    $userID = $_SESSION['userid'];
+
     try {
-        if(itemExists("ssn", $SSN) or itemExists("email", $email))
-        {
-            header('Location: ../create.html?taken=true');
-            exit();
-        }
-        else
-        {
-            $nameID = checkName($name);
-            $lastNameID = checkName($lastName);
-            echo ($nameID . $lastNameID);
-    
-            $query = $pdo->prepare('
-                    INSERT INTO posts (name_ID, lastname_ID, email, ssn, role_ID, password)
-                    VALUES (:nameID, :lastNameID, :email, :ssn, :roleID, SHA(:password));
-            ');
-            
-            $data = array(
-                ':nameID' => $nameID,
-                ':lastNameID' => $lastNameID,
-                ':password' => $password,
-                ':email' => $email,
-                ':ssn' => $SSN,
-                ':roleID' => $roleID
-            );
-            
-            $query->execute($data);
-        }
+        $query = $pdo->prepare('INSERT INTO posts (course_ID, user_ID, name_ID, publishingDate, deadlineDate, description) 
+                               VALUES (:courseID, :userID, :nameID, NOW(), :deadline, :description)');
+        $data = array(
+            ':courseID' => $courseID,
+            ':userID' => $userID,
+            ':nameID' => $name,  // Adjust this based on your database schema
+            ':deadline' => $deadline,
+            ':description' => $description
+        );
 
-        header('Location: ../login.html');
-       
-        }
-        catch(PDOException $e)
-        {
-            echo($e);
-            //header('Location: signup.html');
-            
-    } 
+        $query->execute($data);
 
-   
+        header('Location: ../kurser.php');
 
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
+}
 ?>
