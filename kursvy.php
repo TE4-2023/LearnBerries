@@ -24,6 +24,7 @@ include 'Includes/courseview.php';
     <p>test</p>
     </div>
     <!-- END OF WEBSITE -->
+</div>
 </body>
 </html>
 <!-- SCRIPTS -->
