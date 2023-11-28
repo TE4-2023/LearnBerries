@@ -64,40 +64,6 @@ include 'Includes/courseview.php';
 </head>
 
 <body>
-    <nav>
-        <div class="navbar">
-            <ul>
-                <li><img class="bild" src="logga.png" alt="logga" /></li>
-                <li>
-                    <h1 class="header">Kontakter</h1>
-                </li>
-
-                <div class="left-nav">
-                    <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
-                </div>
-            </ul>
-        </div>
-    </nav>
-
-    <nav>
-        <div class="vert-nav">
-            <ul>
-                <li><a href=""><i class="fa-solid fa-house"></i> Hem</a></li>
-                <li><a href=""><i class="fa-solid fa-scroll"></i> Kurser</a></li>
-                <li><a href=""><i class="fa-regular fa-calendar-days"></i> Scheman</a></li>
-                <li><a href=""><i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
-                <li><a href=""><i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
-                <li><a href=""><i class="fa-solid fa-address-book"></i> Kontakter</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
-        <h1 style="color:white;text-decoration:none !important;">
-            <?php getCourseName(); ?>
-        </h1><br>
-        <p style="color:white;text-decoration:none !important;">Lärare A</p>
-    </div>
 
     <div class="pane"
         style="width:100%;height:100%;display:flex;flex-direction:column;flex-wrap:wrap; align-items:center;">
