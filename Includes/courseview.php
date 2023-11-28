@@ -1,6 +1,6 @@
 <?php
 
-include "auth.php";
+//include "auth.php";
 
 $servername = "localhost";
 $username = "root";
@@ -22,7 +22,8 @@ $kursid = (int)$_GET['kursid'];
 
 isUserParticipant();
 
-single_table_sql_statement("my name", "is", "cat.");
+// EXPERIMENTAL
+//single_table_sql_statement("my name", "is", "cat.", "2");
 
 function sqlExec($table, $keyword, $value, $type) {
     $conn = $GLOBALS['conn'];

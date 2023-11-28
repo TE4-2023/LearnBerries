@@ -1,5 +1,7 @@
 <?php
 
+include "connect.php";
+
 /*
 
     This script can be called to greatly reduce statements.
@@ -7,13 +9,6 @@
     is a difference between authn and auth.
 
 */
-
-// Connection variables
-$servername = "localhost";
-$username = "root";
-$password = "";
-$conn = new mysqli($servername, $username, $password);
-
 
 // CONSTRUCT
 // - Reusable functions
@@ -26,12 +21,24 @@ $conn = new mysqli($servername, $username, $password);
 function single_table_sql_statement() {
     $arg_list = func_get_args();
     $arg_list_len = func_num_args();
+    $pdo = $GLOBALS['pdo'];
     
     $statement = "SELECT * FROM `webschool`.";
 
     if ($arg_list_len < 4 || ($arg_list_len - 4) % 2 != 0) {
         echo "single_table_statement() error at line 32 -"
         ." insufficient parameters.";
+    }
+    else {
+        $IDquery = $pdo->prepare("SELECT * FROM `users` WHERE `user_ID` = :userID");
+        $IDquery->bindParam(':userID', 1, PDO::PARAM_INT);
+        $IDquery->execute();
+        while ($row = $IDquery->fetch(PDO::FETCH_ASSOC)) {
+
+            echo ''.$row['email'].'';
+            //echo print_r($row) . "<br/>";
+        }
+        $IDquery = NULL;
     }
     ////foreach ($arg_list as $argument) {}
 }
