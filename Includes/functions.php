@@ -86,8 +86,7 @@ function displayName($userssn)
 
 function displayEmail($userssn)
 {
-    require 'Includes/connect.php';
-
+    $pdo = $GLOBALS['pdo'];
     try{
         $query = $pdo->prepare('
         SELECT email 
