@@ -6,13 +6,12 @@ session_start();
 
 if (!isset($_POST) || !isset($_SESSION['uid']))
 {
-    header('Location: ../demoKurser.php');
+    header('Location: ../kurser.php');
     exit;
 }
 
 $name = $_POST['name'];
-$color =  ($_POST['color'] == "custom") ? $_POST['customcolor'] : $_POST['color'];
-$color = ltrim($color, '#');
+$color = ltrim($_POST['color'], '#');
 echo ($name . $color);
 try {
 
@@ -53,7 +52,7 @@ try {
 
 
 
-    header('Location: printcourse.php');
+    header('Location: ../kurser.php');
 }
 
 catch(PDOException $e)
