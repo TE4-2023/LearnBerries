@@ -46,130 +46,78 @@
             </div>
         </nav>
 
-        <div class="kurser-grid">
+        <div class="kurser-grid" id="kurserDIV"><?php
+    require 'Includes/connect.php';
+    require 'Includes/functions.php';
+    session_start();
+    
+    $userID = getUserID($_SESSION['uid']);
+    $query = $pdo->prepare('
+    SELECT *, HEX(course.color)
+    FROM course
+    LEFT JOIN name 
+    ON course.name_ID = name.name_ID
+    LEFT JOIN course_enrollments
+    ON course_enrollments.course_ID = course.course_ID
+    WHERE course_enrollments.user_ID = :userID
+    ');
+    $query->bindParam(':userID', $userID, PDO::PARAM_STR);
 
-            <div class="kurs kurs-1">
+    $query->execute();
 
-                <div class="kurs-top" style="background-color: #16852e;">
-                    <h2>Kursnamn</h2>
-                    <span>Kurslärare</span>
-                </div>
+    // Fetch and display the results
+    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                <div class="kurs-middle">
-                    <div class="circle">
-                   <i class="fa-regular fa-circle-user"></i>
-                   </div>
-                </div>
+        $TeacherQ = $pdo->prepare('
+        SELECT *, name.name AS firstname , A.name AS lastname 
+        FROM `users` 
+        INNER JOIN name ON users.name_ID = name.name_ID
+        INNER JOIN name AS A ON users.lastname_ID = A.name_ID 
+        RIGHT JOIN course_enrollments ON course_enrollments.user_ID = users.user_ID
+        WHERE users.role_ID = 3 AND course_enrollments.course_ID = :courseID
+        ');
+        $TeacherQ->bindParam(':courseID', $row['course_ID'], PDO::PARAM_STR);
+    
+        $TeacherQ->execute();
 
-                <div class="kurs-bottom">
-                    <span>Nästa lektion: Tis 13:30</span>
-                    <span>Klassrum: Sal 11</span>
-                </div>
+        echo('<div onClick="goToCourse('.$row['course_ID'].')" class="kurs">
 
+                <div class="kurs-top" style="background-color: #'.$row['HEX(course.color)'].';">
+                <h2>'.$row['name'].'</h2>
+                <span>');
+                $nbrOfTeachers = 0;
+                while ($teachers = $TeacherQ->fetch(PDO::FETCH_ASSOC)) {
+                    $nbrOfTeachers++;
+                    if($nbrOfTeachers > 3)
+                    {
+                        echo "...";
+                        break;
+                    }
+                    if($nbrOfTeachers>1)
+                    {
+                        echo ", ";
+                    }
+                    echo $teachers['firstname'] . " " . $teachers['lastname'];
+                }
+                echo ('</span>
             </div>
 
-            <div class="kurs kurs-2">
-
-            <div class="kurs-top" style="background-color: #1bd52e;">
-                    <h2>Kursnamn</h2>
-                    <span>Kurslärare</span>
-                </div>
-
-                <div class="kurs-middle">
-                    <div class="circle">
-                   <i class="fa-regular fa-circle-user"></i>
-                   </div>
-                </div>
-
-                <div class="kurs-bottom">
-                    <span>Nästa lektion: Tis 13:30</span>
-                    <span>Klassrum: Sal 11</span>
-                </div>
-
+            <div class="kurs-middle">
+                <div class="circle">
+               <i class="fa-regular fa-circle-user"></i>
+               </div>
             </div>
 
-            <div class="kurs kurs-3">
-
-            <div class="kurs-top" style="background-color: #1bd52e;">
-                    <h2>Kursnamn</h2>
-                    <span>Kurslärare</span>
-                </div>
-
-                <div class="kurs-middle">
-                    <div class="circle">
-                   <i class="fa-regular fa-circle-user"></i>
-                   </div>
-                </div>
-
-                <div class="kurs-bottom">
-                    <span>Nästa lektion: Tis 13:30</span>
-                    <span>Klassrum: Sal 11</span>
-                </div>
-
+            <div class="kurs-bottom">
+                <span>Nästa lektion: Tis 13:30</span>
+                <span>Klassrum: Sal 11</span>
             </div>
-
-            <div class="kurs kurs-4">
-
-            <div class="kurs-top" style="background-color: #1bd52e;">
-                    <h2>Kursnamn</h2>
-                    <span>Kurslärare</span>
-                </div>
-
-                <div class="kurs-middle">
-                    <div class="circle">
-                   <i class="fa-regular fa-circle-user"></i>
-                   </div>
-                </div>
-
-                <div class="kurs-bottom">
-                    <span>Nästa lektion: Tis 13:30</span>
-                    <span>Klassrum: Sal 11</span>
-                </div>
-
-            </div>
-
-            <div class="kurs kurs-5">
-
-            <div class="kurs-top" style="background-color: #1bd52e;">
-                    <h2>Kursnamn</h2>
-                    <span>Kurslärare</span>
-                </div>
-
-                <div class="kurs-middle">
-                    <div class="circle">
-                   <i class="fa-regular fa-circle-user"></i>
-                   </div>
-                </div>
-
-                <div class="kurs-bottom">
-                    <span>Nästa lektion: Tis 13:30</span>
-                    <span>Klassrum: Sal 11</span>
-                </div>
-
-            </div>
-
-            <div class="kurs kurs-6">
-
-            <div class="kurs-top" style="background-color: #1bd52e;">
-                    <h2>Kursnamn</h2>
-                    <span>Kurslärare</span>
-                </div>
-
-                <div class="kurs-middle">
-                    <div class="circle">
-                   <i class="fa-regular fa-circle-user"></i>
-                   </div>
-                </div>
-
-                <div class="kurs-bottom">
-                    <span>Nästa lektion: Tis 13:30</span>
-                    <span>Klassrum: Sal 11</span>
-                </div>
-
-            </div>
-
 
         </div>
+         ');
+     }
+    
+?></div>
         <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa kurs</a>
 
         </div>
@@ -178,34 +126,35 @@
 
             <!-- Modal content -->
             <div class="modal-content">
+                <form id="form" action="Includes/addcourse.php" method="post">
                 <div class="header-pop">
                 <h2>Skapa ny kurs</h2>
                 <span class="close">&times;</span>
                 </div>
-                <input class="kurs-titel" type="text" placeholder="Kurstitel">
+                <input name="name" id="name" class="kurs-titel" type="text" placeholder="Kurstitel" required>
                 <span class="pick-color-text">Välj färg</span>
                 <div class="color-picker" id="colorPickerContainer">
-                    <input class="color-wheel" type="color" value="#6026b8">
+                    <input name="color" id="color"class="color-wheel" type="color" value="#6026b8" required>
                     <i class="fa-solid fa-brush"></i>
                 </div>
-                <a class="members-btn" href="#">Bjud in deltagare</a>
-                <span class="members-amount">&nbsp;(0/100)</span>
 
-                    <a class="c-btn" href="#">Skapa kurs</a>
-
-
-
-        </div>
+                    <input type="submit"  class="c-btn" value="skapa kurs">
+                </form>
+            </div>
 
     </div>
 
 </body>
 <script>
+    var kursdiv = document.getElementById('kurserDIV');
+    if(kursdiv.innerHTML==="  ")
+    {
+        console.log("kos");
+        kursdiv.innerText = "NO COURSES";
+    }
+
     function goToCourse(id) {
         window.location.href = "kursvy.php?kursid=" + id;
-    }
-    function selected(kurs) {
-
     }
 
 </script>

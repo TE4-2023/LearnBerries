@@ -20,7 +20,7 @@
                 <ul>
                     <li><img class="bild" src="logga.png" alt="logga" /></li>
                     <li>
-                        <h1 class="header">Hem</h1>
+                        <h1 class="header">Observera</h1>
                     </li>
 
                     <div class="left-nav">
@@ -29,6 +29,10 @@
                 </ul>
             </div>
         </nav>
+
+        <div style="right: 50%; top: 50%; position:fixed;">
+            <p>Någonting gick snett.</p>
+        </div>
 
         <nav>
             <div class="vert-nav">

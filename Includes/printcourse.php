@@ -100,13 +100,26 @@ require 'functions.php';
 
         
 
-//         echo('<div onClick="goToCourse('.$row['course_ID'].')" class="kurs" style="background: linear-gradient(to bottom, #'.$row['HEX(course.color)'].' 45%, white -100%);">
-//         <div class="top-color">
-//             <h2>'.$row['name'].'</h2>
+//         echo('            <div class="kurs kurs-1">
+
+//                 <div class="kurs-top" style="background-color: #16852e;">
+//                 <h2>Kursnamn</h2>
+//                 <span>Kurslärare</span>
+//             </div>
+
+//             <div class="kurs-middle">
+//                 <div class="circle">
+//                <i class="fa-regular fa-circle-user"></i>
+//                </div>
+//             </div>
+
+//             <div class="kurs-bottom">
+//                 <span>Nästa lektion: Tis 13:30</span>
+//                 <span>Klassrum: Sal 11</span>
+//             </div>
+
 //         </div>
-//         <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-//     </div>
-//         ');
-//     }
+//          ');
+//      }
     
-// ?>
+//?>
