@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="se">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+          background-color: rgb(245, 245, 245);
+        }
+        
+        td, th {
+          border: 1px solid rgb(201, 201, 201);
+          text-align: center;
+          padding: 0;
+          font-size: 1em;
+        }
+
+        #spec {
+            border: 1px solid rgb(201, 201, 201);
+            background-color: rgb(190, 190, 190);
+        }
+
+        #spec:hover {
+            background-color: rgb(146, 146, 146);
+        }
+
+        col:hover {
+            width: 100%;
+        }
+        
+        /*tr:nth-child(even) {
+          background-color: #dddddd;
+        }*/
+        </style>
+</head>
+<body>
+    <table id="demo" style="width: 50%;" cellspacing = "2">
+        <!--<colgroup>
+            <col style="width: 1%;">
+            <col style="width: 6%;">
+            <col style="width: 6%;">
+            <col style="width: 6%;">
+            <col style="width: 6%;">
+            <col style="width: 6%;">
+        </colgroup>-->
+
+        <tbody>
+            <tr>
+                <th colspan="2" style="width: 20px;"></th>
+                <th colspan="4">Måndag</th>
+                <th colspan="4">Tisdag</th>
+                <th colspan="4">Onsdag</th>
+                <th colspan="4">Torsdag</th>
+                <th colspan="4">Fredag</th>
+            </tr>
+        </tbody>
+    </table>
+    <script src="table.js"></script>
+</body>
+</html>
