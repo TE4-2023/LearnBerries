@@ -1,7 +1,8 @@
 <?php
+require 'connect.php';
 function checkName($nameToCheck)
 {
-    require 'connect.php';
+    $pdo = $GLOBALS['pdo'];
     try{
         $query = $pdo->prepare("SELECT name FROM name WHERE name = :name");
         $query->bindParam(':name', $nameToCheck, PDO::PARAM_STR);
@@ -26,7 +27,7 @@ function checkName($nameToCheck)
 }
 function itemExists($parameterToCheck, $value)
 {
-    require 'connect.php';
+    $pdo = $GLOBALS['pdo'];
     $query = $pdo->prepare('SELECT * FROM users WHERE '. $parameterToCheck.' = :value');
     //$query->bindParam(':parameter', $parameterToCheck, PDO::PARAM_STR);
     $query->bindParam(':value', $value, PDO::PARAM_STR);
@@ -38,7 +39,7 @@ function itemExists($parameterToCheck, $value)
 
 function getUserID($userSSN)
 {
-    require 'connect.php';
+    $pdo = $GLOBALS['pdo'];
     $query = $pdo->prepare('SELECT * FROM users WHERE  :userSSN = ssn');
     $query->bindParam(':userSSN', $userSSN, PDO::PARAM_STR);
     $query->execute();
@@ -47,6 +48,71 @@ function getUserID($userSSN)
         return $table['user_ID'];
     }
 
+
 }
+
+function displayName($userssn)
+{
+    $pdo = $GLOBALS['pdo'];
+
+
+        try {
+            $query = $pdo->prepare('
+            SELECT * , name.name AS firstname , A.name AS lastname 
+            FROM `users` 
+            INNER JOIN name ON users.name_ID = name.name_ID
+            INNER JOIN name AS A ON users.lastname_ID = A.name_ID 
+            WHERE users.ssn = :uid;
+            ');
+
+            $data = array(
+                ':uid' => $userssn
+            );
+
+            $query->execute($data);
+
+            // Fetch and display the results
+            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                $username = $row['firstname'] . ' ' . $row['lastname'];
+                return $username;
+            }
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            // Handle the exception or redirect as needed
+            // header('Location: login.html');
+        }
+}
+
+function displayEmail($userssn)
+{
+    $pdo = $GLOBALS['pdo'];
+    try{
+        $query = $pdo->prepare('
+        SELECT email 
+        FROM users
+        WHERE users.ssn = :uid;
+        ');
+
+        $data = array(
+            ':uid' => $userssn
+        );
+        $query->execute($data);
+
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $useremail = $row['email'] ;
+            return $useremail;
+        }
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        // Handle the exception or redirect as needed
+        // header('Location: login.html');
+    }
+
+
+}
+
+
 
 ?>

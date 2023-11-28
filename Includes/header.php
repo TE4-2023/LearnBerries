@@ -56,13 +56,16 @@
         <button onclick="toggleSidenavbar()" id="sidenavtoggle" style="margin-right: 1%; float: right;"><ion-icon name="close"></ion-icon></button><br><br><br>
         
         <a href="#"><img id="imgtoggle" src="logga.png" alt="logga" /></a>
+        
+        <ul style="display:flex; flex-direction: column; text-align:left; height:100%;">
+            
+        <li><a href=""><i class="fa-solid fa-house"></i> Hem</a><br></li>
+        <li><a href=""><i class="fa-solid fa-house"></i> Schema</a><br></li>
+        <li><a href=""><i class="fa-solid fa-house"></i> Matris</a><br></li>
+        <li><a href=""><i class="fa-solid fa-house"></i> Lunch</a><br></li>
+        <li><a href="Includes/logout.php">Logga ut</a><br></li>
 
-        <a href="./home.php">Hem</a><br>
-        <a href="#">Schema</a><br>
-        <a href="#">Elevmatris</a><br>
-        <a href="#">Inlämningar</a><br>
-
-        <a href="Includes/logout.php" style="vertical-align: bottom;    ">Logga ut</a><br>
+        </ul>
     </div>
 
     <!-- Contains content for the landing page -->

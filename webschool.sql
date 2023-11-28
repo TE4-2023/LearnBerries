@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 22 nov 2023 kl 14:58
+-- Tid vid skapande: 23 nov 2023 kl 14:02
 -- Serverversion: 10.4.28-MariaDB
 -- PHP-version: 8.2.4
 
@@ -42,7 +42,13 @@ INSERT INTO `course` (`course_ID`, `name_ID`, `color`, `active`) VALUES
 (1, 14, 0xb86767, 0),
 (2, 15, 0x679bb8, 0),
 (3, 16, 0xb667b8, 1),
-(4, 18, 0xff0000, 1);
+(4, 18, 0xff0000, 1),
+(5, 19, 0x7829ae, 1),
+(6, 20, 0xb5bf82, 1),
+(7, 21, 0x8f8f8f, 1),
+(8, 22, 0xffadad, 1),
+(9, 23, 0xa33333, 1),
+(10, 3, 0x71feb5, 1);
 
 -- --------------------------------------------------------
 
@@ -56,6 +62,21 @@ CREATE TABLE `course_enrollments` (
   `user_ID` int(11) NOT NULL,
   `grade` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumpning av Data i tabell `course_enrollments`
+--
+
+INSERT INTO `course_enrollments` (`courseEnrollment_ID`, `course_ID`, `user_ID`, `grade`) VALUES
+(2, 1, 17, ''),
+(3, 4, 1, ''),
+(4, 4, 17, ''),
+(5, 4, 22, ''),
+(6, 3, 21, ''),
+(7, 3, 22, ''),
+(8, 5, 17, ''),
+(9, 9, 0, ''),
+(10, 10, 1, '');
 
 -- --------------------------------------------------------
 
@@ -90,7 +111,28 @@ INSERT INTO `name` (`name_ID`, `name`) VALUES
 (15, 'svenska5'),
 (16, 'fysik2'),
 (17, 'eng7'),
-(18, 'Matte5');
+(18, 'Matte5'),
+(19, 'Programmering'),
+(20, 'Tyska 2'),
+(21, 'svenska 6'),
+(22, 'Kos 7'),
+(23, 'Kos 8');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `posts`
+--
+
+CREATE TABLE `posts` (
+  `post_ID` int(11) NOT NULL,
+  `course_ID` int(11) NOT NULL,
+  `user_ID` int(11) NOT NULL,
+  `name_ID` int(11) NOT NULL,
+  `publishingDate` datetime NOT NULL,
+  `deadlineDate` datetime NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -110,6 +152,19 @@ CREATE TABLE `role` (
 INSERT INTO `role` (`role_ID`, `name_ID`) VALUES
 (2, 1),
 (3, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `submissions`
+--
+
+CREATE TABLE `submissions` (
+  `submission_ID` int(11) NOT NULL,
+  `user_ID` int(11) NOT NULL,
+  `post_ID` int(11) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -163,10 +218,22 @@ ALTER TABLE `name`
   ADD PRIMARY KEY (`name_ID`);
 
 --
+-- Index för tabell `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`post_ID`);
+
+--
 -- Index för tabell `role`
 --
 ALTER TABLE `role`
   ADD PRIMARY KEY (`role_ID`);
+
+--
+-- Index för tabell `submissions`
+--
+ALTER TABLE `submissions`
+  ADD PRIMARY KEY (`submission_ID`);
 
 --
 -- Index för tabell `users`
@@ -182,19 +249,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT för tabell `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `course_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT för tabell `course_enrollments`
 --
 ALTER TABLE `course_enrollments`
-  MODIFY `courseEnrollment_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `courseEnrollment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT för tabell `name`
 --
 ALTER TABLE `name`
-  MODIFY `name_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `name_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT för tabell `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `post_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT för tabell `role`
@@ -203,15 +276,17 @@ ALTER TABLE `role`
   MODIFY `role_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT för tabell `submissions`
+--
+ALTER TABLE `submissions`
+  MODIFY `submission_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT för tabell `users`
 --
 ALTER TABLE `users`
   MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -20,7 +20,7 @@
                 <ul>
                     <li><img class="bild" src="logga.png" alt="logga" /></li>
                     <li>
-                        <h1 class="header">Hem</h1>
+                        <h1 class="header">Observera</h1>
                     </li>
 
                     <div class="left-nav">
@@ -30,15 +30,19 @@
             </div>
         </nav>
 
+        <div style="right: 50%; top: 50%; position:fixed;">
+            <p>Någonting gick snett.</p>
+        </div>
+
         <nav>
             <div class="vert-nav">
                 <ul>
-                    <li class="active"><a href="home.php"><i class="fa-solid fa-house"></i> Hem</a></li>
-                    <li><a href="kurser.php"><i class="fa-solid fa-scroll"></i> Kurser</a></li>
+                    <li><a href=""><i class="fa-solid fa-house"></i> Hem</a></li>
+                    <li><a href=""><i class="fa-solid fa-scroll"></i> Kurser</a></li>
                     <li><a href=""><i class="fa-regular fa-calendar-days"></i> Scheman</a></li>
                     <li><a href=""><i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
-                    <li><a href="nyheter.php"><i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
-                    <li><a href="kontakter.php"><i class="fa-solid fa-address-book"></i> Kontakter</a></li>
+                    <li><a href=""><i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
+                    <li><a href=""><i class="fa-solid fa-address-book"></i> Kontakter</a></li>
                 </ul>
             </div>
         </nav>
