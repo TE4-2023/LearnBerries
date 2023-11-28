@@ -26,6 +26,40 @@ include 'Includes/courseview.php';
     <title>Kursvy</title>
     <link rel="stylesheet" href="kursvy.css">
     <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+            <div class="navbar">
+                <ul>
+                    <li><img class="bild" src="logga.png" alt="logga" /></li>
+                    <li>
+                        <h1 class="header">Kontakter</h1>
+                    </li>
+
+                    <div class="left-nav">
+                        <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
+                    </div>
+                </ul>
+            </div>
+</nav>
+
+<nav>
+            <div class="vert-nav">
+                <ul>
+                    <li><a href="home.php"><i class="fa-solid fa-house"></i> Hem</a></li>
+                    <li class="active"><a href="kurser.php"><i class="fa-solid fa-scroll"></i> Kurser</a></li>
+                    <li><a href=""><i class="fa-regular fa-calendar-days"></i> Scheman</a></li>
+                    <li><a href=""><i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
+                    <li><a href="nyheter.php"><i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
+                    <li><a href="kontakter.php"><i class="fa-solid fa-address-book"></i> Kontakter</a></li>
+                </ul>
+            </div>
+</nav>
+
+<div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
+        <h1 style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
+        <p style="color:white;text-decoration:none !important;">Lärare A</p>
+</div>
     
 </head>
 

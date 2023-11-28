@@ -1,7 +1,8 @@
 <?php
+require 'connect.php';
 function checkName($nameToCheck)
 {
-    require 'connect.php';
+    $pdo = $GLOBALS['pdo'];
     try{
         $query = $pdo->prepare("SELECT name FROM name WHERE name = :name");
         $query->bindParam(':name', $nameToCheck, PDO::PARAM_STR);
@@ -26,7 +27,7 @@ function checkName($nameToCheck)
 }
 function itemExists($parameterToCheck, $value)
 {
-    require 'connect.php';
+    $pdo = $GLOBALS['pdo'];
     $query = $pdo->prepare('SELECT * FROM users WHERE '. $parameterToCheck.' = :value');
     //$query->bindParam(':parameter', $parameterToCheck, PDO::PARAM_STR);
     $query->bindParam(':value', $value, PDO::PARAM_STR);
@@ -38,7 +39,7 @@ function itemExists($parameterToCheck, $value)
 
 function getUserID($userSSN)
 {
-    require 'connect.php';
+    $pdo = $GLOBALS['pdo'];
     $query = $pdo->prepare('SELECT * FROM users WHERE  :userSSN = ssn');
     $query->bindParam(':userSSN', $userSSN, PDO::PARAM_STR);
     $query->execute();
@@ -52,7 +53,7 @@ function getUserID($userSSN)
 
 function displayName($userssn)
 {
-    require 'Includes/connect.php';
+    $pdo = $GLOBALS['pdo'];
 
 
         try {
@@ -85,8 +86,7 @@ function displayName($userssn)
 
 function displayEmail($userssn)
 {
-    require 'Includes/connect.php';
-
+    $pdo = $GLOBALS['pdo'];
     try{
         $query = $pdo->prepare('
         SELECT email 
