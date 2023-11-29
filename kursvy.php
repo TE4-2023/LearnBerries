@@ -68,22 +68,22 @@ include 'Includes/courseview.php';
     <button class="btn">Sortera</button>
 </div>
 
-    <div class="pane">
+
+<div class="uppgifter">
 
 <?php
-        // Fetch and display posts
-        try {
-            $query = $pdo->prepare('
-            SELECT posts.*, name.name 
-            FROM posts 
-            INNER JOIN name 
-            ON posts.name_ID = name.name_ID 
-            WHERE posts.course_ID = :courseID 
-            ORDER BY posts.publishingDate DESC;'
-            );
-            $data = array(':courseID' => $_GET['kursid']);
+try {
+    $query = $pdo->prepare('
+        SELECT posts.*, name.name 
+        FROM posts 
+        INNER JOIN name 
+        ON posts.name_ID = name.name_ID 
+        WHERE posts.course_ID = :courseID 
+        ORDER BY posts.publishingDate DESC;'
+    );
+    $data = array(':courseID' => $_GET['kursid']);
 
-            $query->execute($data);
+    $query->execute($data);
 
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                
@@ -94,24 +94,23 @@ include 'Includes/courseview.php';
               } else {
                   echo '<h2>Uppgiftsnamn: ' . $row['name'] . '</h2>';
                   echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
-
+                }
              
                 // Add more fields as needed
                 echo '<p class="medelande">Description: ' . $row['description'] . '</p>';
 
                 echo '</div>';
 
-            }
+           
         }
-      } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
-      
 
-
-        ?>
-
-    </div>
+        echo '</div>';
+    }
+    catch (PDOException $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+?>
+</div>
 
     <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
 
