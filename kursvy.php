@@ -106,7 +106,7 @@ try {
 
         echo '</div>';
     }
-} catch (PDOException $e) {
+    catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();
 }
 ?>
