@@ -3,10 +3,12 @@ require 'Includes/connect.php';
 session_start();
 
 if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
-    header("location: index.php");
+    
+    //header("location: index.php");
 }
 
 try {
+    // in a real scenario ssn would be a horrible way to store a session
     $query = $pdo->prepare('SELECT * FROM users WHERE users.ssn = :ssn;');
     $data = array(':ssn' => $_SESSION['uid']);
     $query->execute($data);
@@ -21,21 +23,28 @@ try {
     $cdata = array(':course_ID' => $brow['course_ID']);
     $cquery->execute($cdata);
 
-    $courseids = $cquery->fetch(PDO::FETCH_ASSOC);
-
     $success = false;
-    while ($row = $bquery->fetch(PDO::FETCH_ASSOC)) {
-        if ($success) {
-            break;
-        }
-        else if ($row['course_ID'] == $courseids['course_ID']) {
-            $success = true;
-            break;
+    while ($enrollments = $bquery->fetch(PDO::FETCH_ASSOC)) {
+        if ($success) { break; }
+        echo "Course enrollment id: " . $enrollments['course_ID'] . "<br>";
+        $dquery = $pdo->prepare('SELECT * FROM course_enrollments WHERE course_enrollments.user_ID = :user_ID;');
+        $ddata = array(':user_ID' => $userid['user_ID']);
+        $dquery->execute($ddata);
+        $drow = $dquery->fetch(PDO::FETCH_ASSOC);
+        while ($courses = $dquery->fetch(PDO::FETCH_ASSOC)) {
+            if ($success) {
+                break;
+            } else if ($enrollments['course_ID'] == $courses['course_ID']) {
+                echo "Course id:" . $courses['course_ID'] . "<br>";
+                $success = true;
+                break;
+            }
         }
     }
 
     if (!$success) {
-        header('location: index.php');
+        echo "hello";
+        //header('location: index.php');
     }
 
     //addAThing();
@@ -43,7 +52,6 @@ try {
 catch (PDOException $e) {
     echo '<p>Error ' . $e->getMessage() . '</p>';
 }
-
 ?>
 
 <!DOCTYPE html>
