@@ -94,14 +94,14 @@ include 'Includes/courseview.php';
               } else {
                   echo '<h2>Uppgiftsnamn: ' . $row['name'] . '</h2>';
                   echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
-
+                }
              
                 // Add more fields as needed
                 echo '<p class="medelande">Description: ' . $row['description'] . '</p>';
 
                 echo '</div>';
 
-            }
+           
         }
       } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
