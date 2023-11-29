@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Lesson Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 500px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .time input{
+            width: 100%;
+            display:flex;
+        }
+        .time{
+            display:grid;
+            gap: 10px;
+            grid-template-columns: auto auto;
+        }
+        .time label{
+            width: 100%;
+            display:flex;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Add Lesson</h2>
+
+<form id="lessonForm" method="post" action="insertLessons.php">
+    <label for="teacherId">Teacher ID:</label>
+    <input type="text" id="teacherId" name="teacherId" required>
+    <div class="time">
+        <label for="startTime">Start Time</label><label for="endTime">End Time</label>
+    <input type="time" id="startTime" name="startTime" required>
+    <input type="time" id="endTime" name="endTime" required>
+    </div>
+    <label for="courseId">Course ID:</label>
+    <input type="text" id="courseId" name="courseId" required>
+
+    <label for="lessonDates">Select Lesson Dates:</label>
+    <input type="text" id="lessonDates" name="lessonDates" placeholder="Select dates" readonly required>
+
+    <label for="classroom">Classroom:</label>
+    <input type="text" id="classroom" name="classroom" required>
+
+    <button type="button" onclick="submitForm()">Add Lesson</button>
+</form>
+
+<script>
+    flatpickr("#lessonDates", {
+        mode: "multiple",
+        dateFormat: "m/d/Y"
+    });
+
+    function submitForm() {
+        // You can add client-side validation here before submitting the form
+        // For example, check if the start time is before the end time
+
+        // Once validated, you can send the form data to the server for database insertion
+        // This is where you would make an AJAX request to your server-side script
+        // For simplicity, let's just log the form data to the console for now
+        var formData = {
+            teacherId: document.getElementById('teacherId').value,
+            startTime: document.getElementById('startTime').value,
+            endTime: document.getElementById('endTime').value,
+            courseId: document.getElementById('courseId').value,
+            lessonDates: document.getElementById('lessonDates').value,
+            classroom: document.getElementById('classroom').value,
+        };
+
+        console.log(formData);
+    }
+</script>
+
+</body>
+</html>

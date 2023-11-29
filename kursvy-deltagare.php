@@ -33,7 +33,7 @@ include 'Includes/courseview.php';
                 <ul>
                     <li><img class="bild" src="logga.png" alt="logga" /></li>
                     <li>
-                        <h1 class="header">Kursvy</h1>
+                        <h1 class="header">Kontakter</h1>
                     </li>
 
                     <div class="left-nav">
@@ -57,20 +57,19 @@ include 'Includes/courseview.php';
 </nav>
 
 <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
-        <h1 class="text" style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
-        <p class="text" style="color:white;text-decoration:none !important;">Lärare </p>
-        <a href="" class="deltagare" >Deltagare</a>
+        <h1 style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
+        <p style="color:white;text-decoration:none !important;">Lärare A</p>
 </div>
+    
+</head>
 
+<body>
 
-<div class="button">
-    <button class="btn">Filtrera</button>
-    <button class="btn">Sortera</button>
-</div>
+    <div class="pane"
+        style="width:100%;height:100%;display:flex;flex-direction:column;flex-wrap:wrap; align-items:center;">
 
-    <div class="pane">
+        <?php
 
-<?php
         // Fetch and display posts
         try {
             $query = $pdo->prepare('
@@ -86,24 +85,24 @@ include 'Includes/courseview.php';
             $query->execute($data);
 
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-               
-                echo '<div class="uppgift"';
-                    if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
-                echo '<p>Deadline: Ingen</p>';
+                echo '<div style="width: 50%; display:flex; flex-direction:column; flex-wrap:wrap; border-top-left-radius:1vh; border-bottom-right-radius:1vh; height: 10%; margin-top:5%; background-color:white;border:1px solid black;">';
+                if ($row['name'] == "") {
+                    echo '<p>Meddelande</p>';
                 } else {
-                echo '<p id="dl">Deadline: ' . $row['deadlineDate'] . '</p>';
+                    echo '<p>Uppgiftsnamn: ' . $row['name'] . '</p>';
                 }
 
-              if ($row['name'] == ""){
-                echo '<p class="medelande">Meddelande</p>';
+                if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
+                    echo '<p>Deadline: Ingen</p>';
+                } else {
+                    echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
                 }
-                else{
-                echo '<p class="medelande">Uppgiftsnamn: ' . $row['name'] . '</p>';
-                }
-                
+
                 // Add more fields as needed
-                echo '<p class="medelande">Description: ' . $row['description'] . '</p>';
+                echo '<hr>';
+                echo '<p>Description: ' . $row['description'] . '</p>';
                 echo '</div>';
+                echo '<br>';
             }
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
@@ -114,7 +113,106 @@ include 'Includes/courseview.php';
 
     </div>
 
-    <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
+    <div class="users">
+        <h2 class="elev-titel">Deltagare</h2>
+        <table>
+        <tr>
+                <td>Användare</td>
+                <td>Email</td>
+                <td>Roll</td>
+                <td>Telefon</td>
+                <td>Ta bort från kurs</td>
+        </tr>
+        <tr>
+                <td>Oliver Hedman</td>
+                <td>oliver@mail.com</td>
+                <td>Elev</td>
+                <td>+46 123 123 12</td>
+
+                <td>
+                <a class="del-user" href="#"><i class="fa-solid fa-trash"></i></a>
+              </td>
+
+
+        </tr>
+
+        <tr>
+                <td>Oliver Hedman</td>
+                <td>oliver@mail.com</td>
+                <td>Elev</td>
+                <td>+46 123 123 12</td>
+
+                <td>
+                <a class="del-user" href="#"><i class="fa-solid fa-trash"></i></a>
+              </td>
+
+
+        </tr>
+        <tr>
+                <td>Oliver Hedman</td>
+                <td>oliver@mail.com</td>
+                <td>Elev</td>
+                <td>+46 123 123 12</td>
+
+                <td>
+                <a class="del-user" href="#"><i class="fa-solid fa-trash"></i></a>
+              </td>
+
+
+        </tr>
+        <tr>
+                <td>Oliver Hedman</td>
+                <td>oliver@mail.com</td>
+                <td>Elev</td>
+                <td>+46 123 123 12</td>
+
+                <td>
+                <a class="del-user" href="#"><i class="fa-solid fa-trash"></i></a>
+              </td>
+
+
+        </tr>
+        <tr>
+                <td>Oliver Hedman</td>
+                <td>oliver@mail.com</td>
+                <td>Elev</td>
+                <td>+46 123 123 12</td>
+
+                <td>
+                <a class="del-user" href="#"><i class="fa-solid fa-trash"></i></a>
+              </td>
+
+
+        </tr>
+        <tr>
+                <td>Oliver Hedman</td>
+                <td>oliver@mail.com</td>
+                <td>Elev</td>
+                <td>+46 123 123 12</td>
+
+                <td>
+                <a class="del-user" href="#"><i class="fa-solid fa-trash"></i></a>
+              </td>
+
+
+        </tr>
+        <tr>
+                <td>Oliver Hedman</td>
+                <td>oliver@mail.com</td>
+                <td>Elev</td>
+                <td>+46 123 123 12</td>
+
+                <td>
+                <a class="del-user" href="#"><i class="fa-solid fa-trash"></i></a>
+              </td>
+
+
+        </tr>
+
+</table>
+    </div>
+
+    <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-user-plus"></i> Bjud in deltagare</a>
 
     </div>
 
@@ -122,12 +220,8 @@ include 'Includes/courseview.php';
 
         <!-- Modal content -->
         <div class="modal-content">
-            <form id="form" action="Includes/insertPosts.php" method="post">
+            <form id="form" action="#" method="post">
             <span class="close">&times;</span>
-            
-                <input type="hidden" name="courseid" value= <?php echo $_GET['kursid']
-                ?>
-                >
                 <input type="radio" id="uppgift" name="typAv" value="Uppgift" checked="checked">
                 <label for="uppgift">Uppgift</label>
                 <input type="radio" id="meddelande" name="typAv" value="Meddelande">
@@ -136,7 +230,7 @@ include 'Includes/courseview.php';
                     <h2>Skapa uppgift</h2>
                 </div>
                 <input name="name" id="name" class="upp-titel" type="text" placeholder="Titel på uppgift" required>
-                <textarea name="description" id="name" class="upp-besk" type="text"
+                <textarea name="name" id="name" class="upp-besk" type="text"
                     placeholder="Beskrivning av uppgift..."></textarea>
 
                     <a class="bifoga-filer" href="#"><i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>
@@ -144,7 +238,7 @@ include 'Includes/courseview.php';
             </form>
         </div>
 
-    </div> 
+    </div>
 
 
 </body>
