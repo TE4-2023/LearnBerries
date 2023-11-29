@@ -39,19 +39,20 @@ try{
     // Fetch and display the results
     echo'<h2>Students</h2>';
     while ($usersRow = $users->fetch(PDO::FETCH_ASSOC)) {
-    echo '<button id="course'.$courseID.'" type="button" onclick ="user(this);"
+    $grade = ($usersRow['grade']=="") ? "none" : $usersRow['grade'];
+    echo '<div style=""><button id="course'.$courseID.'" type="button" onclick ="user(this);"
     data-value="'.$courseID.'" value = "'.$usersRow['user'].'">'.$usersRow['name'].'</button>
-    <form>
+    <form style="display:inline">
     <label for="color">grade</label>
     <select id="color" name="color" onchange="updateGrade(this.value, '.$usersRow['user_ID'].', '.$courseID.')" required>';
-    echo '<option value="'.$usersRow['grade'].'">'.$usersRow['grade'].'</option>';
+    echo '<option value="'.$grade.'">'.$grade.'</option>';
         foreach (range('A', 'F') as $char) {
             echo '<option value="'.$char.'">'.$char.'</option>';
         }
         echo '<option value="">none</option>
     </select>
     </form>
-    <br>';
+    <br></div>';
     }
 }
 catch(PDOException $e){
