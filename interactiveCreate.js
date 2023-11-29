@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const meddelandeRadioButton = document.getElementById("meddelande");
     const titleInput = document.querySelector(".upp-titel");
     const descInput = document.querySelector(".upp-besk");
+    const createBtn = document.querySelector(".c-btn");
     const modalTitle = document.querySelector(".header-pop h2");
     const form = document.getElementById("form");
   
@@ -14,11 +15,13 @@ document.addEventListener("DOMContentLoaded", function() {
         titleInput.value = ""; // Clear titleInput when switching to uppgift
         titleInput.placeholder = "Titel på uppgift";
         descInput.placeholder = "Beskrivning av uppgift...";
+        createBtn.value = "Skapa uppgift";
       } else if (meddelandeRadioButton.checked) {
         modalTitle.innerText = "Skapa meddelande";
         titleInput.value = ""; // Clear titleInput when switching to meddelande
         titleInput.placeholder = "Titel på meddelande";
         descInput.placeholder = "Meddelande...";
+        createBtn.value = "Skicka meddelande";
       }
     }
   
