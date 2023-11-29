@@ -86,6 +86,7 @@ include 'Includes/courseview.php';
             $query->execute($data);
 
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+               
                 echo '<div class="uppgift"';
                     if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
                 echo '<p>Deadline: Ingen</p>';
@@ -121,8 +122,12 @@ include 'Includes/courseview.php';
 
         <!-- Modal content -->
         <div class="modal-content">
-            <form id="form" action="#" method="post">
+            <form id="form" action="Includes/insertPosts.php" method="post">
             <span class="close">&times;</span>
+            
+                <input type="hidden" name="courseid" value= <?php echo $_GET['kursid']
+                ?>
+                >
                 <input type="radio" id="uppgift" name="typAv" value="Uppgift" checked="checked">
                 <label for="uppgift">Uppgift</label>
                 <input type="radio" id="meddelande" name="typAv" value="Meddelande">
@@ -131,7 +136,7 @@ include 'Includes/courseview.php';
                     <h2>Skapa uppgift</h2>
                 </div>
                 <input name="name" id="name" class="upp-titel" type="text" placeholder="Titel på uppgift" required>
-                <textarea name="name" id="name" class="upp-besk" type="text"
+                <textarea name="description" id="name" class="upp-besk" type="text"
                     placeholder="Beskrivning av uppgift..."></textarea>
 
                     <a class="bifoga-filer" href="#"><i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>

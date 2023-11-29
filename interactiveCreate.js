@@ -31,6 +31,5 @@ document.addEventListener("DOMContentLoaded", function() {
   
     // Update heading and placeholders initially based on the default checked state
     updateContent();
-
   });
   
