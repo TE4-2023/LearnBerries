@@ -1,5 +1,5 @@
 var sideShowing = false;
-var sidenavbarDisplay = document.getElementById("sidenavbar");
+var sidenavbarDisplay = document.getElementsByClassName("vert-nav");
 
 function toggleSidenavbar() {
     if (sideShowing) {

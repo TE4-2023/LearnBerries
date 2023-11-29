@@ -30,11 +30,11 @@ document.addEventListener("DOMContentLoaded", function() {
     updateContent();
   
     // Additional code for form submission can be added here
-    form.addEventListener("submit", function(event) {
-      // Prevent the default form submission behavior for this example
-      event.preventDefault();
+    // form.addEventListener("submit", function(event) {
+    //   // Prevent the default form submission behavior for this example
+    //   event.preventDefault();
   
-      // Add any additional form submission logic here
-    });
+    //   // Add any additional form submission logic here
+    // });
   });
   
