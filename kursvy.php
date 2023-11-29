@@ -70,7 +70,7 @@ include 'Includes/courseview.php';
 
     <div class="pane">
 
-
+<?php
         // Fetch and display posts
         try {
             $query = $pdo->prepare('
