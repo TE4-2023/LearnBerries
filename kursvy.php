@@ -64,8 +64,8 @@ include 'Includes/courseview.php';
 
 
 <div class="button">
-    <button class="btn">Filtrera</button>
-    <button class="btn">Sortera</button>
+    <button class="btn">Filtrera <i class="fa-solid fa-caret-down"></i></button>
+    <button class="btn">Sortera <i class="fa-solid fa-caret-down"></i></button>
 </div>
 
 
@@ -85,32 +85,46 @@ try {
 
     $query->execute($data);
 
-            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-               
-                echo '<div class="uppgift">';
-                if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
-                  echo '<h2> '. $row['name'] . '</h2>';
-                  echo '<p>Deadline: Ingen</p>';
-              } else {
-                  echo '<h2>Uppgiftsnamn: ' . $row['name'] . '</h2>';
-                  echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
-                }
-             
-                // Add more fields as needed
-                echo '<p class="medelande">Description: ' . $row['description'] . '</p>';
+    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+        echo '<div class="uppgift">';
+        if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
+            echo '<div class="uppgift-right">';
+            echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
+            echo '<div class="edits">';
+            echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
+            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '</div>';
+            echo '</div>';
+            echo '<div class="uppgift-content">';
+            echo '<i class="fa-solid fa-clipboard"></i>';
+            echo '<h2>'. $row['name'] . '</h2>';
+            echo '<p class="meddelande">' . $row['description'] . '</p>';
 
-                echo '</div>';
 
-           
+            echo '</div>';
+        } else {
+            echo '<p class="uppgift-deadline">Deadline: ' . $row['deadlineDate'] . '</p>';
+            echo '<div class="uppgift-content">';
+            echo '<i class="fa-solid fa-clipboard"></i>';
+            echo '<h2>' . $row['name'] . '</h2>';
+            echo '<p class="meddelande">' . $row['description'] . '</p>';
+            echo '<div class="edits">';
+            echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
+            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '</div>';
+            echo '</div>';
+
         }
 
         echo '</div>';
     }
+}
     catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();
 }
 ?>
 </div>
+
 
     <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
 
