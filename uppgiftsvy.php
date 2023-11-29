@@ -3,39 +3,60 @@ require 'Includes/connect.php';
 session_start();
 
 if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
-    header("location: index.php");
+    
+    //header("location: index.php");
 }
 
 try {
-    $query = $pdo->prepare('SELECT * FROM users WHERE users.ssn = :ssn;');
+    // in a real scenario ssn would be a horrible way to store a session
+    $userquery = $pdo->prepare
+    ('SELECT * FROM users WHERE users.ssn = :ssn;');
     $data = array(':ssn' => $_SESSION['uid']);
-    $query->execute($data);
-    $userid = $query->fetch(PDO::FETCH_ASSOC);
+    $userquery->execute($data);
+    $userid = $userquery->fetch(PDO::FETCH_ASSOC);
 
-    $bquery = $pdo->prepare('SELECT * FROM course_enrollments WHERE course_enrollments.user_ID = :user_ID;');
+    $courseenrollquery = $pdo->prepare
+    ('SELECT * FROM course_enrollments WHERE' .
+    ' course_enrollments.user_ID = :user_ID;');
     $bdata = array(':user_ID' => $userid['user_ID']);
-    $bquery->execute($bdata);
-    $brow = $bquery->fetch(PDO::FETCH_ASSOC);
+    $courseenrollquery->execute($bdata);
+    $brow = $courseenrollquery->fetch(PDO::FETCH_ASSOC);
 
-    $cquery = $pdo->prepare('SELECT * FROM course WHERE course.course_ID = :course_ID;');
+    // Add post checking
+
+    $coquery = $pdo->prepare
+    ('SELECT * FROM course WHERE course.course_ID = :course_ID;');
     $cdata = array(':course_ID' => $brow['course_ID']);
-    $cquery->execute($cdata);
+    $coquery->execute($cdata);
 
-    $courseids = $cquery->fetch(PDO::FETCH_ASSOC);
-
+    // The following code is wrong because it is still not checking which post
+    // we're lookin at and its necessary course enrollment
     $success = false;
-    while ($row = $bquery->fetch(PDO::FETCH_ASSOC)) {
-        if ($success) {
-            break;
-        }
-        else if ($row['course_ID'] == $courseids['course_ID']) {
-            $success = true;
-            break;
+    while ($enrollments = $courseenrollquery->fetch(PDO::FETCH_ASSOC)) {
+        if ($success) { break; }
+        echo "Course enrollment id: " . $enrollments['course_ID'] . "<br>";
+
+        $dquery = $pdo->prepare
+        ('SELECT * FROM course_enrollments WHERE' .
+        ' course_enrollments.user_ID = :user_ID;');
+        $ddata = array(':user_ID' => $userid['user_ID']);
+        $dquery->execute($ddata);
+        $drow = $dquery->fetch(PDO::FETCH_ASSOC);
+        
+        while ($courses = $dquery->fetch(PDO::FETCH_ASSOC)) {
+            if ($success) {
+                break;
+            } else if ($enrollments['course_ID'] == $courses['course_ID']) {
+                echo "Course id:" . $courses['course_ID'] . "<br>";
+                $success = true;
+                break;
+            }
         }
     }
 
     if (!$success) {
-        header('location: index.php');
+        echo "hello";
+        //header('location: index.php');
     }
 
     //addAThing();
@@ -43,7 +64,6 @@ try {
 catch (PDOException $e) {
     echo '<p>Error ' . $e->getMessage() . '</p>';
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +123,7 @@ catch (PDOException $e) {
 
         function printAThing() {
             try {
-                $query = $GLOBALS['pdo']->prepare('
+                $userquery = $GLOBALS['pdo']->prepare('
                 SELECT posts.*, name.name
                 FROM posts 
                 INNER JOIN name 
@@ -113,9 +133,9 @@ catch (PDOException $e) {
                 );
                 $data = array(':postID' => $_GET['uppgiftid']);
 
-                $query->execute($data);
+                $userquery->execute($data);
 
-                while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                while ($row = $userquery->fetch(PDO::FETCH_ASSOC)) {
                     echo '<div style="width: 50%; display:flex; flex-direction:column; flex-wrap:wrap; border-top-left-radius:1vh; border-bottom-right-radius:1vh; height: 10%; margin-top:5%; background-color:white;border:1px solid black;">';
                     if ($row['name'] == "") {
                         echo '<p>Meddelande</p>';

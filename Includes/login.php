@@ -12,12 +12,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt = $conn->prepare("SELECT *
                         FROM `webschool`.`users`
-                        WHERE `email`=? AND `password`= SHA(?);"); // BAD SQL STATEMENT
+                        WHERE `email`=? AND `password`= SHA(?);");
     $stmt->bind_param("ss", $email, $password);
 
     $stmt->execute();
 
-    $result = $stmt->get_result(); // FETCHES RESULT FROM STATEMENT CHECK FOR IF THERE ANY ROWS THAT MATCH TO 
+    $result = $stmt->get_result();
 
     if(mysqli_num_rows($result) == 0) {
         $stmt = null;
@@ -27,15 +27,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else {
         $row = mysqli_fetch_row($result);
-        // echo($row[3]); //email
-        // echo($row[6]); //password
-
         
         $_SESSION["uid"] = $row[4]; //ssn
         $_SESSION['userid'] = $row[0];
-        $_SESSION['role'] = $row[5];
-
-        // echo $_SESSION["uid"] . $_SESSION['userid'] . $_SESSION['role'];
 
         $stmt = null;
 
