@@ -63,12 +63,10 @@ try {
 }
 catch (PDOException $e) {
     echo '<p>Error ' . $e->getMessage() . '</p>';
-}
-?>
+}?>
 
 <!DOCTYPE html>
 <html lang="se">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,7 +93,6 @@ catch (PDOException $e) {
         </ul>
     </div>
 </nav>
-
 <nav>
     <div class="vert-nav">
         <ul>
@@ -119,26 +116,20 @@ catch (PDOException $e) {
         </ul>
     </div>
 </nav>
-
 <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
         <h1 style="color:white;text-decoration:none !important;">
         <?php getCourseName(); ?></h1><br>
 
         <p style="color:white;text-decoration:none !important;">Lärare A</p>
 </div>
-    
 </head>
-
 <body>
-
     <div class="pane"
         style="width:100%;height:100%;display:flex;flex-direction:column;
         flex-wrap:wrap; align-items:center;">
-
         <?php
         $courseID;
         $user;
-
         function printAThing() {
             try {
                 $userquery = $GLOBALS['pdo']->prepare('
@@ -182,19 +173,12 @@ catch (PDOException $e) {
             catch (PDOException $e) {
                 echo 'Error '. $e;
             }
-        }
-
-        ?>
-
+        }?>
     </div>
-
     <a class="skapa-kurs" id="myBtn">
     <i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
-
     </div>
-
     <div id="myModal" class="modal">
-
         <!-- Modal content -->
         <div class="modal-content">
             <form id="form" action="#" method="post">
@@ -221,17 +205,11 @@ catch (PDOException $e) {
                 <input type="submit" class="c-btn" value="Skapa uppgift">
             </form>
         </div>
-
     </div>
-
-
 </body>
-
 </html>
 
 <!-- SCRIPTS -->
-
 <script src="homescript.js"></script>
 <script src="modal.js"></script>
 <script src="interactiveCreate.js"></script>
-<!-- div for members and leader? -->
