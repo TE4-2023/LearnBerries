@@ -41,9 +41,29 @@ function getUsers(courseID) {
             }
         }
     };
-    xhr.open('POST', "getusernotin.php", true);
+    xhr.open('POST', "getUsers.php", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     var data = 'courseID=' + encodeURIComponent(courseID);
+    xhr.send(data);
+}
+
+function updateGrade(grade, userID, courseID)
+{
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', "updategrade.php", true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Optionally, you can redirect the user or perform other actions here
+            } else {
+                alert('Error grade update error: ' + xhr.responseText);
+            }
+        }
+    };
+
+    var data = 'userID=' + encodeURIComponent(userID) + '&courseID=' + encodeURIComponent(courseID) + '&grade=' + encodeURIComponent(grade);
     xhr.send(data);
 }
   </script> 
