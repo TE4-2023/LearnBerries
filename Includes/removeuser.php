@@ -1,5 +1,4 @@
 <?php
-require 'connect.php';
 require 'functions.php';
 // Get data from AJAX request
 $userID = $_POST['userID'];

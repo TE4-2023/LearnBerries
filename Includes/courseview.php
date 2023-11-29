@@ -1,5 +1,7 @@
 <?php
 
+//include "auth.php";
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -20,7 +22,8 @@ $kursid = (int)$_GET['kursid'];
 
 isUserParticipant();
 
-
+// EXPERIMENTAL
+//single_table_sql_statement("my name", "is", "cat.", "2");
 
 function sqlExec($table, $keyword, $value, $type) {
     $conn = $GLOBALS['conn'];
@@ -77,10 +80,6 @@ function getCourseName() {
         echo($row[1]);
     }
 }
-
-
-
-// EXPERIMENTAL
 
 function isUserParticipant() {
     $userid = "";
