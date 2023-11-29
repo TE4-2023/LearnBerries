@@ -31,13 +31,5 @@ document.addEventListener("DOMContentLoaded", function() {
   
     // Update heading and placeholders initially based on the default checked state
     updateContent();
-  
-    // Additional code for form submission can be added here
-    form.addEventListener("submit", function(event) {
-      // Prevent the default form submission behavior for this example
-      event.preventDefault();
-  
-      // Add any additional form submission logic here
-    });
   });
   

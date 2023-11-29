@@ -11,7 +11,7 @@ if ($_SESSION['role'] < 3) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Form is submitted, process the data
 
-    $courseID = $_POST['course'];
+    $courseID = $_POST['courseid']; // Get course ID from the session
     $name = $_POST['name'];
     $description = $_POST['description'];
     $userID = $_SESSION['userid'];
