@@ -33,7 +33,7 @@ include 'Includes/courseview.php';
                 <ul>
                     <li><img class="bild" src="logga.png" alt="logga" /></li>
                     <li>
-                        <h1 class="header">Kontakter</h1>
+                        <h1 class="header">Kursvy</h1>
                     </li>
 
                     <div class="left-nav">
@@ -57,11 +57,19 @@ include 'Includes/courseview.php';
 </nav>
 
 <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
-        <h1 style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
-        <p style="color:white;text-decoration:none !important;">Lärare A</p>
+        <h1 class="text" style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
+        <p class="text" style="color:white;text-decoration:none !important;">Lärare </p>
+        <a href="" class="deltagare" >Deltagare</a>
 </div>
-    
-    <div class="pane" style="width:100%;height:100%;display:flex;flex-direction:column;flex-wrap:wrap; align-items:center;">
+
+
+<div class="button">
+    <button class="btn">Filtrera</button>
+    <button class="btn">Sortera</button>
+</div>
+
+    <div class="pane">
+
 
     <?php 
         
@@ -80,34 +88,31 @@ include 'Includes/courseview.php';
             $query->execute($data);
 
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-              echo '<div style="width: 50%; display:flex; flex-direction:column; flex-wrap:wrap; border-top-left-radius:1vh; border-bottom-right-radius:1vh; height: 10%; margin-top:5%; background-color:white;border:1px solid black;">';
-if ($row['name'] == ""){
-                echo '<p>Meddelande</p>';
-                }
-                else{
-                echo '<p>Uppgiftsnamn: ' . $row['name'] . '</p>';
-                }
-                
-                if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
+                echo '<div class="uppgift"';
+                    if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
                 echo '<p>Deadline: Ingen</p>';
                 } else {
-                echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
+                echo '<p id="dl">Deadline: ' . $row['deadlineDate'] . '</p>';
                 }
-            
+
+              if ($row['name'] == ""){
+                echo '<p class="medelande">Meddelande</p>';
+                }
+                else{
+                echo '<p class="medelande">Uppgiftsnamn: ' . $row['name'] . '</p>';
+                }
+                
                 // Add more fields as needed
-                echo '<hr>';
-                echo '<p>Description: ' . $row['description'] . '</p>';
+                echo '<p class="medelande">Description: ' . $row['description'] . '</p>';
                 echo '</div>';
-                echo '<br>';
             }
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
         
-  
     ?>
 
-    </div>
+    </div> 
 
 
 </body>
