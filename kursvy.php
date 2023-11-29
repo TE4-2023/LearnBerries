@@ -88,26 +88,23 @@ include 'Includes/courseview.php';
             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                
                 echo '<div class="uppgift"';
-                    if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
-                echo '<p>Deadline: Ingen</p>';
-                } else {
-                echo '<p id="dl">Deadline: ' . $row['deadlineDate'] . '</p>';
-                }
+                if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
+                  echo '<h2> '. $row['name'] . '</h2>';
+                  echo '<p>Deadline: Ingen</p>';
+              } else {
+                  echo '<h2>Uppgiftsnamn: ' . $row['name'] . '</h2>';
+                  echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
 
-              if ($row['name'] == ""){
-                echo '<p class="medelande">Meddelande</p>';
-                }
-                else{
-                echo '<p class="medelande">Uppgiftsnamn: ' . $row['name'] . '</p>';
-                }
-                
+             
                 // Add more fields as needed
                 echo '<p class="medelande">Description: ' . $row['description'] . '</p>';
                 echo '</div>';
             }
-        } catch (PDOException $e) {
+        }
+      } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
+      
 
 
         ?>
