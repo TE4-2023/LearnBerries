@@ -1,5 +1,5 @@
 <?php
-require 'Includes/connect.php';
+require 'Includes/functions.php';
 session_start();
 
 if (!isset($_SESSION['uid'])) { //switch this out
@@ -59,14 +59,14 @@ include 'Includes/courseview.php';
 
 <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
         <h1 class="text" style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
-        <p class="text" style="color:white;text-decoration:none !important;">efrem</p>
+        <p class="text" style="color:white;text-decoration:none !important;">kurs lärare: <?php echo getAllTeachers($_GET['kursid'])?></p>
         <a href="#" class="deltagare"><i class="fa-solid fa-users"></i> Deltagare</a>
 </div>
 
 
 <div class="button">
-    <button class="btn">Filtrera</button>
-    <button class="btn">Sortera</button>
+    <button class="btn">Filtrera <i class="fa-solid fa-caret-down"></i></button>
+    <button class="btn">Sortera <i class="fa-solid fa-caret-down"></i></button>
 </div>
 
 
@@ -88,33 +88,49 @@ include 'Includes/courseview.php';
 
             $query->execute($data);
 
-            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-               
-                 echo '<div class="uppgift">';
-                if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
-                  echo '<h2> '. $row['name'] . '</h2>';
-                  echo '<p>Deadline: Ingen</p>';
-              } else {
-                  echo '<h2>Uppgiftsnamn: ' . $row['name'] . '</h2>';
-                  echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
+    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+        echo '<div class="uppgift">';
+        if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
+            echo '<div class="uppgift-right">';
+            echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
+            echo '<div class="edits">';
+            echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
+            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '</div>';
+            echo '</div>';
+            echo '<div class="uppgift-content">';
+            echo '<i class="fa-solid fa-clipboard"></i>';
+            echo '<h2>'. $row['name'] . '</h2>';
+            echo '<p class="meddelande">' . $row['description'] . '</p>';
 
-             
-                // Add more fields as needed
-                echo '<p class="medelande">Description: ' . $row['description'] . '</p>';
 
-                echo '</div>';
+            echo '</div>';
+        } else {
+            echo '<p class="uppgift-deadline">Deadline: ' . $row['deadlineDate'] . '</p>';
+            echo '<div class="uppgift-content">';
+            echo '<i class="fa-solid fa-clipboard"></i>';
+            echo '<h2>' . $row['name'] . '</h2>';
+            echo '<p class="meddelande">' . $row['description'] . '</p>';
+            echo '<div class="edits">';
+            echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
+            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '</div>';
+            echo '</div>';
 
-            }
         }
-         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
 
+        echo '</div>';
+    }
+}
+    catch (PDOException $e) {
+    echo 'Error: ' . $e->getMessage();
+}
 ?>
 
 </div>
 
-<a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
+
+    <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
 
 
     <div id="myModal" class="modal">

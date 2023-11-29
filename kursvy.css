@@ -85,7 +85,7 @@ input, textarea, input::placeholder, textarea::placeholder {
       display: flex;
       flex-direction: column;
   }
-  .medelande{
+  .meddelande{
     text-align: left;
   }
 
@@ -384,19 +384,88 @@ table td {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; /* Center items horizontally */
-  margin-left: 18rem;
-  width: 80vw;
+  margin-left: 32rem;
+  margin-top: 2rem;
+  width: 50vw;
   flex-direction: row; /* Change to row to make them align horizontally */
+  margin-bottom: 8rem;
 }
 
 .uppgift {
-  width: 100vw; /* Adjust the width as needed */
+  width: 100vw;
+  max-width: 100vw; /* Set your desired max-width */
+  word-wrap: break-word;
+  overflow: auto;
   margin: 10px;
-  border: 2px solid #8f8f8f;
   padding: 10px;
   box-sizing: border-box;
-  border-bottom-left-radius:16px;
-  border-top-right-radius:16px ;
-  color:#000000;
+  background-color: #dfdfdf;
+  border: 1px solid #a0a0a0;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 
+.uppgift-deadline {
+  float: right;
+  margin: 0;
+}
+
+.uppgift-content {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.uppgift-right {
+  display: block;
+  float: right;
+  margin: 0;
+}
+
+.uppgift i {
+  display: flex;
+  flex-direction: column;
+  font-size: 42px;
+  margin-right: 10px;
+  padding: 8px 12px;
+}
+
+.uppgift h2 {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  margin-bottom: 1.5rem;
+}
+
+.uppgift p.meddelande {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-left: -7rem;
+  margin-top: 2rem;
+}
+
+.edits {
+  display: block;
+  float: right;
+  margin-top: 2rem;
+  margin-right: -6.5rem;
+}
+
+.edits a {
+  display: flex;
+  float: right;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.edit-trash i {
+  color: black;
+  font-size: 18px; 
+}
+
+.edit-pen i {
+  color: black;
+  font-size: 18px;
+}

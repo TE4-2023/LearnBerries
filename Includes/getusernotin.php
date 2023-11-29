@@ -50,6 +50,7 @@ try{
 }
 catch(PDOException $e){
     echo "ERROR: " . $e;
-}        
+}
+exit;        
 ?>
 
