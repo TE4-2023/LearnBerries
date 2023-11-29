@@ -41,11 +41,12 @@ function getUsers(courseID) {
             }
         }
     };
-    xhr.open('POST', "getUsers.php", true);
+    xhr.open('POST', "getusernotin.php", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     var data = 'courseID=' + encodeURIComponent(courseID);
     xhr.send(data);
 }
+
   </script> 
 <?php
 

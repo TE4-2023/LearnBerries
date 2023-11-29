@@ -13,7 +13,7 @@ try{
     ON users.name_ID = name.name_ID
     LEFT JOIN course_enrollments
     ON users.user_ID = course_enrollments.user_ID
-    WHERE users.user_ID NOT IN (SELECT course_enrollments.user_ID FROM course_enrollments WHERE course_enrollments.course_ID = :courseID)
+    WHERE users.user_ID IN (SELECT course_enrollments.user_ID FROM course_enrollments WHERE course_enrollments.course_ID = :courseID)
     AND users.role_ID = 3
     GROUP BY users.user_ID
 ');
@@ -34,7 +34,7 @@ try{
     ON users.name_ID = name.name_ID
     LEFT JOIN course_enrollments
     ON users.user_ID = course_enrollments.user_ID
-    WHERE users.user_ID NOT IN (SELECT course_enrollments.user_ID FROM course_enrollments WHERE course_enrollments.course_ID = :courseID)
+    WHERE users.user_ID IN (SELECT course_enrollments.user_ID FROM course_enrollments WHERE course_enrollments.course_ID = :courseID)
     AND users.role_ID = 2
     GROUP BY users.user_ID
     ');
@@ -44,7 +44,19 @@ try{
     echo'<h2>Students</h2>';
     while ($usersRow = $users->fetch(PDO::FETCH_ASSOC)) {
     echo '<button id="course'.$courseID.'" type="button" onclick ="user(this);"
-    data-value="'.$courseID.'" value = "'.$usersRow['user'].'">'.$usersRow['name'].'</button><br>';
+    data-value="'.$courseID.'" value = "'.$usersRow['user'].'">'.$usersRow['name'].'</button>
+    <form>
+    <label for="color">grade</label>
+    <select id="color" name="color" onchange="updateGrade(this.value, '.$usersRow['user_ID'].', '.$courseID.')" required>
+    <option value="">none</option>';
+
+        foreach (range('A', 'F') as $char) {
+            echo '<option value="'.$char.'">'.$char.'</option>';
+        }
+        echo '
+    </select>
+    </form>
+    <br>';
     }
 }
 catch(PDOException $e){
