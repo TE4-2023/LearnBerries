@@ -1,5 +1,5 @@
 <?php
-require 'Includes/functions.php';
+require 'Includes/connect.php';
 session_start();
 
 if (!isset($_SESSION['uid'])) { //switch this out
@@ -13,7 +13,7 @@ if (!isset($_SESSION['uid'])) { //switch this out
     //echo($_SESSION['uid']." ");
 
 }
-include 'Includes/courseview.php';
+
 
 ?>
 
@@ -23,8 +23,8 @@ include 'Includes/courseview.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kursvy</title>
-    <link rel="stylesheet" href="kursvy.css">
+    <title>Uppgift</title>
+    <link rel="stylesheet" href="uppgift.css">
     <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
 </head>
 
@@ -34,7 +34,7 @@ include 'Includes/courseview.php';
                 <ul>
                     <li><img class="bild" src="logga.png" alt="logga" /></li>
                     <li>
-                        <h1 class="header">Kursvy</h1>
+                        <h1 class="header">Uppgift</h1>
                     </li>
 
                     <div class="left-nav">
@@ -57,79 +57,18 @@ include 'Includes/courseview.php';
             </div>
 </nav>
 
-<div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
-        <h1 class="text" style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
-        <p class="text" style="color:white;text-decoration:none !important;">kurs lärare: <?php echo getAllTeachers($_GET['kursid'])?></p>
+<div class="kurs">
+        <h1 class="text">Kursnamn</h1><br>
         <a href="#" class="deltagare"><i class="fa-solid fa-users"></i> Deltagare</a>
 </div>
 
 
-<div class="button">
-    <button class="btn">Filtrera <i class="fa-solid fa-caret-down"></i></button>
-    <button class="btn">Sortera <i class="fa-solid fa-caret-down"></i></button>
-</div>
 
-
-
-<div class="uppgifter">
-
-<?php
-        // Fetch and display posts
-        try {
-            $query = $pdo->prepare('
-            SELECT posts.*, name.name 
-            FROM posts 
-            INNER JOIN name 
-            ON posts.name_ID = name.name_ID 
-            WHERE posts.course_ID = :courseID 
-            ORDER BY posts.publishingDate DESC;'
-            );
-            $data = array(':courseID' => $_GET['kursid']);
-
-            $query->execute($data);
-
-    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        echo '<div class="uppgift">';
-        if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
-            echo '<div class="uppgift-right">';
-            echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
-            echo '<div class="edits">';
-            echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
-            echo '</div>';
-            echo '</div>';
-            echo '<div class="uppgift-content">';
-            echo '<i class="fa-solid fa-clipboard"></i>';
-            echo '<h2>'. $row['name'] . '</h2>';
-            echo '<p class="meddelande">' . $row['description'] . '</p>';
-
-
-            echo '</div>';
-        } else {
-            echo '<p class="uppgift-deadline">Deadline: ' . $row['deadlineDate'] . '</p>';
-            echo '<div class="uppgift-content">';
-            echo '<i class="fa-solid fa-clipboard"></i>';
-            echo '<h2>' . $row['name'] . '</h2>';
-            echo '<p class="meddelande">' . $row['description'] . '</p>';
-            echo '<div class="edits">';
-            echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
-            echo '</div>';
-            echo '</div>';
-
-        }
-
-        echo '</div>';
-    }
-}
-    catch (PDOException $e) {
-    echo 'Error: ' . $e->getMessage();
-}
-?>
-
-</div>
-
-
+<div class="uppnamn">
+    <h1 class="rubrik">Uppgiftsnamn </h1>
+    <p class="upptext">Inlämnat: </p>
+    <p class="upptext">Betygsatt: </p>
+    
     <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
 
 
@@ -161,6 +100,7 @@ include 'Includes/courseview.php';
 
     </div> 
 
+</div>
 
 </body>
 

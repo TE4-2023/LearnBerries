@@ -113,6 +113,42 @@ function displayEmail($userssn)
 
 }
 
+function getAllTeachers($course)
+{
+    $pdo = $GLOBALS['pdo'];
+
+
+
+    $TeacherQ = $pdo->prepare('
+        SELECT *, name.name AS firstname , A.name AS lastname 
+        FROM `users` 
+        INNER JOIN name ON users.name_ID = name.name_ID
+        INNER JOIN name AS A ON users.lastname_ID = A.name_ID 
+        RIGHT JOIN course_enrollments ON course_enrollments.user_ID = users.user_ID
+        WHERE users.role_ID = 3 AND course_enrollments.course_ID = :courseID
+        ');
+        $TeacherQ->bindParam(':courseID', $course, PDO::PARAM_STR);
+    
+        $TeacherQ->execute();
+
+    $nbrOfTeachers = 0;
+    $allTeachers = "";
+                while ($teachers = $TeacherQ->fetch(PDO::FETCH_ASSOC)) {
+                    $nbrOfTeachers++;
+                    if($nbrOfTeachers > 3)
+                    {
+                        $allTeachers .= "...";
+                        break;
+                    }
+                    if($nbrOfTeachers>1)
+                    {
+                        $allTeachers .= ", ";
+                    }
+                    $allTeachers .= $teachers['firstname'] . " " . $teachers['lastname'];
+                }
+                return $allTeachers;
+}
+
 
 
 ?>

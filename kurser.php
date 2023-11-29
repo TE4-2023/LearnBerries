@@ -68,38 +68,13 @@
     // Fetch and display the results
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-        $TeacherQ = $pdo->prepare('
-        SELECT *, name.name AS firstname , A.name AS lastname 
-        FROM `users` 
-        INNER JOIN name ON users.name_ID = name.name_ID
-        INNER JOIN name AS A ON users.lastname_ID = A.name_ID 
-        RIGHT JOIN course_enrollments ON course_enrollments.user_ID = users.user_ID
-        WHERE users.role_ID = 3 AND course_enrollments.course_ID = :courseID
-        ');
-        $TeacherQ->bindParam(':courseID', $row['course_ID'], PDO::PARAM_STR);
-    
-        $TeacherQ->execute();
+        
 
         echo('<div onClick="goToCourse('.$row['course_ID'].')" class="kurs">
 
                 <div class="kurs-top" style="background-color: #'.$row['HEX(course.color)'].';">
                 <h2>'.$row['name'].'</h2>
-                <span>');
-                $nbrOfTeachers = 0;
-                while ($teachers = $TeacherQ->fetch(PDO::FETCH_ASSOC)) {
-                    $nbrOfTeachers++;
-                    if($nbrOfTeachers > 3)
-                    {
-                        echo "...";
-                        break;
-                    }
-                    if($nbrOfTeachers>1)
-                    {
-                        echo ", ";
-                    }
-                    echo $teachers['firstname'] . " " . $teachers['lastname'];
-                }
-                echo ('</span>
+                <span>'.getAllTeachers($row['course_ID']).'</span>
             </div>
 
             <div class="kurs-middle">
