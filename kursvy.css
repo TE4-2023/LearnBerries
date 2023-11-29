@@ -365,3 +365,25 @@ table td {
   text-align: center;
   text-decoration: underline;
 }
+
+.deltagare {
+  display: flex;
+  align-self: flex-start;
+  margin-left: 12rem;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 0.75rem;
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  background-color: #767676;
+  border: 1px solid #a0a0a0;
+  border-radius: 24px;
+  transition: 0.2s;
+}
+
+.deltagare:hover {
+  scale: 1.02;
+  border: 1px solid #000000;
+  border-radius: 0px;
+}

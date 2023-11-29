@@ -59,7 +59,7 @@ include 'Includes/courseview.php';
 <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
         <h1 class="text" style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
         <p class="text" style="color:white;text-decoration:none !important;">Lärare </p>
-        <a href="" class="deltagare" >Deltagare</a>
+        <a href="#" class="deltagare"><i class="fa-solid fa-users"></i> Deltagare</a>
 </div>
 
 
