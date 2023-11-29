@@ -6,72 +6,42 @@ if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
     header("location: index.php");
 }
 
-//include 'Includes/courseview.php';
-
-// fetch all course enrollments
 try {
-    $query = $pdo->prepare('
-    SELECT * FROM users
-    WHERE users.ssn = :ssn;');
-
+    $query = $pdo->prepare('SELECT * FROM users WHERE users.ssn = :ssn;');
     $data = array(':ssn' => $_SESSION['uid']);
-
     $query->execute($data);
+    $userid = $query->fetch(PDO::FETCH_ASSOC);
 
-    $userid = $query->fetch(PDO::FETCH_ASSOC)['user_ID'];
+    $bquery = $pdo->prepare('SELECT * FROM course_enrollments WHERE course_enrollments.user_ID = :user_ID;');
+    $bdata = array(':user_ID' => $userid['user_ID']);
+    $bquery->execute($bdata);
+    $brow = $bquery->fetch(PDO::FETCH_ASSOC);
 
-    $query = NULL;
-    $data = NULL;
-
-
-    $query = $pdo->prepare('
-    SELECT * FROM course_enrollments
-    WHERE course_enrollments.user_ID = :user_ID;');
-
-    $data = array(':user_ID' => $userid);
-
-    $query->execute($data);
-
-    $crow = $query->fetch(PDO::FETCH_ASSOC)['course_ID'];
-
-
-    $cquery = $pdo->prepare('
-    SELECT * FROM course
-    WHERE course.course_ID = :course_ID;');
-
-    $cdata = array(':course_ID' => $crow);
-
-    $cquery->execute($data);
+    $cquery = $pdo->prepare('SELECT * FROM course WHERE course.course_ID = :course_ID;');
+    $cdata = array(':course_ID' => $brow['course_ID']);
+    $cquery->execute($cdata);
 
     $courseids = $cquery->fetch(PDO::FETCH_ASSOC);
 
     $success = false;
-    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        for ($i = 0; $i < sizeof($courseids); $i = $i + 1) {
-            if ($row['course_ID'] == $courseids[$i]['course_ID']) {
-                $success = true;
-                break;
-            }
-        }
+    while ($row = $bquery->fetch(PDO::FETCH_ASSOC)) {
         if ($success) {
+            break;
+        }
+        else if ($row['course_ID'] == $courseids['course_ID']) {
+            $success = true;
             break;
         }
     }
 
-    $data = NULL;
-    $query = NULL;
-    $cdata = NULL;
-    $cquery = NULL;
+    if (!$success) {
+        header('location: index.php');
+    }
 
-    /*if (!$success) {
-        header("location: index.php");
-    }*/
-
-    //printAThing();
+    //addAThing();
 }
 catch (PDOException $e) {
     echo '<p>Error ' . $e->getMessage() . '</p>';
-    //header("location: kurser.php");
 }
 
 ?>
