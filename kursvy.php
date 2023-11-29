@@ -1,5 +1,5 @@
 <?php
-require 'Includes/connect.php';
+require 'Includes/functions.php';
 session_start();
 
 if (!isset($_SESSION['uid'])) { //switch this out
@@ -58,7 +58,7 @@ include 'Includes/courseview.php';
 
 <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
         <h1 class="text" style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
-        <p class="text" style="color:white;text-decoration:none !important;">kurs lärare: <?php ?></p>
+        <p class="text" style="color:white;text-decoration:none !important;">kurs lärare: <?php echo getAllTeachers($_GET['kursid'])?></p>
         <a href="#" class="deltagare"><i class="fa-solid fa-users"></i> Deltagare</a>
 </div>
 
