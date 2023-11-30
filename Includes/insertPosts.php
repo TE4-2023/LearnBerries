@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $query->execute($data);
 
-            header('Location: ../kurser.php');
+            header('Location: ../kursvy.php?kursid='.$courseID);
 
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $query->execute($data);
 
-            header('Location: ../kurser.php');
+            header('Location: ../kursvy.php?kursid='.$courseID);
 
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
