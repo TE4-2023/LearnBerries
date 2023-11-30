@@ -68,7 +68,6 @@ function updateGrade(grade, userID, courseID)
 }
   </script> 
 <?php
-require 'connect.php';
 require 'functions.php';
 
     try {
