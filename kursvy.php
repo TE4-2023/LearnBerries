@@ -113,7 +113,6 @@ include 'Includes/courseview.php';
 </div>
 
 
-
 <div class="uppgifter" id="uppgifter">
 
 <?php
@@ -144,7 +143,7 @@ include 'Includes/courseview.php';
             echo '<div class="uppgift-content">';
             echo '<i class="fa-solid fa-clipboard"></i>';
             echo '<div class="uppgift-title">';
-            echo '<h2>'. $row['name'] . '</h2>';
+            echo '<a onclick="goPost('.$row['post_ID'].');"><h2>'. $row['name'] . '</h2></a>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
             echo "</div>";
 
@@ -154,7 +153,7 @@ include 'Includes/courseview.php';
             echo '<p class="uppgift-deadline">Deadline: ' . $row['deadlineDate'] . '</p>';
             echo '<div class="uppgift-content">';
             echo '<i class="fa-solid fa-clipboard"></i>';
-            echo '<h2>' . $row['name'] . '</h2>';
+            echo '<a onclick="goPost('.$row['post_ID'].');"><h2>' . $row['name'] . '</h2></a>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
             echo '<div class="edits">';
             echo '<a class="edit-trash" onClick="deletePosts('.$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
@@ -200,6 +199,7 @@ include 'Includes/courseview.php';
                     placeholder="Beskrivning av uppgift..."></textarea>
 
                     <a class="bifoga-filer" href="#"><i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>
+                    <input class="set-deadline" type="datetime-local" name="deadline" id="deadline">
                 <input type="submit" class="c-btn" value="Skapa uppgift">
             </form>
         </div>
@@ -216,5 +216,11 @@ include 'Includes/courseview.php';
 <script src="homescript.js"></script>
 <script src="modal.js"></script>
 <script src="interactiveCreate.js"></script>
-
+<script>
+    function goPost(extra) {
+        let url = window.location.protocol + "//" + window.location.host + "/webschool/uppgiftsvy.php?uppgiftid=" + extra;
+        window.location.href = url;
+    }
+</script>
+<script src="datetime.js"></script>
 <!-- div for members and leader? -->

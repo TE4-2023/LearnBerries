@@ -59,8 +59,8 @@ try {
     $postdata = NULL;
 
     if (!$success) {
-        echo "<p>FAIL</p>";
-        //header('location: index.php');
+        // Never reached for some reason
+        header('location: index.php');
     }
 }
 catch (PDOException $e) {
@@ -99,7 +99,7 @@ function getCourseName() {
     FROM course 
     INNER JOIN name 
     ON course.name_ID = name.name_ID 
-    WHERE course. = :courseID;');
+    WHERE course.course_ID = :courseID;');
     $data = array(':courseID' => $courseID);
     $query->execute($data);
     $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -112,26 +112,6 @@ function getCourseName() {
     else {
         echo $result['name'];
         $query = null;
-    }
-
-    // old
-    $kursid = $GLOBALS['kursid'];
-
-    $result = sqlExec("course","course_ID",$kursid,"i");
-
-    if(mysqli_num_rows($result) == 0) {
-        $stmt = null;
-        echo("No rows.");
-        header('Location: ./noaccess.php');
-    }
-    else {
-        $row = mysqli_fetch_row($result);
-        
-        $result = sqlExec("name","name_ID",$row[1],"i");
-
-        $row = mysqli_fetch_row($result);
-
-        echo($row[1]);
     }
 }?>
 <nav>
@@ -184,9 +164,14 @@ function getCourseName() {
     style="width:100%;height:100%;display:flex;flex-direction:column;
     flex-wrap:wrap; align-items:center;">
     <?php
+
+    // TODO:
+    // Show how many submissions from unique users exist and that dont.
+    // This tells the teacher how many people have turned them in.
+
     try {
         $userquery = $pdo->prepare(
-        'SELECT posts.*, name.name
+        'SELECT posts.*, name.name 
         FROM posts 
         INNER JOIN name 
         ON posts.name_ID = name.name_ID 

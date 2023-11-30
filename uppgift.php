@@ -64,43 +64,46 @@ if (!isset($_SESSION['uid'])) { //switch this out
 
 
 
-<div class="uppnamn">
-    <h1 class="rubrik">Uppgiftsnamn </h1>
-    <p class="upptext">Inlämnat: </p>
-    <p class="upptext">Betygsatt: </p>
-    
-    <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
 
 
-    <div id="myModal" class="modal">
 
-        <!-- Modal content -->
-        <div class="modal-content">
-            <form id="form" action="Includes/insertPosts.php" method="post">
-            <span class="close">&times;</span>
-            
-                <input type="hidden" name="courseid" value= <?php echo $_GET['kursid']
-                ?>
-                >
-                <input type="radio" id="uppgift" name="typAv" value="Uppgift" checked="checked">
-                <label for="uppgift">Uppgift</label>
-                <input type="radio" id="meddelande" name="typAv" value="Meddelande">
-                <label for="meddelande">Meddelande</label>
-                <div class="header-pop">
-                    <h2>Skapa uppgift</h2>
-                </div>
-                <input name="name" id="name" class="upp-titel" type="text" placeholder="Titel på uppgift" required>
-                <textarea name="description" id="name" class="upp-besk" type="text"
-                    placeholder="Beskrivning av uppgift..."></textarea>
 
-                    <a class="bifoga-filer" href="#"><i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>
-                <input type="submit" class="c-btn" value="Skapa uppgift">
-            </form>
-        </div>
 
-    </div> 
+
+
+
+<div class="ruta">
+
+    <div class="uppnamn">
+        
+        <h1 class="rubrik">Uppgiftsnamn </h1>
+        <p class="upptext">Inlämnat: </p>
+        <p class="upptext">Betygsatt: </p>
+        <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Visa alla arbeten</a>
+
+    </div>
+
+
+    <div class="info">
+
+        <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur libero commodi ex numquam? Consequatur tenetur, minus sapiente eligendi quae, dolorem possimus culpa accusamus placeat nesciunt ullam sunt id cupiditate, aspernatur nobis sequi excepturi at mollitia officia fugit rem suscipit saepe explicabo corrupti? Non sunt distinctio voluptate, nihil fugit minus! Officia provident tenetur fuga repudiandae eveniet sequi labore quo cumque nam rem, obcaecati vel enim quibusdam beatae eum quis laborum aliquid distinctio, magni non quidem! Doloribus explicabo dicta officiis odio perferendis deleniti eligendi molestiae dolorum, labore iusto, dolore neque ipsum adipisci. Cum cumque deserunt laudantium vel ipsam sequi, hic, quis repudiandae iure quibusdam autem voluptate incidunt dolorum explicabo neque nihil adipisci. Ad sequi eligendi maiores consequatur placeat, quos id quam dolorem. Similique atque ullam modi unde labore quo quam consequuntur accusantium. Perspiciatis ab fugit libero aut optio laudantium saepe velit odio architecto sequi exercitationem hic suscipit dicta maiores, similique sint aperiam, consequatur ipsam provident delectus mollitia. Vitae voluptatibus delectus iste doloribus! Vero tempore at harum cum, totam nisi reiciendis similique sapiente dolorem libero, officia illum asperiores delectus ut? Consectetur rerum odit autem beatae, omnis recusandae aspernatur enim tempora reprehenderit eius ab, pariatur magnam, a ducimus deleniti consequatur libero id numquam facilis.
+        </p> 
+
+    </div>
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 
