@@ -59,6 +59,7 @@ try {
     $postdata = NULL;
 
     if (!$success) {
+        // Never reached for some reason
         header('location: index.php');
     }
 }
