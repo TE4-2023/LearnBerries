@@ -1,3 +1,46 @@
+<script>
+    // function delete(postid, courseid){
+    //     const xhr = new XMLHttpRequest();
+    //     xhr.open('POST', "Includes/deletePost.php", true);
+    //     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    //     xhr.onreadystatechange = function () {
+    //         if (xhr.readyState === XMLHttpRequest.DONE) {
+    //             if (xhr.status === 200) {
+    //                 //alert('SEnrollment successful!');
+    //                 getPost(courseid);
+    //                 // Optionally, you can redirect the user or perform other actions here
+    //             } else {
+    //                 alert('Error during enrollment: ' + xhr.responseText);
+    //             }
+    //         }
+    //     };
+
+    //     var data = 'post_ID=' + encodeURIComponent(userID);
+    //     xhr.send(data);
+    // }
+
+    function deletePosts(courseid, postid){
+        console.log(courseid, postid)
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Optionally, you can redirect the user or perform other actions here
+                    var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
+                    document.getElementById("uppgifter").innerHTML = (dom.getElementById('uppgifter').innerHTML)
+                } else {
+                    alert('Error during enrollment: ' + xhr.responseText);
+                }
+            }
+        };
+        xhr.open('POST', "Includes/deletePosts.php", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        var data = 'courseID=' + encodeURIComponent(courseid) + '&postID=' + encodeURIComponent(postid);
+        xhr.send(data);
+    }
+</script>
 <?php
 require 'Includes/functions.php';
 session_start();
@@ -71,7 +114,7 @@ include 'Includes/courseview.php';
 
 
 
-<div class="uppgifter">
+<div class="uppgifter" id="uppgifter">
 
 <?php
         // Fetch and display posts
@@ -94,7 +137,7 @@ include 'Includes/courseview.php';
             echo '<div class="uppgift-right">';
             echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
             echo '<div class="edits">';
-            echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
+            echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
             echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
             echo '</div>';
             echo '</div>';
@@ -112,7 +155,7 @@ include 'Includes/courseview.php';
             echo '<h2>' . $row['name'] . '</h2>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
             echo '<div class="edits">';
-            echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
+            echo '<a class="edit-trash" onClick="deletePosts('.$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
             echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
             echo '</div>';
             echo '</div>';
@@ -171,4 +214,5 @@ include 'Includes/courseview.php';
 <script src="homescript.js"></script>
 <script src="modal.js"></script>
 <script src="interactiveCreate.js"></script>
+
 <!-- div for members and leader? -->
