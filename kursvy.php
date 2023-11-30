@@ -113,7 +113,6 @@ include 'Includes/courseview.php';
 </div>
 
 
-
 <div class="uppgifter" id="uppgifter">
 
 <?php
@@ -132,7 +131,7 @@ include 'Includes/courseview.php';
             $query->execute($data);
 
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        echo '<div class="uppgift">';
+        echo '<div class="uppgift" onclick="goPost('.$row['post_ID'].')">';
         if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
             echo '<div class="uppgift-right">';
             echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
@@ -218,3 +217,10 @@ include 'Includes/courseview.php';
 <script src="interactiveCreate.js"></script>
 
 <!-- div for members and leader? -->
+
+<script>
+    function goPost(extra) {
+        let url = window.location.protocol + "//" + window.location.host + "/webschool/uppgiftsvy.php?uppgiftid=" + extra;
+        window.location.href = url;
+    }
+</script>
