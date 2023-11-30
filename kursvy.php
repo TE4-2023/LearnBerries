@@ -131,7 +131,7 @@ include 'Includes/courseview.php';
             $query->execute($data);
 
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        echo '<div class="uppgift" onclick="goPost('.$row['post_ID'].')">';
+        echo '<div class="uppgift">';
         if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
             echo '<div class="uppgift-right">';
             echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
@@ -143,7 +143,7 @@ include 'Includes/courseview.php';
             echo '<div class="uppgift-content">';
             echo '<i class="fa-solid fa-clipboard"></i>';
             echo '<div class="uppgift-title">';
-            echo '<h2>'. $row['name'] . '</h2>';
+            echo '<a onclick="goPost('.$row['post_ID'].');"><h2>'. $row['name'] . '</h2></a>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
             echo "</div>";
 
@@ -153,7 +153,7 @@ include 'Includes/courseview.php';
             echo '<p class="uppgift-deadline">Deadline: ' . $row['deadlineDate'] . '</p>';
             echo '<div class="uppgift-content">';
             echo '<i class="fa-solid fa-clipboard"></i>';
-            echo '<h2>' . $row['name'] . '</h2>';
+            echo '<a onclick="goPost('.$row['post_ID'].');"><h2>' . $row['name'] . '</h2></a>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
             echo '<div class="edits">';
             echo '<a class="edit-trash" onClick="deletePosts('.$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
