@@ -99,7 +99,7 @@ function getCourseName() {
     FROM course 
     INNER JOIN name 
     ON course.name_ID = name.name_ID 
-    WHERE course. = :courseID;');
+    WHERE course.course_ID = :courseID;');
     $data = array(':courseID' => $courseID);
     $query->execute($data);
     $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -112,26 +112,6 @@ function getCourseName() {
     else {
         echo $result['name'];
         $query = null;
-    }
-
-    // old
-    $kursid = $GLOBALS['kursid'];
-
-    $result = sqlExec("course","course_ID",$kursid,"i");
-
-    if(mysqli_num_rows($result) == 0) {
-        $stmt = null;
-        echo("No rows.");
-        header('Location: ./noaccess.php');
-    }
-    else {
-        $row = mysqli_fetch_row($result);
-        
-        $result = sqlExec("name","name_ID",$row[1],"i");
-
-        $row = mysqli_fetch_row($result);
-
-        echo($row[1]);
     }
 }?>
 <nav>
