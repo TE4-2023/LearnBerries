@@ -29,7 +29,7 @@
                 if (xhr.status === 200) {
                     // Optionally, you can redirect the user or perform other actions here
                     var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
-                    document.getElementById("uppgifter").innerHTML = (dom.getElementById('uppgifter').innerHTML)
+                    document.getElementById("uppgifter").innerHTML = (dom.getElementById('usersDIV').innerHTML)
                 } else {
                     alert('Error during enrollment: ' + xhr.responseText);
                 }
@@ -41,6 +41,7 @@
         xhr.send(data);
     }
 
+<<<<<<< Updated upstream
     function getForm(postid) {
     const xhr = new XMLHttpRequest();
 
@@ -54,17 +55,35 @@
                     modal.innerHTML = dom.getElementById('hiddenform').innerHTML;
                     var span = modal.querySelector('.close');
                     modal.style.display = "block";
+=======
+    function getForm(postid){
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Optionally, you can redirect the user or perform other actions here
+                    var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
+                    var modal = document.getElementById("hiddenform");
+                    modal.innnerHTML = dom.getElementById('hiddenform').innerHTML;
+                    var span = modal.querySelector('.close');
+>>>>>>> Stashed changes
                 if (span) {
                     span.onclick = function () {
                         modal.style.display = "none";
                     };
                 }
 
+<<<<<<< Updated upstream
+=======
+                // When the user clicks anywhere outside of the modal, close it
+>>>>>>> Stashed changes
                 window.onclick = function (event) {
                     if (event.target == modal) {
                         modal.style.display = "none";
                     }
                 };
+<<<<<<< Updated upstream
             } else {
                 alert('Error during enrollment: ' + xhr.status);
             }
@@ -76,7 +95,24 @@
     var data = 'postID=' + encodeURIComponent(postid);
     xhr.send(data);
 }
+=======
+                }
+
+
+               }  else {
+                    alert('Error during enrollment: ' + xhr.responseText);
+                }
+        };
+        xhr.open('POST', "Includes/getForm.php", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        var data = 'postID=' + encodeURIComponent(postid);
+        xhr.send(data);
+    }
+
+>>>>>>> Stashed changes
 </script>
+
+
 <?php
 require 'Includes/functions.php';
 session_start();
@@ -173,7 +209,7 @@ include 'Includes/courseview.php';
             echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
             echo '<div class="edits">';
             echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
             echo '</div>';
             echo '</div>';
             echo '<div class="uppgift-content">';
@@ -181,6 +217,7 @@ include 'Includes/courseview.php';
             echo '<div class="uppgift-title">';
             echo '<a onclick="goPost('.$row['post_ID'].');"><h2>'. $row['name'] . '</h2></a>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
+            echo '<p>'.$row['publishingDate'].'</p>';
             echo "</div>";
 
 
@@ -192,8 +229,9 @@ include 'Includes/courseview.php';
             echo '<a onclick="goPost('.$row['post_ID'].');"><h2>' . $row['name'] . '</h2></a>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
             echo '<div class="edits">';
-            echo '<a class="edit-trash" onClick="deletePosts('.$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].','.$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
+            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '<p>'.$row['publishingDate'].'</p>';
             echo '</div>';
             echo '</div>';
 
@@ -235,12 +273,20 @@ include 'Includes/courseview.php';
                     placeholder="Beskrivning av uppgift..."></textarea>
 
                     <a class="bifoga-filer" href="#"><i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>
-                    <input class="set-deadline" type="datetime-local" name="deadline" id="deadline">
+                    <input class="set-deadline" type="datetime-local" name="deadline" id="deadline" required>
                 <input type="submit" class="c-btn" value="Skapa uppgift">
             </form>
         </div>
 
     </div> 
+
+
+<!-- Modal content -->
+<div class="modal" id="hiddenform">
+    
+</div>
+
+</div> 
 
 
 </body>
