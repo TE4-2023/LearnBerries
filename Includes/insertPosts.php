@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userID = $_SESSION['userid'];
 
     // Check if the form is for a post or a message
-    if (isset($_POST['deadlineDate'])) {
+    if (isset($_POST['deadline'])) {
         // It's a post
-        $deadline = $_POST['deadlineDate'];
+        $deadline = $_POST['deadline'];
 
         try {
             $query = $pdo->prepare('INSERT INTO posts (course_ID, user_ID, name_ID, publishingDate, deadlineDate, description) 
