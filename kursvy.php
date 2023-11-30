@@ -199,6 +199,7 @@ include 'Includes/courseview.php';
                     placeholder="Beskrivning av uppgift..."></textarea>
 
                     <a class="bifoga-filer" href="#"><i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>
+                    <input class="set-deadline" type="datetime-local" name="deadline" id="deadline">
                 <input type="submit" class="c-btn" value="Skapa uppgift">
             </form>
         </div>
@@ -215,12 +216,11 @@ include 'Includes/courseview.php';
 <script src="homescript.js"></script>
 <script src="modal.js"></script>
 <script src="interactiveCreate.js"></script>
-
-<!-- div for members and leader? -->
-
 <script>
     function goPost(extra) {
         let url = window.location.protocol + "//" + window.location.host + "/webschool/uppgiftsvy.php?uppgiftid=" + extra;
         window.location.href = url;
     }
 </script>
+<script src="datetime.js"></script>
+<!-- div for members and leader? -->
