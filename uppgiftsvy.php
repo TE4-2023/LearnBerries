@@ -164,6 +164,11 @@ function getCourseName() {
     style="width:100%;height:100%;display:flex;flex-direction:column;
     flex-wrap:wrap; align-items:center;">
     <?php
+
+    // TODO:
+    // Show how many submissions from unique users exist and that dont.
+    // This tells the teacher how many people have turned them in.
+
     try {
         $userquery = $pdo->prepare(
         'SELECT posts.*, name.name
