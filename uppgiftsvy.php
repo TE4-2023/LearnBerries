@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="se">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kursvy</title>
+    <link rel="stylesheet" href="kursvy.css">
+    <script src="https://kit.fontawesome.com/ef1241843c.js" 
+    crossorigin="anonymous"></script>
+</head>
+<body>
 <?php
 require 'Includes/connect.php';
 session_start();
@@ -7,6 +18,7 @@ if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
     //header("location: index.php");
 }
 
+$courseID = 0;
 try {
     // in a real scenario ssn would be a horrible way to store a session
     $userquery = $pdo->prepare(
@@ -16,10 +28,10 @@ try {
     $userid = $userquery->fetch(PDO::FETCH_ASSOC);
 
     $postquery = $pdo->prepare(
-    'SELECT * FROM `posts` WHERE `posts`.course_ID = :course_ID;');
-    $postdata = array(':course_ID' => $ecourserow['course_ID']);
-    $postquery->execute($cdata);
+    'SELECT * FROM `posts` WHERE 1=1');
+    $postquery->execute();
     
+    $success = false;
     while ($postrow = $postquery->fetch(PDO::FETCH_ASSOC)) {
         if ($_GET['uppgiftid'] != $postrow['post_ID']) {
             continue;
@@ -36,41 +48,79 @@ try {
                 continue;
             }
 
+            $courseID = $postrow['course_ID'];
             $success = true;
         }
     }
+
+    $userquery = NULL;
+    $userdata = NULL;
+    $postquery = NULL;
+    $postdata = NULL;
+
     if (!$success) {
-        echo "hello";
+        echo "<p>FAIL</p>";
         //header('location: index.php');
     }
-
-    //addAThing();
+    echo "<p>1</p>";
 }
 catch (PDOException $e) {
     echo '<p>Error ' . $e->getMessage() . '</p>';
-}?>
+}
 
-<!DOCTYPE html>
-<html lang="se">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kursvy</title>
-    <link rel="stylesheet" href="kursvy.css">
-    <script src="https://kit.fontawesome.com/ef1241843c.js" 
-    crossorigin="anonymous"></script>
-</head>
-<body>
+function getCourseColor() {
+    $courseID = $GLOBALS['courseID'];
+    $pdo = $GLOBALS['pdo'];
+
+    //$result = sqlExec("course","course_ID",$courseID,"i");
+
+    $query = $pdo->prepare(
+    'SELECT * FROM course WHERE course. = :courseID;');
+    $data = array(':courseID' => $courseID);
+    $query->execute($data);
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+
+    if($query->rowCount() == 0) {
+        $query = null;
+        echo("No rows.");
+        header('Location: ./noaccess.php');
+    }
+    else {
+        echo('#'. bin2hex($result['color']));
+        $query = null;
+    }
+}
+
+function getCourseName() {
+    $kursid = $GLOBALS['kursid'];
+
+    $result = sqlExec("course","course_ID",$kursid,"i");
+
+    if(mysqli_num_rows($result) == 0) {
+        $stmt = null;
+        echo("No rows.");
+        header('Location: ./noaccess.php');
+    }
+    else {
+        $row = mysqli_fetch_row($result);
+        
+        $result = sqlExec("name","name_ID",$row[1],"i");
+
+        $row = mysqli_fetch_row($result);
+
+        echo($row[1]);
+    }
+}?>
 <nav>
     <div class="navbar">
         <ul>
             <li><img class="bild" src="logga.png" alt="logga" /></li>
             <li>
-                <h1 class="header">Kontakter</h1>
+                <h1 class="header">Uppgift</h1>
             </li>
 
             <div class="left-nav">
-                <li><a href="">
+                <li><a href="Includes/logout.php">
                     <i class="fa-solid fa-arrow-right-from-bracket">
                     </i> Logga ut
                 </a></li>
@@ -107,90 +157,54 @@ catch (PDOException $e) {
 
         <p style="color:white;text-decoration:none !important;">Lärare A</p>
 </div>
-</head>
-<body>
-    <div class="pane"
-        style="width:100%;height:100%;display:flex;flex-direction:column;
-        flex-wrap:wrap; align-items:center;">
-        <?php
-        $courseID;
-        $user;
-        function printAThing() {
-            try {
-                $userquery = $GLOBALS['pdo']->prepare('
-                SELECT posts.*, name.name
-                FROM posts 
-                INNER JOIN name 
-                ON posts.name_ID = name.name_ID 
-                WHERE posts.post_ID = :postID 
-                ORDER BY posts.publishingDate DESC;'
-                );
-                $data = array(':postID' => $_GET['uppgiftid']);
+<div class="pane"
+    style="width:100%;height:100%;display:flex;flex-direction:column;
+    flex-wrap:wrap; align-items:center;">
+    <?php
+    try {
+        $userquery = $pdo->prepare('
+        SELECT posts.*, name.name
+        FROM posts 
+        INNER JOIN name 
+        ON posts.name_ID = name.name_ID 
+        WHERE posts.post_ID = :postID 
+        ORDER BY posts.publishingDate DESC;'
+        );
+        $userdata = array(':postID' => $_GET['uppgiftid']);
 
-                $userquery->execute($data);
+        $userquery->execute($userdata);
 
-                while ($row = $userquery->fetch(PDO::FETCH_ASSOC)) {
-                    echo '<div style="width: 50%; display:flex;'.
-                    ' flex-direction:column; flex-wrap:wrap;'.
-                    ' border-top-left-radius:1vh;'.
-                    ' border-bottom-right-radius:1vh;'.
-                    ' height: 10%; margin-top:5%;'.
-                    ' background-color:white;border:1px solid black;">';
-                    if ($row['name'] == "") {
-                        echo '<p>Meddelande</p>';
-                    } else {
-                        echo '<p>Uppgiftsnamn: ' . $row['name'] . '</p>';
-                    }
-
-                    if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
-                        echo '<p>Deadline: Ingen</p>';
-                    } else {
-                        echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
-                    }
-
-                    // Add more fields as needed
-                    echo '<hr>';
-                    echo '<p>Description: ' . $row['description'] . '</p>';
-                    echo '</div>';
-                    echo '<br>';
-                }
+        while ($row = $userquery->fetch(PDO::FETCH_ASSOC)) {
+            echo '<div style="width: 50%; display:flex;'.
+            ' flex-direction:column; flex-wrap:wrap;'.
+            ' border-top-left-radius:1vh;'.
+            ' border-bottom-right-radius:1vh;'.
+            ' height: 10%; margin-top:5%;'.
+            ' background-color:white;border:1px solid black;">';
+            if ($row['name'] == "") {
+                echo '<p>Meddelande</p>';
+            } else {
+                echo '<p>Uppgiftsnamn: ' . $row['name'] . '</p>';
             }
-            catch (PDOException $e) {
-                echo 'Error '. $e;
+
+            if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
+                echo '<p>Deadline: Ingen</p>';
+            } else {
+                echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
             }
-        }?>
-    </div>
-    <a class="skapa-kurs" id="myBtn">
-    <i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
-    </div>
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <form id="form" action="#" method="post">
-            <span class="close">&times;</span>
-                <input type="radio" id="uppgift" name="typAv" 
-                value="Uppgift" checked="checked">
 
-                <label for="uppgift">Uppgift</label>
-                <input type="radio" id="meddelande" 
-                name="typAv" value="Meddelande">
-
-                <label for="meddelande">Meddelande</label>
-                <div class="header-pop">
-                    <h2>Skapa uppgift</h2>
-                </div>
-                <input name="name" id="name" class="upp-titel" 
-                type="text" placeholder="Titel på uppgift" required>
-                <textarea name="name" id="name" class="upp-besk" type="text"
-                    placeholder="Beskrivning av uppgift..."></textarea>
-
-                    <a class="bifoga-filer" href="#">
-                    <i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>
-
-                <input type="submit" class="c-btn" value="Skapa uppgift">
-            </form>
-        </div>
-    </div>
+            // Add more fields as needed
+            echo '<hr>';
+            echo '<p>Description: ' . $row['description'] . '</p>';
+            echo '</div>';
+            echo '<br>';
+        }
+    }
+    catch (PDOException $e) {
+        echo 'Error '. $e;
+    }
+    ?>
+</div>
 </body>
 </html>
 
