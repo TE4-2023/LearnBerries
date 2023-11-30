@@ -1,74 +1,5 @@
-<?php
-require 'Includes/connect.php';
-session_start();
-
-if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
-    
-    //header("location: index.php");
-}
-
-try {
-    // in a real scenario ssn would be a horrible way to store a session
-    $userquery = $pdo->prepare(
-    'SELECT * FROM users WHERE users.ssn = :ssn;');
-    $data = array(':ssn' => $_SESSION['uid']);
-    $userquery->execute($data);
-    $userid = $userquery->fetch(PDO::FETCH_ASSOC);
-
-    $courseenrollquery = $pdo->prepare(
-    'SELECT * FROM course_enrollments WHERE' .
-    ' course_enrollments.user_ID = :user_ID;');
-    $bdata = array(':user_ID' => $userid['user_ID']);
-    $courseenrollquery->execute($bdata);
-    $brow = $courseenrollquery->fetch(PDO::FETCH_ASSOC);
-
-    // Add post checking
-
-    $coquery = $pdo->prepare(
-    'SELECT * FROM course WHERE course.course_ID = :course_ID;');
-    $cdata = array(':course_ID' => $brow['course_ID']);
-    $coquery->execute($cdata);
-
-    // The following code is wrong because it is still not checking which post
-    // we're lookin at and its necessary course enrollment
-    $success = false;
-    while ($enrollments = $courseenrollquery->fetch(PDO::FETCH_ASSOC)) {
-        if ($success) { break; }
-        echo "Course enrollment id: " . $enrollments['course_ID'] . "<br>";
-
-        $dquery = $pdo->prepare(
-        'SELECT * FROM course_enrollments WHERE' .
-        ' course_enrollments.user_ID = :user_ID;');
-        $ddata = array(':user_ID' => $userid['user_ID']);
-        $dquery->execute($ddata);
-        $drow = $dquery->fetch(PDO::FETCH_ASSOC);
-
-        while ($courses = $dquery->fetch(PDO::FETCH_ASSOC)) {
-            if ($success) {
-                break;
-            } else if ($enrollments['course_ID'] == $courses['course_ID']) {
-                echo "Course id:" . $courses['course_ID'] . "<br>";
-                $success = true;
-                break;
-            }
-        }
-    }
-
-    if (!$success) {
-        echo "hello";
-        //header('location: index.php');
-    }
-
-    //addAThing();
-}
-catch (PDOException $e) {
-    echo '<p>Error ' . $e->getMessage() . '</p>';
-}
-?>
-
 <!DOCTYPE html>
 <html lang="se">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,16 +9,121 @@ catch (PDOException $e) {
     crossorigin="anonymous"></script>
 </head>
 <body>
+<?php
+require 'Includes/connect.php';
+session_start();
+
+if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
+    
+    //header("location: index.php");
+}
+
+$courseID = 0;
+try {
+    // in a real scenario ssn would be a horrible way to store a session
+    $userquery = $pdo->prepare(
+    'SELECT * FROM users WHERE users.ssn = :ssn;');
+    $data = array(':ssn' => $_SESSION['uid']);
+    $userquery->execute($data);
+    $userid = $userquery->fetch(PDO::FETCH_ASSOC);
+
+    $postquery = $pdo->prepare(
+    'SELECT * FROM `posts` WHERE 1');
+    $postquery->execute();
+    
+    $success = false;
+    while ($postrow = $postquery->fetch(PDO::FETCH_ASSOC)) {
+        if ($_GET['uppgiftid'] != $postrow['post_ID']) {
+            continue;
+        }
+
+        $ecoursequery = $pdo->prepare(
+        'SELECT * FROM course_enrollments WHERE
+        course_enrollments.user_ID = :user_ID;');
+        $ecoursedata = array(':user_ID' => $userid['user_ID']);
+        $ecoursequery->execute($ecoursedata);
+
+        while ($ecourserow = $ecoursequery->fetch(PDO::FETCH_ASSOC)) {
+            if ($ecourserow['course_ID'] != $postrow['course_ID']) {
+                continue;
+            }
+
+            $courseID = $postrow['course_ID'];
+            $success = true;
+        }
+    }
+
+    $userquery = NULL;
+    $userdata = NULL;
+    $postquery = NULL;
+    $postdata = NULL;
+
+    if (!$success) {
+        // Never reached for some reason
+        header('location: index.php');
+    }
+}
+catch (PDOException $e) {
+    echo '<p>Error ' . $e->getMessage() . '</p>';
+}
+
+function getCourseColor() {
+    $courseID = $GLOBALS['courseID'];
+    $pdo = $GLOBALS['pdo'];
+
+    //$result = sqlExec("course","course_ID",$courseID,"i");
+
+    $query = $pdo->prepare(
+    'SELECT * FROM course WHERE course.course_ID = :courseID;');
+    $data = array(':courseID' => $courseID);
+    $query->execute($data);
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+
+    if($query->rowCount() == 0) {
+        $query = null;
+        echo("No rows.");
+        header('Location: ./noaccess.php');
+    }
+    else {
+        echo('#'. bin2hex($result['color']));
+        $query = null;
+    }
+}
+
+function getCourseName() {
+    $courseID = $GLOBALS['courseID'];
+    $pdo = $GLOBALS['pdo'];
+
+    $query = $pdo->prepare(
+    'SELECT course.*, name.name
+    FROM course 
+    INNER JOIN name 
+    ON course.name_ID = name.name_ID 
+    WHERE course.course_ID = :courseID;');
+    $data = array(':courseID' => $courseID);
+    $query->execute($data);
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+
+    if($query->rowCount() == 0) {
+        $query = null;
+        echo("No rows.");
+        header('Location: ./noaccess.php');
+    }
+    else {
+        echo $result['name'];
+        $query = null;
+    }
+}?>
 <nav>
     <div class="navbar">
         <ul>
             <li><img class="bild" src="logga.png" alt="logga" /></li>
             <li>
-                <h1 class="header">Kontakter</h1>
+                <h1 class="header">Uppgift</h1>
             </li>
 
             <div class="left-nav">
-                <li><a href="">
+                <li><a href="Includes/logout.php">
                     <i class="fa-solid fa-arrow-right-from-bracket">
                     </i> Logga ut
                 </a></li>
@@ -95,7 +131,6 @@ catch (PDOException $e) {
         </ul>
     </div>
 </nav>
-
 <nav>
     <div class="vert-nav">
         <ul>
@@ -119,119 +154,68 @@ catch (PDOException $e) {
         </ul>
     </div>
 </nav>
-
 <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
         <h1 style="color:white;text-decoration:none !important;">
         <?php getCourseName(); ?></h1><br>
 
         <p style="color:white;text-decoration:none !important;">Lärare A</p>
 </div>
-    
-</head>
+<div class="pane"
+    style="width:100%;height:100%;display:flex;flex-direction:column;
+    flex-wrap:wrap; align-items:center;">
+    <?php
 
-<body>
+    // TODO:
+    // Show how many submissions from unique users exist and that dont.
+    // This tells the teacher how many people have turned them in.
 
-    <div class="pane"
-        style="width:100%;height:100%;display:flex;flex-direction:column;
-        flex-wrap:wrap; align-items:center;">
+    try {
+        $userquery = $pdo->prepare(
+        'SELECT posts.*, name.name 
+        FROM posts 
+        INNER JOIN name 
+        ON posts.name_ID = name.name_ID 
+        WHERE posts.post_ID = :postID 
+        ORDER BY posts.publishingDate DESC;');
+        $userdata = array(':postID' => $_GET['uppgiftid']);
 
-        <?php
-        $courseID;
-        $user;
+        $userquery->execute($userdata);
 
-        function printAThing() {
-            try {
-                $userquery = $GLOBALS['pdo']->prepare('
-                SELECT posts.*, name.name
-                FROM posts 
-                INNER JOIN name 
-                ON posts.name_ID = name.name_ID 
-                WHERE posts.post_ID = :postID 
-                ORDER BY posts.publishingDate DESC;'
-                );
-                $data = array(':postID' => $_GET['uppgiftid']);
-
-                $userquery->execute($data);
-
-                while ($row = $userquery->fetch(PDO::FETCH_ASSOC)) {
-                    echo '<div style="width: 50%; display:flex;'.
-                    ' flex-direction:column; flex-wrap:wrap;'.
-                    ' border-top-left-radius:1vh;'.
-                    ' border-bottom-right-radius:1vh;'.
-                    ' height: 10%; margin-top:5%;'.
-                    ' background-color:white;border:1px solid black;">';
-                    if ($row['name'] == "") {
-                        echo '<p>Meddelande</p>';
-                    } else {
-                        echo '<p>Uppgiftsnamn: ' . $row['name'] . '</p>';
-                    }
-
-                    if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
-                        echo '<p>Deadline: Ingen</p>';
-                    } else {
-                        echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
-                    }
-
-                    // Add more fields as needed
-                    echo '<hr>';
-                    echo '<p>Description: ' . $row['description'] . '</p>';
-                    echo '</div>';
-                    echo '<br>';
-                }
+        while ($row = $userquery->fetch(PDO::FETCH_ASSOC)) {
+            echo '<div style="width: 50%; display:flex;'.
+            ' flex-direction:column; flex-wrap:wrap;'.
+            ' border-top-left-radius:1vh;'.
+            ' border-bottom-right-radius:1vh;'.
+            ' height: 10%; margin-top:5%;'.
+            ' background-color:white;border:1px solid black;">';
+            if ($row['name'] == "") {
+                echo '<p>Meddelande</p>';
+            } else {
+                echo '<p>Uppgiftsnamn: ' . $row['name'] . '</p>';
             }
-            catch (PDOException $e) {
-                echo 'Error '. $e;
+
+            if ($row['deadlineDate'] == '0000-00-00 00:00:00') {
+                echo '<p>Deadline: Ingen</p>';
+            } else {
+                echo '<p>Deadline: ' . $row['deadlineDate'] . '</p>';
             }
+
+            // Add more fields as needed
+            echo '<hr>';
+            echo '<p>Description: ' . $row['description'] . '</p>';
+            echo '</div>';
+            echo '<br>';
         }
-
-        ?>
-
-    </div>
-
-    <a class="skapa-kurs" id="myBtn">
-    <i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
-
-    </div>
-
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-            <form id="form" action="#" method="post">
-            <span class="close">&times;</span>
-                <input type="radio" id="uppgift" name="typAv" 
-                value="Uppgift" checked="checked">
-
-                <label for="uppgift">Uppgift</label>
-                <input type="radio" id="meddelande" 
-                name="typAv" value="Meddelande">
-
-                <label for="meddelande">Meddelande</label>
-                <div class="header-pop">
-                    <h2>Skapa uppgift</h2>
-                </div>
-                <input name="name" id="name" class="upp-titel" 
-                type="text" placeholder="Titel på uppgift" required>
-                <textarea name="name" id="name" class="upp-besk" type="text"
-                    placeholder="Beskrivning av uppgift..."></textarea>
-
-                    <a class="bifoga-filer" href="#">
-                    <i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>
-
-                <input type="submit" class="c-btn" value="Skapa uppgift">
-            </form>
-        </div>
-
-    </div>
-
-
+    }
+    catch (PDOException $e) {
+        echo 'Error '. $e;
+    }
+    ?>
+</div>
 </body>
-
 </html>
 
 <!-- SCRIPTS -->
-
 <script src="homescript.js"></script>
 <script src="modal.js"></script>
 <script src="interactiveCreate.js"></script>
-<!-- div for members and leader? -->
