@@ -77,8 +77,6 @@
     xhr.send(data);
 }
 </script>
-
-
 <?php
 require 'Includes/functions.php';
 session_start();
@@ -175,7 +173,7 @@ include 'Includes/courseview.php';
             echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
             echo '<div class="edits">';
             echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
             echo '</div>';
             echo '</div>';
             echo '<div class="uppgift-content">';
@@ -183,7 +181,6 @@ include 'Includes/courseview.php';
             echo '<div class="uppgift-title">';
             echo '<a onclick="goPost('.$row['post_ID'].');"><h2>'. $row['name'] . '</h2></a>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
-            echo '<p>'.$row['publishingDate'].'</p>';
             echo "</div>";
 
 
@@ -195,9 +192,8 @@ include 'Includes/courseview.php';
             echo '<a onclick="goPost('.$row['post_ID'].');"><h2>' . $row['name'] . '</h2></a>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
             echo '<div class="edits">';
-            echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].','.$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
-            echo '<p>'.$row['publishingDate'].'</p>';
+            echo '<a class="edit-trash" onClick="deletePosts('.$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
+            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
             echo '</div>';
             echo '</div>';
 
@@ -239,20 +235,12 @@ include 'Includes/courseview.php';
                     placeholder="Beskrivning av uppgift..."></textarea>
 
                     <a class="bifoga-filer" href="#"><i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>
-                    <input class="set-deadline" type="datetime-local" name="deadline" id="deadline" required>
+                    <input class="set-deadline" type="datetime-local" name="deadline" id="deadline">
                 <input type="submit" class="c-btn" value="Skapa uppgift">
             </form>
         </div>
 
     </div> 
-
-
-<!-- Modal content -->
-<div class="modal" id="hiddenform">
-    
-</div>
-
-</div> 
 
 
 </body>
