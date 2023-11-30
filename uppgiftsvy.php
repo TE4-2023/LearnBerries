@@ -59,8 +59,8 @@ try {
     $postdata = NULL;
 
     if (!$success) {
-        echo "<p>FAIL</p>";
-        //header('location: index.php');
+        // Never reached for some reason
+        header('location: index.php');
     }
 }
 catch (PDOException $e) {
@@ -171,7 +171,7 @@ function getCourseName() {
 
     try {
         $userquery = $pdo->prepare(
-        'SELECT posts.*, name.name
+        'SELECT posts.*, name.name 
         FROM posts 
         INNER JOIN name 
         ON posts.name_ID = name.name_ID 

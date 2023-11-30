@@ -6,54 +6,61 @@ require 'functions.php';
 $courseID = $_POST['courseID'];
 
 try{
-    $users = $pdo->prepare('
-    SELECT *, users.user_ID AS user
-    FROM users
-    LEFT JOIN name 
-    ON users.name_ID = name.name_ID
-    LEFT JOIN course_enrollments
-    ON users.user_ID = course_enrollments.user_ID
-    WHERE course_enrollments.course_ID = :courseID AND users.role_ID = 3
-');
-    $data = array(':courseID' => $courseID);
-    $users->execute($data);
-    
-    // Fetch and display the results
-    echo '<div id = "usersDIV">
-    <h2>Teachers</h2>';
-    while ($usersRow = $users->fetch(PDO::FETCH_ASSOC)) {
-    echo '<button id="course'.$courseID.'" type="button" onclick ="user(this);"
-    data-value="'.$courseID.'" value = "'.$usersRow['user'].'">'.displayName($usersRow['ssn']).'</button><br>';
-    }
-    $users = $pdo->prepare('
-    SELECT *, users.user_ID AS user
-    FROM users
-    LEFT JOIN name 
-    ON users.name_ID = name.name_ID
-    LEFT JOIN course_enrollments
-    ON users.user_ID = course_enrollments.user_ID
-    WHERE course_enrollments.course_ID = :courseID AND users.role_ID = 2
-    ');
-    $users->execute($data);
 
+    $users = $pdo->prepare('
+    SELECT *, users.user_ID AS user
+    FROM users
+    LEFT JOIN name 
+    ON users.name_ID = name.name_ID
+    LEFT JOIN course_enrollments
+    ON users.user_ID = course_enrollments.user_ID
+    WHERE course_enrollments.course_ID = :courseID
+    ');
+
+    $data = array(
+        ':courseID'=> $courseID
+    );
+
+    $users->execute($data);
+    echo '<table id="newUsers">';
+    echo '<tr>
+    <td>Användare</td>
+    <td>Email</td>
+    <td>Roll</td>
+    <td>Betyg</td>
+    <td>Ta bort från kurs</td>
+    </tr>';
     // Fetch and display the results
-    echo'<h2>Students</h2>';
     while ($usersRow = $users->fetch(PDO::FETCH_ASSOC)) {
     $grade = ($usersRow['grade']=="") ? "none" : $usersRow['grade'];
-    echo '<div style=""><button id="course'.$courseID.'" type="button" onclick ="user(this);"
-    data-value="'.$courseID.'" value = "'.$usersRow['user'].'">'.$usersRow['name'].'</button>
-    <form style="display:inline">
-    <label for="color">grade</label>
-    <select id="color" name="color" onchange="updateGrade(this.value, '.$usersRow['user_ID'].', '.$courseID.')" required>';
-    echo '<option value="'.$grade.'">'.$grade.'</option>';
-        foreach (range('A', 'F') as $char) {
-            echo '<option value="'.$char.'">'.$char.'</option>';
+        echo '
+        <td>'.displayName($usersRow['ssn']).'</td>
+        <td>'.displayEmail($usersRow['ssn']).'</td>
+        <td>'.displayRole($usersRow['ssn']).'</td>
+        <td>';
+        if ($usersRow['role_ID']<3)
+        {
+            echo '<select id="grade" name="grade" onchange="updateGrade(this.value, '.$usersRow['courseEnrollment_ID']. ')" required>';
+            echo '<option value="'.$grade.'">'.$grade.'</option>';
+            foreach (range('A', 'F') as $char) {
+                echo '<option value="'.$char.'">'.$char.'</option>';
+            }
+            echo '<option value="">none</option>
+        </select></td>';
         }
-        echo '<option value="">none</option>
-    </select>
-    </form>
-    <br></div>';
+        else{
+            echo ' </td>';
+        }
+
+        echo '
+        <td>
+        <a class="del-user" onClick="removeUser('.$usersRow['courseEnrollment_ID'].')"><i class="fa-solid fa-trash"></i></a>
+      </td>
+
+
+</tr>';
     }
+    echo '</table>';
 }
 catch(PDOException $e){
     echo "ERROR: " . $e;
