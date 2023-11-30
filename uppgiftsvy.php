@@ -28,7 +28,7 @@ try {
     $userid = $userquery->fetch(PDO::FETCH_ASSOC);
 
     $postquery = $pdo->prepare(
-    'SELECT * FROM `posts` WHERE 1=1');
+    'SELECT * FROM `posts` WHERE 1');
     $postquery->execute();
     
     $success = false;
@@ -38,8 +38,8 @@ try {
         }
 
         $ecoursequery = $pdo->prepare(
-        'SELECT * FROM course_enrollments WHERE' .
-        ' course_enrollments.user_ID = :user_ID;');
+        'SELECT * FROM course_enrollments WHERE
+        course_enrollments.user_ID = :user_ID;');
         $ecoursedata = array(':user_ID' => $userid['user_ID']);
         $ecoursequery->execute($ecoursedata);
 
@@ -62,7 +62,6 @@ try {
         echo "<p>FAIL</p>";
         //header('location: index.php');
     }
-    echo "<p>1</p>";
 }
 catch (PDOException $e) {
     echo '<p>Error ' . $e->getMessage() . '</p>';
@@ -75,7 +74,7 @@ function getCourseColor() {
     //$result = sqlExec("course","course_ID",$courseID,"i");
 
     $query = $pdo->prepare(
-    'SELECT * FROM course WHERE course. = :courseID;');
+    'SELECT * FROM course WHERE course.course_ID = :courseID;');
     $data = array(':courseID' => $courseID);
     $query->execute($data);
     $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -92,23 +91,27 @@ function getCourseColor() {
 }
 
 function getCourseName() {
-    $kursid = $GLOBALS['kursid'];
+    $courseID = $GLOBALS['courseID'];
+    $pdo = $GLOBALS['pdo'];
 
-    $result = sqlExec("course","course_ID",$kursid,"i");
+    $query = $pdo->prepare(
+    'SELECT course.*, name.name
+    FROM course 
+    INNER JOIN name 
+    ON course.name_ID = name.name_ID 
+    WHERE course.course_ID = :courseID;');
+    $data = array(':courseID' => $courseID);
+    $query->execute($data);
+    $result = $query->fetch(PDO::FETCH_ASSOC);
 
-    if(mysqli_num_rows($result) == 0) {
-        $stmt = null;
+    if($query->rowCount() == 0) {
+        $query = null;
         echo("No rows.");
         header('Location: ./noaccess.php');
     }
     else {
-        $row = mysqli_fetch_row($result);
-        
-        $result = sqlExec("name","name_ID",$row[1],"i");
-
-        $row = mysqli_fetch_row($result);
-
-        echo($row[1]);
+        echo $result['name'];
+        $query = null;
     }
 }?>
 <nav>
@@ -161,15 +164,19 @@ function getCourseName() {
     style="width:100%;height:100%;display:flex;flex-direction:column;
     flex-wrap:wrap; align-items:center;">
     <?php
+
+    // TODO:
+    // Show how many submissions from unique users exist and that dont.
+    // This tells the teacher how many people have turned them in.
+
     try {
-        $userquery = $pdo->prepare('
-        SELECT posts.*, name.name
+        $userquery = $pdo->prepare(
+        'SELECT posts.*, name.name
         FROM posts 
         INNER JOIN name 
         ON posts.name_ID = name.name_ID 
         WHERE posts.post_ID = :postID 
-        ORDER BY posts.publishingDate DESC;'
-        );
+        ORDER BY posts.publishingDate DESC;');
         $userdata = array(':postID' => $_GET['uppgiftid']);
 
         $userquery->execute($userdata);
