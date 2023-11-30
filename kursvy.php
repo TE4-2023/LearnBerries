@@ -143,8 +143,10 @@ include 'Includes/courseview.php';
             echo '</div>';
             echo '<div class="uppgift-content">';
             echo '<i class="fa-solid fa-clipboard"></i>';
+            echo '<div class="uppgift-title">';
             echo '<h2>'. $row['name'] . '</h2>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
+            echo "</div>";
 
 
             echo '</div>';
