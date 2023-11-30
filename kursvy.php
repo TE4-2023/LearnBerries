@@ -100,8 +100,10 @@ include 'Includes/courseview.php';
             echo '</div>';
             echo '<div class="uppgift-content">';
             echo '<i class="fa-solid fa-clipboard"></i>';
+            echo '<div class="uppgift-title">';
             echo '<h2>'. $row['name'] . '</h2>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
+            echo "</div>";
 
 
             echo '</div>';
@@ -111,10 +113,10 @@ include 'Includes/courseview.php';
             echo '<i class="fa-solid fa-clipboard"></i>';
             echo '<h2>' . $row['name'] . '</h2>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
-            echo '<div class="edits">';
-            echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
-            echo '</div>';
+            // echo '<div class="edits">';
+            // echo '<a class="edit-trash" href="#"><i class="fa-regular fa-trash-can"></i></a>';
+            // echo '<a class="edit-pen" href="#"><i class="fa-regular fa-pen-to-square"></i></a>';
+            // echo '</div>';
             echo '</div>';
 
         }

@@ -393,7 +393,7 @@ table td {
 
 .uppgift {
   width: 100vw;
-  max-width: 100vw; /* Set your desired max-width */
+  max-width: 175vw; /* Set your desired max-width */
   word-wrap: break-word;
   overflow: auto;
   margin: 10px;
@@ -403,6 +403,15 @@ table td {
   border: 1px solid #a0a0a0;
   border-top-right-radius: 12px;
   border-bottom-left-radius: 12px;
+  transition: 0.2s;
+}
+
+.uppgift:hover {
+  scale: 1.02;
+  box-shadow: 2px 2px 12px rgb(200, 200, 200);
+  border: 1px solid #000000;
+  border-radius: 0px;
+  cursor: pointer;
 }
 
 .uppgift-deadline {
@@ -418,7 +427,8 @@ table td {
 }
 
 .uppgift-right {
-  display: block;
+  display: flex;
+  flex-direction: column;
   float: right;
   margin: 0;
 }
@@ -431,41 +441,39 @@ table td {
   padding: 8px 12px;
 }
 
-.uppgift h2 {
+.uppgift-title {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.uppgift h2 {
   margin: 0;
-  margin-bottom: 1.5rem;
 }
 
 .uppgift p.meddelande {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  margin-left: -7rem;
-  margin-top: 2rem;
+  margin-top: .3rem;
 }
 
 .edits {
-  display: block;
-  float: right;
-  margin-top: 2rem;
-  margin-right: -6.5rem;
-}
-
-.edits a {
   display: flex;
-  float: right;
-  flex-direction: column;
+  flex-direction: row;
+}
+
+.edit-trash, .edit-pen, .edits i {
+  color: black;
+  margin: 0;
   text-decoration: none;
+  font-size: 24px;
+  display: flex;
+  transition: 0.2s;
 }
 
-.edit-trash i {
-  color: black;
-  font-size: 18px; 
+.edit-trash i:hover {
+  color: red;
+  cursor: pointer;
 }
 
-.edit-pen i {
-  color: black;
-  font-size: 18px;
+.edit-pen i:hover {
+  color: rgb(255, 179, 0);
+  cursor: pointer;
 }
