@@ -41,42 +41,41 @@
         xhr.send(data);
     }
 
-    function getForm(postid){
-        const xhr = new XMLHttpRequest();
+    function getForm(postid) {
+    const xhr = new XMLHttpRequest();
 
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Optionally, you can redirect the user or perform other actions here
-                    var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
+    xhr.onreadystatechange = function () {
+        console.log('Ready State:', xhr.readyState, 'Status:', xhr.status);
+
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
                     var modal = document.getElementById("hiddenform");
-                    modal.innnerHTML = dom.document.getElementById('hiddenform').innerHTML;
+                    modal.innerHTML = dom.getElementById('hiddenform').innerHTML;
                     var span = modal.querySelector('.close');
+                    modal.style.display = "block";
                 if (span) {
                     span.onclick = function () {
                         modal.style.display = "none";
                     };
                 }
 
-                // When the user clicks anywhere outside of the modal, close it
                 window.onclick = function (event) {
                     if (event.target == modal) {
                         modal.style.display = "none";
                     }
                 };
-                }
+            } else {
+                alert('Error during enrollment: ' + xhr.status);
+            }
+        }
+    };
 
-
-                } else {
-                    alert('Error during enrollment: ' + xhr.responseText);
-                }
-        };
-        xhr.open('POST', "Includes/getForm.php", true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        var data = 'postID=' + encodeURIComponent(postid);
-        xhr.send(data);
-    }
-
+    xhr.open('POST', "Includes/getForm.php", true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    var data = 'postID=' + encodeURIComponent(postid);
+    xhr.send(data);
+}
 </script>
 
 
