@@ -15,45 +15,30 @@ try {
     $userquery->execute($data);
     $userid = $userquery->fetch(PDO::FETCH_ASSOC);
 
-    $courseenrollquery = $pdo->prepare(
-    'SELECT * FROM course_enrollments WHERE' .
-    ' course_enrollments.user_ID = :user_ID;');
-    $bdata = array(':user_ID' => $userid['user_ID']);
-    $courseenrollquery->execute($bdata);
-    $brow = $courseenrollquery->fetch(PDO::FETCH_ASSOC);
+    $postquery = $pdo->prepare(
+    'SELECT * FROM `posts` WHERE `posts`.course_ID = :course_ID;');
+    $postdata = array(':course_ID' => $ecourserow['course_ID']);
+    $postquery->execute($cdata);
+    
+    while ($postrow = $postquery->fetch(PDO::FETCH_ASSOC)) {
+        if ($_GET['uppgiftid'] != $postrow['post_ID']) {
+            continue;
+        }
 
-    // Add post checking
-
-    $coquery = $pdo->prepare(
-    'SELECT * FROM course WHERE course.course_ID = :course_ID;');
-    $cdata = array(':course_ID' => $brow['course_ID']);
-    $coquery->execute($cdata);
-
-    // The following code is wrong because it is still not checking which post
-    // we're lookin at and its necessary course enrollment
-    $success = false;
-    while ($enrollments = $courseenrollquery->fetch(PDO::FETCH_ASSOC)) {
-        if ($success) { break; }
-        echo "Course enrollment id: " . $enrollments['course_ID'] . "<br>";
-
-        $dquery = $pdo->prepare(
+        $ecoursequery = $pdo->prepare(
         'SELECT * FROM course_enrollments WHERE' .
         ' course_enrollments.user_ID = :user_ID;');
-        $ddata = array(':user_ID' => $userid['user_ID']);
-        $dquery->execute($ddata);
-        $drow = $dquery->fetch(PDO::FETCH_ASSOC);
+        $ecoursedata = array(':user_ID' => $userid['user_ID']);
+        $ecoursequery->execute($ecoursedata);
 
-        while ($courses = $dquery->fetch(PDO::FETCH_ASSOC)) {
-            if ($success) {
-                break;
-            } else if ($enrollments['course_ID'] == $courses['course_ID']) {
-                echo "Course id:" . $courses['course_ID'] . "<br>";
-                $success = true;
-                break;
+        while ($ecourserow = $ecoursequery->fetch(PDO::FETCH_ASSOC)) {
+            if ($ecourserow['course_ID'] != $postrow['course_ID']) {
+                continue;
             }
+
+            $success = true;
         }
     }
-
     if (!$success) {
         echo "hello";
         //header('location: index.php');
