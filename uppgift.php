@@ -12,9 +12,18 @@
 require 'Includes/connect.php';
 session_start();
 
+if (isset($_SESSION['postID'])) {
+    $_GET['uppgiftid'] = $_SESSION['postID'];
+    unset($_SESSION['postID']);
+}
+
 if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
     
     //header("location: index.php");
+}
+
+if (isset($_POST['turn-in'])) {
+    submit();
 }
 
 $courseID = 0;
@@ -146,13 +155,50 @@ function getPostSubmissions() {
     $query->execute($data);
 
     while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-        if ($query['course_ID'] == $postID) {
+        if ($result['post_ID'] == $postID) {
             $submittedAmount = $submittedAmount + 1;
         }
     }
 
     echo $submittedAmount . "/" . getTotalEnrolled();
-}?>
+}
+
+function getUID() {
+    $query = $GLOBALS['pdo']->prepare(
+        'SELECT *
+        FROM users
+        WHERE users.ssn = :ssn;');
+    $data = array(':ssn' => $_SESSION['uid']);
+    $query->execute($data);
+
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    return $result['user_ID'];
+}
+
+function submit() {
+    $_SESSION['postID'] = $_GET['uppgiftid'];
+    $query = $GLOBALS['pdo']->prepare(
+        'INSERT 
+        INTO submissions
+        (user_ID, post_ID, date)
+        VALUES (:userID, :postID, CURRENT_DATE());');
+    $query->bind_param(':userID', getUID());
+    $query->bind_param(':postID', $_GET['uppgiftid']);
+    $query->execute();
+}
+
+function hasSubmitted() {
+    $query = $GLOBALS['pdo']->prepare(
+        'SELECT *
+        FROM users
+        WHERE users.ssn = :ssn;');
+    $data = array(':ssn' => $_SESSION['uid']);
+    $query->execute($data);
+
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    return $result['user_ID'];
+}
+?>
 
 <body>
 <nav>
@@ -218,9 +264,40 @@ function getPostSubmissions() {
 <div class="ruta">
     <div class="uppnamn">
         <h1 class="rubrik"><?php echo $name; ?> </h1>
-        <p class="upptext">Inlämnat: <?php getPostSubmissions(); ?></p>
-        <p class="upptext">Betygsatt: </p>
-        <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Visa alla arbeten</a>
+        <?php 
+            $query = $GLOBALS['pdo']->prepare(
+                'SELECT * 
+                FROM users
+                WHERE users.user_ID = :userID;');
+            $data = array(':userID' => getUID());
+            $query->execute($data);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+        
+            if ($query->rowCount() == 0) {
+                echo "Error row 230 uppgift.php";
+            } else {
+                if ($result['role_ID'] == 3) {
+                    echo '<p class="upptext">Inlämnat: ';
+                    echo getPostSubmissions();
+                    echo '</p>
+                          <p class="upptext">Betygsatt: </p>
+                          <a class="skapa-kurs" id="myBtn">
+                          <i class="fa-solid fa-file-circle-plus">
+                          </i> Visa alla arbeten</a>';
+                }
+                else  {
+                    echo '<p class="upptext">Inlämnat: ';
+                    echo getPostSubmissions();
+                    echo '</p>
+                          <form style="padding:0; margin:0;">
+                          <input style="margin-left:10px;padding-left:4px;"
+                          type="submit" name="turn-in" value="Lämna in">
+                          </form>';
+                }
+            }
+
+            
+        ?>
     </div>
     <div class="info">
         <p class="text">
