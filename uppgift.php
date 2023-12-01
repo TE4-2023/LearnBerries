@@ -68,7 +68,8 @@ try {
 
     if (!$success) {
         // Never reached for some reason
-        header('location: index.php');
+        echo 'kos';
+        //header('location: index.php');
     }
 }
 catch (PDOException $e) {
@@ -89,8 +90,8 @@ function getCourseColor() {
 
     if($query->rowCount() == 0) {
         $query = null;
-        echo("No rows.");
-        header('Location: ./noaccess.php');
+        echo("No rows.color");
+        // header('Location: ./noaccess.php');
     }
     else {
         echo('#'. bin2hex($result['color']));
@@ -115,7 +116,7 @@ function getCourseName() {
     if($query->rowCount() == 0) {
         $query = null;
         echo("No rows.");
-        header('Location: ./noaccess.php');
+        // header('Location: ./noaccess.php');
     }
     else {
         echo $result['name'];
@@ -289,9 +290,9 @@ function hasSubmitted() {
                     echo '<p class="upptext">Inlämnat: ';
                     echo getPostSubmissions();
                     echo '</p>
-                          <form style="padding:0; margin:0;">
+                          <form action="Includes/turnin.php" method="post" style="padding:0; margin:0;">
                           <input style="margin-left:10px;padding-left:4px;"
-                          type="submit" name="turn-in" value="Lämna in">
+                          type="submit" name="uppgiftid" value="'.$_GET['uppgiftid'].'">
                           </form>';
                 }
             }
