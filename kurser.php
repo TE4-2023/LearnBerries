@@ -117,7 +117,7 @@
                 </form>
             </div>
 
-    </div>
+        </div>
 
 </body>
 <script>
@@ -132,6 +132,11 @@
         window.location.href = "kursvy.php?kursid=" + id;
     }
 
+    var btn = document.getElementById("myBtn");
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
 </script>
 
 <script src="modal.js" defer></script>

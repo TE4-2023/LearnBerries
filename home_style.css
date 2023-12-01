@@ -1,0 +1,49 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: auto;
+    height: 100%;
+}
+
+.home-container .nyheter {
+    background-color: #DEC6B4;
+    padding: 12px 18px;
+    display: block;
+    margin-left: 14rem;
+    margin-top: 4rem;
+    overflow-y: auto;
+    max-height: 430px; /* Adjust the value as needed */
+    width: 55vw;
+}
+
+.nyheter::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .nyheter::-webkit-scrollbar-track {
+    border-radius: 100px;
+  }
+  
+  .nyheter::-webkit-scrollbar-thumb {
+    background-color: #d4aa70;
+    border-radius: 100px;
+  }
+
+  .nyheter hr {
+    background-color: #a0a0a0;
+    text-decoration: none;
+    height: 2px;
+    border: 0;
+    border-radius: 24px;
+  }
+
+  .home-container .schema {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    height: 420px;
+    width: 56.5vw;
+    border: 1px solid red;
+    margin-left: 14rem;
+    margin-top: 2rem;
+  }
