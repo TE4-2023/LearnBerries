@@ -16,6 +16,8 @@ try{
     LEFT JOIN course_enrollments
     ON users.user_ID = course_enrollments.user_ID
     WHERE course_enrollments.course_ID = :courseID
+    ORDER BY users.role_ID DESC
+
     ');
 
     $data = array(
