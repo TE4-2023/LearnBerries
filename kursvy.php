@@ -266,7 +266,7 @@ include 'Includes/courseview.php';
 <script src="interactiveCreate.js"></script>
 <script>
     function goPost(extra) {
-        let url = window.location.protocol + "//" + window.location.host + "/webschool/uppgiftsvy.php?uppgiftid=" + extra;
+        let url = window.location.protocol + "//" + window.location.host + "/webschool/uppgift.php?uppgiftid=" + extra;
         window.location.href = url;
     }
 </script>
