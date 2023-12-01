@@ -41,21 +41,6 @@
         xhr.send(data);
     }
 
-<<<<<<< Updated upstream
-    function getForm(postid) {
-    const xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-        console.log('Ready State:', xhr.readyState, 'Status:', xhr.status);
-
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
-                    var modal = document.getElementById("hiddenform");
-                    modal.innerHTML = dom.getElementById('hiddenform').innerHTML;
-                    var span = modal.querySelector('.close');
-                    modal.style.display = "block";
-=======
     function getForm(postid){
         const xhr = new XMLHttpRequest();
 
@@ -67,35 +52,17 @@
                     var modal = document.getElementById("hiddenform");
                     modal.innnerHTML = dom.getElementById('hiddenform').innerHTML;
                     var span = modal.querySelector('.close');
->>>>>>> Stashed changes
                 if (span) {
                     span.onclick = function () {
                         modal.style.display = "none";
                     };
                 }
 
-<<<<<<< Updated upstream
-=======
-                // When the user clicks anywhere outside of the modal, close it
->>>>>>> Stashed changes
                 window.onclick = function (event) {
                     if (event.target == modal) {
                         modal.style.display = "none";
                     }
                 };
-<<<<<<< Updated upstream
-            } else {
-                alert('Error during enrollment: ' + xhr.status);
-            }
-        }
-    };
-
-    xhr.open('POST', "Includes/getForm.php", true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    var data = 'postID=' + encodeURIComponent(postid);
-    xhr.send(data);
-}
-=======
                 }
 
 
@@ -109,7 +76,6 @@
         xhr.send(data);
     }
 
->>>>>>> Stashed changes
 </script>
 
 
