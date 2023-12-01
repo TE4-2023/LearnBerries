@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 .home-container {
     display: flex;
     flex-direction: column;
@@ -41,9 +45,105 @@
   .home-container .schema {
     display: flex;
     flex-direction: column; /* Stack children vertically */
-    height: 420px;
-    width: 56.5vw;
-    border: 1px solid red;
+    height: 440px;
+    width: 37.5vw;
+    background-color: #DEC6B4;
     margin-left: 14rem;
     margin-top: 2rem;
+  }
+
+  .schema img {
+    display: flex;
+    align-self: center;
+    margin: auto;
+    width: 36.5vw;
+  }
+
+  .home-container .todo-list {
+    height: 540px;
+    display: block;
+    width: 360px;
+    margin-left: auto;
+    margin-right: 8rem;
+    margin-top: -58rem;
+    border: 1px solid #a0a0a0;
+    overflow: auto;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+  }
+
+  .todo-list::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .todo-list::-webkit-scrollbar-track {
+    border-radius: 100px;
+  }
+  
+  .todo-list::-webkit-scrollbar-thumb {
+    background-color: #606060;
+    border-radius: 100px;
+  }
+
+
+  .todo-title {
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  .list-item {
+    border-radius: 24px;
+    display: flex;
+    font-size: 18px;
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 14px;
+    margin-right: 3rem;
+    margin-left: 3rem;
+    margin-bottom: 2rem;
+  }
+
+
+  .home-container .todo-prov-list {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    width: 720px;
+    margin-left: auto;
+    overflow: auto;
+    margin-right: 8rem;
+    margin-top: 4rem;
+    border: 1px solid #a0a0a0;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+  }
+
+  .prov-title {
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  .prov-item {
+    border-radius: 24px;
+    display: flex;
+    font-size: 18px;
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 14px;
+    margin-right: 3rem;
+    margin-left: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .todo-prov-list::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .todo-prov-list::-webkit-scrollbar-track {
+    border-radius: 100px;
+  }
+  
+  .todo-prov-list::-webkit-scrollbar-thumb {
+    background-color: #606060;
+    border-radius: 100px;
   }
