@@ -19,7 +19,7 @@ if (isset($_SESSION['postID'])) {
 
 if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
     
-    //header("location: index.php");
+    header("location: index.php");
 }
 
 if (isset($_POST['turn-in'])) {
@@ -91,7 +91,7 @@ function getCourseColor() {
     if($query->rowCount() == 0) {
         $query = null;
         echo("No rows.color");
-        // header('Location: ./noaccess.php');
+        header('Location: ./noaccess.php');
     }
     else {
         echo('#'. bin2hex($result['color']));
@@ -116,7 +116,7 @@ function getCourseName() {
     if($query->rowCount() == 0) {
         $query = null;
         echo("No rows.");
-        // header('Location: ./noaccess.php');
+        header('Location: ./noaccess.php');
     }
     else {
         echo $result['name'];
@@ -165,30 +165,6 @@ function getPostSubmissions() {
 }
 
 function getUID() {
-    $query = $GLOBALS['pdo']->prepare(
-        'SELECT *
-        FROM users
-        WHERE users.ssn = :ssn;');
-    $data = array(':ssn' => $_SESSION['uid']);
-    $query->execute($data);
-
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    return $result['user_ID'];
-}
-
-function submit() {
-    $_SESSION['postID'] = $_GET['uppgiftid'];
-    $query = $GLOBALS['pdo']->prepare(
-        'INSERT 
-        INTO submissions
-        (user_ID, post_ID, date)
-        VALUES (:userID, :postID, CURRENT_DATE());');
-    $query->bind_param(':userID', getUID());
-    $query->bind_param(':postID', $_GET['uppgiftid']);
-    $query->execute();
-}
-
-function hasSubmitted() {
     $query = $GLOBALS['pdo']->prepare(
         'SELECT *
         FROM users
@@ -291,8 +267,9 @@ function hasSubmitted() {
                     echo getPostSubmissions();
                     echo '</p>
                           <form action="Includes/turnin.php" method="post" style="padding:0; margin:0;">
+                          <input type="text" style="display:none;" name="uppgiftid" value="'.$_GET['uppgiftid'].'">
                           <input style="margin-left:10px;padding-left:4px;"
-                          type="submit" name="uppgiftid" value="'.$_GET['uppgiftid'].'">
+                          type="submit" name="turn-in" value="Lämna in">
                           </form>';
                 }
             }
