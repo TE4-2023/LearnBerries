@@ -12,18 +12,9 @@
 require 'Includes/connect.php';
 session_start();
 
-if (isset($_SESSION['postID'])) {
-    $_GET['uppgiftid'] = $_SESSION['postID'];
-    unset($_SESSION['postID']);
-}
-
 if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
     
     header("location: index.php");
-}
-
-if (isset($_POST['turn-in'])) {
-    submit();
 }
 
 $courseID = 0;
@@ -175,7 +166,25 @@ function getUID() {
     $result = $query->fetch(PDO::FETCH_ASSOC);
     return $result['user_ID'];
 }
-?>
+
+function postExists() {
+    $uid = getUID($_SESSION['uid']);
+    $query = $GLOBALS['pdo']->prepare(
+        'SELECT * 
+        FROM submissions 
+        WHERE submissions.user_ID = :userID 
+        AND submissions.post_ID = :postID;');
+    $query->bindParam(':userID', $uid);
+    $query->bindParam(':postID', $_GET['uppgiftid']);
+    $query->execute();
+
+    $undo = "Ångra inlämning";
+    $submit = "Lämna in";
+    if ($query->rowCount() > 0) {
+        return $undo;
+    }
+    return $submit;
+}?>
 
 <body>
 <nav>
@@ -269,8 +278,10 @@ function getUID() {
                           <form action="Includes/turnin.php" method="post" style="padding:0; margin:0;">
                           <input type="text" style="display:none;" name="uppgiftid" value="'.$_GET['uppgiftid'].'">
                           <input style="margin-left:10px;padding-left:4px;"
-                          type="submit" name="turn-in" value="Lämna in">
-                          </form>';
+                          type="submit" name="turn-in" value="';
+                    echo postExists();
+                    echo '"></form>';
+                          //Lämna in
                 }
             }
 

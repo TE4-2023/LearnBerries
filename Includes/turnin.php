@@ -2,15 +2,15 @@
 require 'functions.php';
 // Get data from AJAX request
 session_start();
-$userID = $_SESSION['uid'];
+$userID = getUID($_SESSION['uid']);
 $postID = $_POST['uppgiftid'];
 
-function getUID() {
+function getUID($ssn) {
     $query = $GLOBALS['pdo']->prepare(
         'SELECT *
         FROM users
         WHERE users.ssn = :ssn;');
-    $data = array(':ssn' => $GLOBALS['$userID']);
+    $data = array(':ssn' => $ssn);
     $query->execute($data);
 
     $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -32,6 +32,18 @@ function postExists() {
 }
 
 
+function removePost() {
+    $query = $GLOBALS['pdo']->prepare(
+        'DELETE 
+        FROM submissions 
+        WHERE submissions.user_ID = :userID 
+        AND submissions.post_ID = :postID;');
+    $query->bindParam(':userID', $GLOBALS['userID']);
+    $query->bindParam(':postID', $GLOBALS['postID']);
+    $query->execute();
+}
+
+
 try{
     $query = $pdo->prepare(
     'INSERT INTO submissions (user_ID, post_ID, date)
@@ -47,6 +59,7 @@ if (postExists() == 0) {
     $query->execute($data);
 }
 else {
+    removePost();
     $query = NULL;
 }
 
