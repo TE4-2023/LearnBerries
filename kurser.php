@@ -25,8 +25,8 @@
                     </li>
 
                     <div class="left-nav">
-                    <li title="Profil"><a href=""><i class="fa-regular fa-circle-user"></i></a></li>
-                        <li title="Logga ut"><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                    <li title="Profil"><a href="profil.php"><i class="fa-regular fa-circle-user"></i></a></li>
+                        <li title="Logga ut"><a href="Includes/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                     </div>
                 </ul>
             </div>
