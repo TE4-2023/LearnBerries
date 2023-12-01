@@ -1,18 +1,16 @@
 <?php
 require 'functions.php';
 // Get data from AJAX request
-$userID = $_POST['userID'];
-$courseID = $_POST['courseID'];
+$enrolledID = $_POST['enrolledID'];
 
 try{
     $query = $pdo->prepare('
     DELETE FROM course_enrollments 
-    WHERE user_ID = :userID AND course_ID= :courseID
+    WHERE courseEnrollment_ID = :enrolledID
 ');
 
 $data = array(
-':courseID' => $courseID,
-':userID' => $userID
+'enrolledID' => $enrolledID
 );
 
 $query->execute($data);
