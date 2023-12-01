@@ -10,6 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="nyheter.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300&display=swap');
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+        }
+    </style>
     <title>Nyheter</title>
 </head>
 
