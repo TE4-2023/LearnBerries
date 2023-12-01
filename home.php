@@ -24,7 +24,7 @@
                     </li>
 
                     <div class="left-nav">
-                        <li><a href="login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
+                        <li><a href="Includes/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
                     </div>
                 </ul>
             </div>
@@ -73,8 +73,59 @@
         </div>
 
         <div class="schema">
-
+            <img src="Screenshot_1.png" alt="Schema">
         </div>
+
+        <div class="todo-list">
+            <h2 class="todo-title">Att göra lista</h2>
+
+            <div class="list-item item-1" style="background-color: #86B867;">
+                <span>Argumenterande tal</span>
+                <span>Svenska</span>
+                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
+            </div>
+
+            <div class="list-item item-2" style="background-color: #B86767;">
+            <span>Argumenterande tal</span>
+                <span>Svenska</span>
+                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
+            </div>
+
+            <div class="list-item item-3" style="background-color: #B88A67;">
+            <span>Argumenterande tal</span>
+                <span>Svenska</span>
+                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
+            </div>
+
+            <div class="list-item item-3" style="background-color: #86B867;">
+            <span>Argumenterande tal</span>
+                <span>Svenska</span>
+                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
+            </div>
+        </div>
+
+        <div class="todo-prov-list">
+
+            <h2 class="prov-title">Kommande prov</h2>
+
+        <div class="prov-item item-1" style="background-color: #86B867;">
+                <span>Kapiteltest - Aritmetik Ma1a</span>
+                <span>Matte 1A</span>
+                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
+            </div>
+
+            <div class="prov-item item-2" style="background-color: #86B867;">
+                <span>Kapiteltest - Procent Ma1a</span>
+                <span>Matte 1A</span>
+                <span style="font-weight: bold;">V45 Tisdag 12:00 - 13:00</span>
+            </div>
+
+            <div class="prov-item item-3" style="background-color: #86B867;">
+                <span>Kapiteltest - Algebra Ma1a</span>
+                <span>Matte 1A</span>
+                <span style="font-weight: bold;">V47 Tisdag 12:00 - 13:00</span>
+            </div>
+            </div>
 
         </div>
 </body>

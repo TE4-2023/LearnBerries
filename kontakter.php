@@ -10,6 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="kontakter.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300&display=swap');
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+        }
+    </style>
     <title>Kontakter</title>
 </head>
 
@@ -24,7 +30,7 @@
                     </li>
 
                     <div class="left-nav">
-                        <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
+                        <li><a href="Includes/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
                     </div>
                 </ul>
             </div>

@@ -30,18 +30,22 @@ try{
     <td>Användare</td>
     <td>Email</td>
     <td>Roll</td>
-    <td>Betyg</td>
-    <td>Ta bort från kurs</td>
+    <td>Betyg</td>';
+    if($_SESSION['role']>2)
+    {
+        echo '<td>Ta bort från kurs</td>';
+    }
+    echo'
     </tr>';
     // Fetch and display the results
     while ($usersRow = $users->fetch(PDO::FETCH_ASSOC)) {
     $grade = ($usersRow['grade']=="") ? "none" : $usersRow['grade'];
-        echo '
+        echo '<tr style="background-color:'. (($usersRow['user_ID'] == $_SESSION['userid']) ? "rgba(172, 166, 166, 0.548)" : "white").'">
         <td>'.displayName($usersRow['ssn']).'</td>
         <td>'.displayEmail($usersRow['ssn']).'</td>
         <td>'.displayRole($usersRow['ssn']).'</td>
         <td>';
-        if ($usersRow['role_ID']<3)
+        if ($usersRow['role_ID'] <2 || ($_SESSION['role']>2 && $usersRow['user_ID'] != $_SESSION['userid']))
         {
             echo '<select id="grade" name="grade" onchange="updateGrade(this.value, '.$usersRow['courseEnrollment_ID'].')" required>';
             echo '<option value="'.$grade.'">'.$grade.'</option>';
@@ -51,17 +55,23 @@ try{
             echo '<option value="">none</option>
         </select></td>';
         }
+        else if($usersRow['user_ID'] == $_SESSION['userid'])
+        {
+            echo $usersRow['grade'];
+        }
         else{
             echo ' </td>';
         }
-        echo '
-        <td>';
-        if(!($usersRow['ssn'] == $_SESSION['uid']))
+
+        if(!($usersRow['user_ID'] == $_SESSION['userid']) && $_SESSION['role']>2)
         {
-            echo '<a class="del-user" onClick="removeUser('.$usersRow['courseEnrollment_ID']. ', '. $usersRow['course_ID'].')"><i class="fa-solid fa-trash"></i></a>';
+            echo '<td><a class="del-user" onClick="removeUser('.$usersRow['courseEnrollment_ID']. ', '. $usersRow['course_ID'].')"><i class="fa-solid fa-trash"></i></a></td>';
         }
-       echo'
-      </td>
+        if($_SESSION['role']>2 && ($usersRow['user_ID'] == $_SESSION['userid']))
+        {
+            echo'<td></td>';
+        }
+       echo' 
 
 
 </tr>';
