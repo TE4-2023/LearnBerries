@@ -25,8 +25,7 @@ try{
     <td>Användare</td>
     <td>Email</td>
     <td>Roll</td>
-    <td>Betyg</td>
-    <td>Ta bort från kurs</td>
+    <td>Bjud In</td>
     </tr>';
     // Fetch and display the results
     while ($usersRow = $users->fetch(PDO::FETCH_ASSOC)) {
@@ -36,7 +35,7 @@ try{
         <td>'.displayRole($usersRow['ssn']).'</td>
         <td>
         
-        <a class="del-user" onClick="addUser('.$usersRow['user_ID']. ', '. $courseID.')"><i class="fa-solid fa-trash"></i></a>
+        <a style="cursor: pointer;"onClick="inviteUser('.$usersRow['user_ID']. ', '. $courseID.')"><i class="fa-regular fa-paper-plane"></i></a>
     
 
       </td>
