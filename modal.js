@@ -28,3 +28,33 @@ document.getElementById("colorPickerContainer").addEventListener("click", functi
     // Trigger the click event on the color wheel input
     document.querySelector(".color-wheel").click();
 });
+
+// function openModal(postid){
+  
+//   var modal = document.getElementById("myModal");
+//   var frm = document.getElementById('form') || null;
+//   if(frm) {
+//      frm.action = 'editPosts.php'; 
+//   }
+//   else{
+//     console.log("kos");
+//   }
+//   // Get the <span> element that closes the modal
+//   var span = document.getElementsByClassName("close")[0];
+
+
+//     modal.style.display = "block";
+
+//   // When the user clicks on <span> (x), close the modal
+//   span.onclick = function() {
+//     modal.style.display = "none";
+//   }
+
+//   // When the user clicks anywhere outside of the modal, close it
+//   window.onclick = function(event) {
+//     if (event.target == modal) {
+//       modal.style.display = "none";
+//     }
+//   };
+// }
+

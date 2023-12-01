@@ -2,20 +2,19 @@
 require 'functions.php';
 $pdo = $GLOBALS['pdo'];
 $grade = $_POST['grade'];
-$userID = $_POST['userID'];
-$courseID = $_POST['courseID'];
+$enrolledID = $_POST['enrolledID'];
     try {
-        echo($grade. ' '. $userID . ' ' . $courseID);
         $query = $pdo->prepare('
             UPDATE course_enrollments
             SET grade = :grade
-            WHERE user_ID = :userID AND course_ID = :courseID
-        ');
-        $data = array(
-            ':userID' => $userID,
-            ':courseID' => $courseID,
-            ':grade' => $grade
-        );
+            WHERE courseEnrollment_ID = :enrolledID
+            ');
+            
+            $data = array(
+            'enrolledID' => $enrolledID,
+            'grade' => $grade
+            );
+            
 
 
         if($query->execute($data) === TRUE ) {

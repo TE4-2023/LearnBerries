@@ -4,6 +4,14 @@
         require 'functions.php';
         $pdo = $GLOBALS['pdo'];
         try {
+
+            $editquery = $pdo->prepare('
+            UPDATE `posts` 
+            SET `name_ID`='$_POST['name_']',
+            `deadlineDate`='[value-6]',
+            `description`='[value-7]' 
+            WHERE 1');
+
             $deltequery = $pdo->prepare('
             DELETE FROM `posts`
             WHERE post_ID = :postID; ');
@@ -30,7 +38,7 @@
             echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
             echo '<div class="edits">';
             echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '<a class="edit-pen" onClick="editPosts('.$row['course_ID'].',' .$row['post_ID'].', '.$row['name_ID'].', '.$row['deadlineDate'].', '.$row['description'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
             echo '</div>';
             echo '</div>';
             echo '<div class="uppgift-content">';
@@ -48,7 +56,7 @@
             echo '<p class="meddelande">' . $row['description'] . '</p>';
             echo '<div class="edits">';
             echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '<a class="edit-pen" onClick="editPosts('.$row['course_ID'].',' .$row['post_ID'].', '.$row['name_ID'].', '.$row['deadlineDate'].', '.$row['description'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
             echo '</div>';
             echo '</div>';
 
