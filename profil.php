@@ -3,7 +3,7 @@
 require 'Includes/connect.php';
 
 session_start();
-echo $_SESSION['uid'];
+//echo $_SESSION['uid'];
 ?>
 
 
@@ -15,6 +15,12 @@ echo $_SESSION['uid'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
     <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300&display=swap');
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+        }
+    </style>
     <link rel="stylesheet" href="profil.css">
 </head>
 
@@ -29,7 +35,7 @@ echo $_SESSION['uid'];
             </li>
 
             <div class="left-nav">
-                <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
+                <li><a href="Includes/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
             </div>
         </ul>
         </div>
@@ -61,13 +67,24 @@ echo $_SESSION['uid'];
     <nav>
         <div class="vert-nav">
             <ul>
-                <li><a href=""><i class="fa-solid fa-house"></i> Hem</a></li>
-                <li><a href=""><i class="fa-solid fa-scroll"></i> Kurser</a></li>
-                <li><a href=""><i class="fa-regular fa-calendar-days"></i> Scheman</a></li>
-                <li><a href=""><i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
-                <li><a href=""><i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
-                <li><a href=""><i class="fa-solid fa-address-book"></i> Kontakter</a></li>
-            </ul>
+            <li><a href="home.php">
+            <i class="fa-solid fa-house"></i> Hem</a></li>
+
+            <li><a href="kurser.php">
+            <i class="fa-solid fa-scroll"></i> Kurser</a></li>
+            
+            <li><a href=""><i class="fa-regular fa-calendar-days">
+            </i> Scheman</a></li>
+
+            <li><a href="">
+            <i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
+
+            <li><a href="nyheter.php">
+            <i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
+
+            <li><a href="kontakter.php">
+            <i class="fa-solid fa-address-book"></i> Kontakter</a></li>
+        </ul>
         </div>
     </nav>
 
