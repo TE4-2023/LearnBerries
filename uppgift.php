@@ -185,7 +185,7 @@ function getPostSubmissions() {
 
 <div class="kurs" style="background-color: <?php echo getCourseColor(); ?>">
     <h1 class="text"><?php getCourseName(); ?></h1><br>
-    <a href="#" class="deltagare"><i class="fa-solid fa-users"></i> Deltagare</a>
+    <a onclick="goCourse(<?php echo $courseID; ?>)" class="deltagare"><i class="fa-solid fa-arrow-left"></i> Till kurs</a>
 </div>
 
 <?php
@@ -231,6 +231,13 @@ function getPostSubmissions() {
 </body>
 </html>
 <!-- SCRIPTS -->
+
+<script>
+function goCourse(extra) {
+    let url = window.location.protocol + "//" + window.location.host + "/webschool/kursvy.php?kursid=" + extra;
+    window.location.href = url;
+}
+</script>
 
 <script src="homescript.js"></script>
 <script src="modal.js"></script>
