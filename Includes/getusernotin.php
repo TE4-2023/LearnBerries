@@ -4,20 +4,21 @@ require 'connect.php';
 require 'functions.php';
 // Get data from AJAX request
 $courseID = $_POST['courseID'];
-
+$search = ($_POST['searchStr']==="") ? " " : $_POST['searchStr'];
 try{
 
     $data = array(':courseID' => $courseID);
 
     
     
-    $users = $pdo->prepare('
-    SELECT *, users.user_ID AS user
-    FROM users
-    LEFT JOIN name 
-    ON users.name_ID = name.name_ID
-    WHERE users.user_ID NOT IN (SELECT course_enrollments.user_ID FROM course_enrollments WHERE course_enrollments.course_ID = :courseID);
-    ');
+    $users = $pdo->prepare("
+    SELECT * , name.name AS firstname , A.name AS lastname, CONCAT(name.name, ' ', A.name) AS fullname, users.user_ID AS user
+    FROM `users` 
+    INNER JOIN name ON users.name_ID = name.name_ID
+    INNER JOIN name AS A ON users.lastname_ID = A.name_ID
+    WHERE users.user_ID NOT IN (SELECT course_enrollments.user_ID FROM course_enrollments WHERE course_enrollments.course_ID = :courseID)
+    AND CONCAT(name.name, ' ', A.name) LIKE '%".$search."%';
+    ");
     $users->execute($data);
 
     echo '<table id="inviteTable">';
