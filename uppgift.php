@@ -12,18 +12,9 @@
 require 'Includes/connect.php';
 session_start();
 
-if (isset($_SESSION['postID'])) {
-    $_GET['uppgiftid'] = $_SESSION['postID'];
-    unset($_SESSION['postID']);
-}
-
 if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
     
-    //header("location: index.php");
-}
-
-if (isset($_POST['turn-in'])) {
-    submit();
+    header("location: index.php");
 }
 
 $courseID = 0;
@@ -91,7 +82,7 @@ function getCourseColor() {
     if($query->rowCount() == 0) {
         $query = null;
         echo("No rows.color");
-        // header('Location: ./noaccess.php');
+        header('Location: ./noaccess.php');
     }
     else {
         echo('#'. bin2hex($result['color']));
@@ -116,7 +107,7 @@ function getCourseName() {
     if($query->rowCount() == 0) {
         $query = null;
         echo("No rows.");
-        // header('Location: ./noaccess.php');
+        header('Location: ./noaccess.php');
     }
     else {
         echo $result['name'];
@@ -176,30 +167,24 @@ function getUID() {
     return $result['user_ID'];
 }
 
-function submit() {
-    $_SESSION['postID'] = $_GET['uppgiftid'];
+function postExists() {
+    $uid = getUID($_SESSION['uid']);
     $query = $GLOBALS['pdo']->prepare(
-        'INSERT 
-        INTO submissions
-        (user_ID, post_ID, date)
-        VALUES (:userID, :postID, CURRENT_DATE());');
-    $query->bind_param(':userID', getUID());
-    $query->bind_param(':postID', $_GET['uppgiftid']);
+        'SELECT * 
+        FROM submissions 
+        WHERE submissions.user_ID = :userID 
+        AND submissions.post_ID = :postID;');
+    $query->bindParam(':userID', $uid);
+    $query->bindParam(':postID', $_GET['uppgiftid']);
     $query->execute();
-}
 
-function hasSubmitted() {
-    $query = $GLOBALS['pdo']->prepare(
-        'SELECT *
-        FROM users
-        WHERE users.ssn = :ssn;');
-    $data = array(':ssn' => $_SESSION['uid']);
-    $query->execute($data);
-
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    return $result['user_ID'];
-}
-?>
+    $undo = "Ångra inlämning";
+    $submit = "Lämna in";
+    if ($query->rowCount() > 0) {
+        return $undo;
+    }
+    return $submit;
+}?>
 
 <body>
 <nav>
@@ -291,9 +276,12 @@ function hasSubmitted() {
                     echo getPostSubmissions();
                     echo '</p>
                           <form action="Includes/turnin.php" method="post" style="padding:0; margin:0;">
+                          <input type="text" style="display:none;" name="uppgiftid" value="'.$_GET['uppgiftid'].'">
                           <input style="margin-left:10px;padding-left:4px;"
-                          type="submit" name="uppgiftid" value="'.$_GET['uppgiftid'].'">
-                          </form>';
+                          type="submit" name="turn-in" value="';
+                    echo postExists();
+                    echo '"></form>';
+                          //Lämna in
                 }
             }
 
