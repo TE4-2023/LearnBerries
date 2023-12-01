@@ -14,7 +14,7 @@ session_start();
 
 if (!isset($_SESSION['uid'])||!isset($_GET['uppgiftid'])) {
     
-    //header("location: index.php");
+    header("location: index.php");
 }
 
 $courseID = 0;
@@ -59,7 +59,8 @@ try {
 
     if (!$success) {
         // Never reached for some reason
-        header('location: index.php');
+        echo 'kos';
+        //header('location: index.php');
     }
 }
 catch (PDOException $e) {
@@ -80,7 +81,7 @@ function getCourseColor() {
 
     if($query->rowCount() == 0) {
         $query = null;
-        echo("No rows.");
+        echo("No rows.color");
         header('Location: ./noaccess.php');
     }
     else {
@@ -146,12 +147,43 @@ function getPostSubmissions() {
     $query->execute($data);
 
     while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-        if ($query['course_ID'] == $postID) {
+        if ($result['post_ID'] == $postID) {
             $submittedAmount = $submittedAmount + 1;
         }
     }
 
     echo $submittedAmount . "/" . getTotalEnrolled();
+}
+
+function getUID() {
+    $query = $GLOBALS['pdo']->prepare(
+        'SELECT *
+        FROM users
+        WHERE users.ssn = :ssn;');
+    $data = array(':ssn' => $_SESSION['uid']);
+    $query->execute($data);
+
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    return $result['user_ID'];
+}
+
+function postExists() {
+    $uid = getUID($_SESSION['uid']);
+    $query = $GLOBALS['pdo']->prepare(
+        'SELECT * 
+        FROM submissions 
+        WHERE submissions.user_ID = :userID 
+        AND submissions.post_ID = :postID;');
+    $query->bindParam(':userID', $uid);
+    $query->bindParam(':postID', $_GET['uppgiftid']);
+    $query->execute();
+
+    $undo = "Ångra inlämning";
+    $submit = "Lämna in";
+    if ($query->rowCount() > 0) {
+        return $undo;
+    }
+    return $submit;
 }?>
 
 <body>
@@ -185,7 +217,7 @@ function getPostSubmissions() {
 
 <div class="kurs" style="background-color: <?php echo getCourseColor(); ?>">
     <h1 class="text"><?php getCourseName(); ?></h1><br>
-    <a href="#" class="deltagare"><i class="fa-solid fa-users"></i> Deltagare</a>
+    <a onclick="goCourse(<?php echo $courseID; ?>)" class="deltagare"><i class="fa-solid fa-arrow-left"></i> Till kurs</a>
 </div>
 
 <?php
@@ -218,9 +250,43 @@ function getPostSubmissions() {
 <div class="ruta">
     <div class="uppnamn">
         <h1 class="rubrik"><?php echo $name; ?> </h1>
-        <p class="upptext">Inlämnat: <?php getPostSubmissions(); ?></p>
-        <p class="upptext">Betygsatt: </p>
-        <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Visa alla arbeten</a>
+        <?php 
+            $query = $GLOBALS['pdo']->prepare(
+                'SELECT * 
+                FROM users
+                WHERE users.user_ID = :userID;');
+            $data = array(':userID' => getUID());
+            $query->execute($data);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+        
+            if ($query->rowCount() == 0) {
+                echo "Error row 230 uppgift.php";
+            } else {
+                if ($result['role_ID'] == 3) {
+                    echo '<p class="upptext">Inlämnat: ';
+                    echo getPostSubmissions();
+                    echo '</p>
+                          <p class="upptext">Betygsatt: </p>
+                          <a class="skapa-kurs" id="myBtn">
+                          <i class="fa-solid fa-file-circle-plus">
+                          </i> Visa alla arbeten</a>';
+                }
+                else  {
+                    echo '<p class="upptext">Inlämnat: ';
+                    echo getPostSubmissions();
+                    echo '</p>
+                          <form action="Includes/turnin.php" method="post" style="padding:0; margin:0;">
+                          <input type="text" style="display:none;" name="uppgiftid" value="'.$_GET['uppgiftid'].'">
+                          <input style="margin-left:10px;padding-left:4px;"
+                          type="submit" name="turn-in" value="';
+                    echo postExists();
+                    echo '"></form>';
+                          //Lämna in
+                }
+            }
+
+            
+        ?>
     </div>
     <div class="info">
         <p class="text">
@@ -231,6 +297,13 @@ function getPostSubmissions() {
 </body>
 </html>
 <!-- SCRIPTS -->
+
+<script>
+function goCourse(extra) {
+    let url = window.location.protocol + "//" + window.location.host + "/webschool/kursvy.php?kursid=" + extra;
+    window.location.href = url;
+}
+</script>
 
 <script src="homescript.js"></script>
 <script src="modal.js"></script>

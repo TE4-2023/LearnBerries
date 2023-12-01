@@ -10,11 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="kurser_style.css">
+    <link rel="stylesheet" href="home_style.css">
     <title>Document</title>
 </head>
 
 <body>
-    <div class="container">
         <nav>
             <div class="navbar">
                 <ul>
@@ -42,6 +42,40 @@
                 </ul>
             </div>
         </nav>
-    </div>
+
+        <div class="home-container">
+
+        <div class="nyheter">
+            <div class="nyhet nyhet-1">
+            <h2>Rubrik</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi sed voluptates optio quasi deleniti ab?</p>
+        <span>2023-01-24 - Tis 00:00</span>
+        </div>
+        <hr>
+        <div class="nyhet nyhet-2">
+            <h2>Rubrik</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi sed voluptates optio quasi deleniti ab?</p>
+        <span>2023-01-24 - Tis 00:00</span>
+        </div>
+        <hr>
+        <div class="nyhet nyhet-3">
+            <h2>Rubrik</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi sed voluptates optio quasi deleniti ab?</p>
+        <span>2023-01-24 - Tis 00:00</span>
+        </div>
+        <hr>
+        <div class="nyhet nyhet-3">
+            <h2>Rubrik</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi sed voluptates optio quasi deleniti ab?</p>
+        <span>2023-01-24 - Tis 00:00</span>
+        </div>
+
+        </div>
+
+        <div class="schema">
+
+        </div>
+
+        </div>
 </body>
 </html>

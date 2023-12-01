@@ -480,6 +480,7 @@ table td {
 .edits {
   display: flex;
   flex-direction: row;
+  align-self: flex-end;
 }
 
 .edit-trash, .edit-pen, .edits i {
