@@ -78,30 +78,40 @@
 
         <div class="todo-list">
             <h2 class="todo-title">Att göra lista</h2>
+            <?php 
 
-            <div class="list-item item-1" style="background-color: #86B867;">
-                <span>Argumenterande tal</span>
-                <span>Svenska</span>
-                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
-            </div>
+            require "Includes/functions.php";
+            session_start();
+            $pdo = $GLOBALS['pdo'];
+            $users = $pdo->prepare("
+            SELECT *, HEX(course.color), name.name AS posName, courseName.name AS courseN FROM posts
+            JOIN course ON posts.course_ID = course.course_ID
+            JOIN name ON posts.name_ID = name.name_ID
+            JOIN name AS courseName ON course.name_ID = courseName.name_ID
+            WHERE posts.course_ID IN (SELECT course_enrollments.course_ID FROM course_enrollments WHERE course_enrollments.user_ID = :userID)
+            AND posts.deadlineDate != '0000-00-00 00:00:00';
+            ");
 
-            <div class="list-item item-2" style="background-color: #B86767;">
-            <span>Argumenterande tal</span>
-                <span>Svenska</span>
-                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
-            </div>
+            $data = array(
+                ':userID' => $_SESSION['userid']
 
-            <div class="list-item item-3" style="background-color: #B88A67;">
-            <span>Argumenterande tal</span>
-                <span>Svenska</span>
-                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
-            </div>
+            );
+            $users->execute($data);
+        
+            // Fetch and display the results
+            while ($posts = $users->fetch(PDO::FETCH_ASSOC)) {
+                echo '
+                <div class="list-item item-1" style="background-color: #'.$posts['HEX(course.color)'].';">
+                <span>'.$posts['posName'].'</span>
+                <span>'.$posts['courseN'].'</span>
+                <span style="font-weight: bold;">'.$posts['deadlineDate'].'</span>
+                </div>
+                ';
+            }
+            
+            ?>
 
-            <div class="list-item item-3" style="background-color: #86B867;">
-            <span>Argumenterande tal</span>
-                <span>Svenska</span>
-                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
-            </div>
+
         </div>
 
         <div class="todo-prov-list">
