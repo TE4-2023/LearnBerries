@@ -174,8 +174,11 @@ include 'Includes/courseview.php';
             echo '<div class="uppgift-right">';
             echo '<p class="uppgift-deadline">Deadline: Ingen</p>';
             echo '<div class="edits">';
-            echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
+            if ($_SESSION['role'] > 2) {
+                echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
+                echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
+          }
+          
             echo '</div>';
             echo '</div>';
             echo '<div class="uppgift-content">';
@@ -192,8 +195,10 @@ include 'Includes/courseview.php';
             echo '<div class="uppgift-right">';
             echo '<p class="uppgift-deadline">Deadline: '. $row['deadlineDate'] . '</p>';
             echo '<div class="edits">';
-            echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
+            if ($_SESSION['role'] > 2) {
+                echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
+                echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
+          }
             echo '</div>';
             echo '</div>';
             echo '<div class="uppgift-content">';
@@ -219,8 +224,12 @@ include 'Includes/courseview.php';
 
 </div>
 
-
-    <a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>
+   <?php if ($_SESSION['role'] > 2) {
+            echo '<a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>';
+      }
+      
+      ?>
+    
 
 
     <div id="myModal" class="modal">
