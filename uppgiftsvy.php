@@ -113,6 +113,46 @@ function getCourseName() {
         echo $result['name'];
         $query = null;
     }
+}
+
+function getTotalEnrolled() {
+    $enrolledAmount = 0;
+    $courseID = $GLOBALS['courseID'];
+    $query = $GLOBALS['pdo']->prepare(
+        'SELECT * 
+        FROM course_enrollments 
+        WHERE course_enrollments.course_ID = :courseID;');
+    $data = array(':courseID' => $courseID);
+    $query->execute($data);
+
+    while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
+        if ($query->rowCount() == 0) {
+            break;
+        } else {
+            $enrolledAmount = $enrolledAmount + 1;
+        }
+    }
+
+    return $enrolledAmount;
+}
+
+function getPostSubmissions() {
+    $submittedAmount = 0;
+    $postID = $_GET['uppgiftid'];
+    $query = $GLOBALS['pdo']->prepare(
+        'SELECT *
+        FROM submissions
+        WHERE submissions.post_ID = :postID;');
+    $data = array(':postID' => $postID);
+    $query->execute($data);
+
+    while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
+        if ($query['course_ID'] == $postID) {
+            $submittedAmount = $submittedAmount + 1;
+        }
+    }
+
+    echo "Total submissions: ". $submittedAmount . "/" . getTotalEnrolled();
 }?>
 <nav>
     <div class="navbar">
@@ -164,7 +204,7 @@ function getCourseName() {
     style="width:100%;height:100%;display:flex;flex-direction:column;
     flex-wrap:wrap; align-items:center;">
     <?php
-
+    ?><p><?php getPostSubmissions(); ?></p><?php
     // TODO:
     // Show how many submissions from unique users exist and that dont.
     // This tells the teacher how many people have turned them in.

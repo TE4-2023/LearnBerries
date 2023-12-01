@@ -24,7 +24,7 @@
                     </li>
 
                     <div class="left-nav">
-                        <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
+                        <li><a href="login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
                     </div>
                 </ul>
             </div>

@@ -113,6 +113,35 @@ function displayEmail($userssn)
 
 }
 
+function displayRole($userssn)
+{
+    $pdo = $GLOBALS['pdo'];
+    try{
+        $query = $pdo->prepare('
+        SELECT users.role_ID, name.name, role.name_ID 
+        FROM users
+        JOIN role ON users.role_ID = role.role_ID
+        JOIN name ON role.name_ID = name.name_ID
+        WHERE users.ssn = :uid
+        ');
+
+        $data = array(
+            ':uid' => $userssn
+        );
+        $query->execute($data);
+
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            return $row['name'];
+        }
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        // Handle the exception or redirect as needed
+        // header('Location: login.html');
+    }
+
+}
+
 function getAllTeachers($course)
 {
     $pdo = $GLOBALS['pdo'];
