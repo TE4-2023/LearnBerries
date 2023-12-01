@@ -225,7 +225,7 @@ include 'Includes/courseview.php';
 </div>
 
    <?php if ($_SESSION['role'] > 2) {
-            echo '<a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa kurs</a>';
+            echo '<a class="skapa-kurs" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa uppgift</a>';
       }
       
       ?>
