@@ -60,7 +60,7 @@ function updateGrade(grade, enrolledID)
             }
         }
     };
-    
+
     var data = 'enrolledID=' + encodeURIComponent(enrolledID) + '&grade=' + encodeURIComponent(grade);
     xhr.send(data);
 }
@@ -73,7 +73,7 @@ session_start();
 
 if (!isset($_SESSION['uid'])) { //switch this out
     //Going back to login page
-    header("location: index.php"); // This will redirect
+    header("location: login.html"); // This will redirect
     // differently depending on where you use the code, if you include
     // it in a file thats in a folder it will not find index.php.
     // This is because the code is still executed from the original

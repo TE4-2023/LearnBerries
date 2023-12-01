@@ -41,7 +41,6 @@
         xhr.send(data);
     }
 
-<<<<<<< Updated upstream
     function getForm(postid) {
     const xhr = new XMLHttpRequest();
 
@@ -55,35 +54,17 @@
                     modal.innerHTML = dom.getElementById('hiddenform').innerHTML;
                     var span = modal.querySelector('.close');
                     modal.style.display = "block";
-=======
-    function getForm(postid){
-        const xhr = new XMLHttpRequest();
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Optionally, you can redirect the user or perform other actions here
-                    var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
-                    var modal = document.getElementById("hiddenform");
-                    modal.innnerHTML = dom.getElementById('hiddenform').innerHTML;
-                    var span = modal.querySelector('.close');
->>>>>>> Stashed changes
                 if (span) {
                     span.onclick = function () {
                         modal.style.display = "none";
                     };
                 }
 
-<<<<<<< Updated upstream
-=======
-                // When the user clicks anywhere outside of the modal, close it
->>>>>>> Stashed changes
                 window.onclick = function (event) {
                     if (event.target == modal) {
                         modal.style.display = "none";
                     }
                 };
-<<<<<<< Updated upstream
             } else {
                 alert('Error during enrollment: ' + xhr.status);
             }
@@ -95,21 +76,6 @@
     var data = 'postID=' + encodeURIComponent(postid);
     xhr.send(data);
 }
-=======
-                }
-
-
-               }  else {
-                    alert('Error during enrollment: ' + xhr.responseText);
-                }
-        };
-        xhr.open('POST', "Includes/getForm.php", true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        var data = 'postID=' + encodeURIComponent(postid);
-        xhr.send(data);
-    }
-
->>>>>>> Stashed changes
 </script>
 
 
@@ -175,7 +141,7 @@ include 'Includes/courseview.php';
 <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
         <h1 class="text" style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
         <p class="text" style="color:white;text-decoration:none !important;">kurs lärare: <?php echo getAllTeachers($_GET['kursid'])?></p>
-        <a href="#" class="deltagare"><i class="fa-solid fa-users"></i> Deltagare</a>
+        <a href="kursvy-deltagare.php?kursid=<?php echo $_GET['kursid'];?>" class="deltagare"><i class="fa-solid fa-users"></i> Deltagare</a>
 </div>
 
 

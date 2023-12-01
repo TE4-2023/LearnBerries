@@ -40,7 +40,7 @@ try{
         <td>';
         if ($usersRow['role_ID']<3)
         {
-            echo '<select id="grade" name="grade" onchange="updateGrade(this.value, '.$usersRow['courseEnrollment_ID']. ')" required>';
+            echo '<select id="grade" name="grade" onchange="updateGrade(this.value, '.$usersRow['courseEnrollment_ID'].')" required>';
             echo '<option value="'.$grade.'">'.$grade.'</option>';
             foreach (range('A', 'F') as $char) {
                 echo '<option value="'.$char.'">'.$char.'</option>';
@@ -54,7 +54,7 @@ try{
 
         echo '
         <td>
-        <a class="del-user" onClick="removeUser('.$usersRow['courseEnrollment_ID'].')"><i class="fa-solid fa-trash"></i></a>
+        <a class="del-user" onClick="removeUser('.$usersRow['courseEnrollment_ID']. ', '. $usersRow['course_ID'].')"><i class="fa-solid fa-trash"></i></a>
       </td>
 
 
