@@ -29,7 +29,7 @@
                 if (xhr.status === 200) {
                     // Optionally, you can redirect the user or perform other actions here
                     var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
-                    document.getElementById("uppgifter").innerHTML = (dom.getElementById('usersDIV').innerHTML)
+                    document.getElementById("uppgifter").innerHTML = (dom.getElementById('uppgifter').innerHTML)
                 } else {
                     alert('Error during enrollment: ' + xhr.responseText);
                 }
