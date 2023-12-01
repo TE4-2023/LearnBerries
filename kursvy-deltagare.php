@@ -86,7 +86,7 @@ function updateGrade(grade, enrolledID)
     xhr.send(data);
 }
 
-function getInviteList(courseID)
+function getInviteList(courseID, searchstr)
 {
     const xhr = new XMLHttpRequest();
 
@@ -105,7 +105,7 @@ function getInviteList(courseID)
     };
     xhr.open('POST', "Includes/getusernotin.php", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    var data = 'courseID=' + encodeURIComponent(courseID);
+    var data = 'courseID=' + encodeURIComponent(courseID) + '&searchStr=' + encodeURIComponent(searchstr);
     xhr.send(data);
 }
 
@@ -134,7 +134,7 @@ function openModal()
 {
 
 
-    getInviteList(<?php echo $_GET['kursid'] ?>);
+    getInviteList(<?php echo $_GET['kursid'] ?>, "");
     // Get the modal
     var modal = document.getElementById("myModal");
 
@@ -184,7 +184,7 @@ function openModal()
                 </li>
 
                 <div class="left-nav">
-                    <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
+                    <li><a href="Includes/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
                 </div>
             </ul>
         </div>
@@ -217,52 +217,37 @@ function openModal()
         <div class="users" id="users">
             <h2 class="elev-titel">Deltagare</h2>
             <table id="usersTable">
-                <tr>
-                    <td>Användare</td>
-                    <td>Email</td>
-                    <td>Roll</td>
-                    <td>Betyg</td>
-                    <td>Ta bort från kurs</td>
-                </tr>
-                <tr>
+
                     <?php
 
                     echo '<script type="text/javascript">getUsers(' . $_GET['kursid'] . ');</script>';
 
 
                     ?>
-                    <td>Oliver Hedman</td>
-                    <td>oliver@mail.com</td>
-                    <td>Elev</td>
-                    <td>+46 123 123 12</td>
-
-                    <td>
-                        <a class="del-user" href="#"><i class="fa-solid fa-trash"></i></a>
-                    </td>
-
-
-                </tr>
 
 
 
             </table>
         </div>
+        <?php
+           if($_SESSION['role']>2)
+           {
+               echo'<a  onClick="openModal();"class="skapa-kurs" id="myBtn"><i class="fa-solid fa-user-plus"></i> Bjud in deltagare</a>
 
-        <a <?php echo 'onClick="openModal()"'; ?>class="skapa-kurs" id="myBtn"><i class="fa-solid fa-user-plus"></i> Bjud in deltagare</a>
-
-        </div>
-
-        <div id="myModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <form id="form" action="#" method="post">
-                    <span id="closeSpan" class="close">&times;</span>
-                    <input name="search" id="search" class="upp-titel" type="text" onkeydown="searching();">
-                    <div class="users">
-                        <h2 class="elev-titel">Deltagare</h2>
-                        <table id="inviteTable">
-                            <?php
+               </div>
+       
+               <div id="myModal" class="modal">
+       
+                   <!-- Modal content -->
+                   <div class="modal-content">
+                       <form id="form" action="#" method="post">
+                           <span id="closeSpan" class="close">&times;</span>
+                           <input name="search" id="search" class="upp-titel" type="text" onkeyup="getInviteList('.$_GET['kursid'].', this.value);">
+                           <div class="users">
+                               <h2 class="elev-titel">Deltagare</h2>
+                               <table id="inviteTable">';
+           }
+    
 
 
 
@@ -271,7 +256,6 @@ function openModal()
                     </div>
 
             </div>
-
 
     </body>
 

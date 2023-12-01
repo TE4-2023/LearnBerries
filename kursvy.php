@@ -29,7 +29,7 @@
                 if (xhr.status === 200) {
                     // Optionally, you can redirect the user or perform other actions here
                     var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
-                    document.getElementById("uppgifter").innerHTML = (dom.getElementById('usersDIV').innerHTML)
+                    document.getElementById("uppgifter").innerHTML = (dom.getElementById('uppgifter').innerHTML)
                 } else {
                     alert('Error during enrollment: ' + xhr.responseText);
                 }
@@ -119,7 +119,7 @@ include 'Includes/courseview.php';
                     </li>
 
                     <div class="left-nav">
-                        <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
+                        <li><a href="Includes/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
                     </div>
                 </ul>
             </div>

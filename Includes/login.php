@@ -30,6 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $_SESSION["uid"] = $row[4]; //ssn
         $_SESSION['userid'] = $row[0];
+        $_SESSION['role'] = $row[5];
 
         $stmt = null;
 
