@@ -189,16 +189,22 @@ include 'Includes/courseview.php';
 
             echo '</div>';
         } else {
-            echo '<p class="uppgift-deadline">Deadline: ' . $row['deadlineDate'] . '</p>';
+            echo '<div class="uppgift-right">';
+            echo '<p class="uppgift-deadline">Deadline: '. $row['deadlineDate'] . '</p>';
+            echo '<div class="edits">';
+            echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].', ' .$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
+            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
+            echo '</div>';
+            echo '</div>';
             echo '<div class="uppgift-content">';
             echo '<i class="fa-solid fa-clipboard"></i>';
-            echo '<a onclick="goPost('.$row['post_ID'].');"><h2>' . $row['name'] . '</h2></a>';
+            echo '<div class="uppgift-title">';
+            echo '<a onclick="goPost('.$row['post_ID'].');"><h2>'. $row['name'] . '</h2></a>';
             echo '<p class="meddelande">' . $row['description'] . '</p>';
-            echo '<div class="edits">';
-            echo '<a class="edit-trash" onClick="deletePosts('.$row['course_ID'].','.$row['post_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
-            echo '<a class="edit-pen" onClick="getForm('.$row['post_ID'].')"><i class="fa-regular fa-pen-to-square"></i></a>';
             echo '<p>'.$row['publishingDate'].'</p>';
-            echo '</div>';
+            echo "</div>";
+
+
             echo '</div>';
 
         }
