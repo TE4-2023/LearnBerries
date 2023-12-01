@@ -1,7 +1,8 @@
 <?php
 
-require 'connect.php';
+session_start();
 require 'functions.php';
+
 // Get data from AJAX request
 $courseID = $_POST['courseID'];
 
@@ -51,10 +52,13 @@ try{
         else{
             echo ' </td>';
         }
-
         echo '
-        <td>
-        <a class="del-user" onClick="removeUser('.$usersRow['courseEnrollment_ID']. ', '. $usersRow['course_ID'].')"><i class="fa-solid fa-trash"></i></a>
+        <td>';
+        if(!($usersRow['ssn'] == $_SESSION['uid']))
+        {
+            echo '<a class="del-user" onClick="removeUser('.$usersRow['courseEnrollment_ID']. ', '. $usersRow['course_ID'].')"><i class="fa-solid fa-trash"></i></a>';
+        }
+       echo'
       </td>
 
 

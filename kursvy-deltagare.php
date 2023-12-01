@@ -2,7 +2,7 @@
 <script type="text/JavaScript"> 
 
 
-function removeUser(enrolledID) {
+function removeUser(enrolledID, courseID) {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', "Includes/removeuser.php", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -11,7 +11,7 @@ function removeUser(enrolledID) {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 //alert('SEnrollment successful!');
-                getUsers(<?php echo $_GET['kursid']?>);
+                getUsers(courseID);
                 // Optionally, you can redirect the user or perform other actions here
             } else {
                 alert('Error during enrollment: ' + xhr.responseText);
@@ -64,6 +64,28 @@ function updateGrade(grade, enrolledID)
     var data = 'enrolledID=' + encodeURIComponent(enrolledID) + '&grade=' + encodeURIComponent(grade);
     xhr.send(data);
 }
+
+function getInviteList(courseID)
+{
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Optionally, you can redirect the user or perform other actions here
+                var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
+                document.getElementById("inviteTable").innerHTML = (dom.getElementById('inviteTable').innerHTML)
+            } else {
+                alert('Error during enrollment: ' + xhr.responseText);
+            }
+        }
+    };
+    xhr.open('POST', "Includes/getusernotin.php", true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    var data = 'courseID=' + encodeURIComponent(courseID);
+    xhr.send(data);
+    }
+
   </script> 
 
 
@@ -128,6 +150,7 @@ include 'Includes/courseview.php';
 <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
         <h1 style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
         <p style="color:white;text-decoration:none !important;">Lärare A</p>
+        <a href="kursvy.php?kursid=<?php echo $_GET['kursid'];?>" class="deltagare"><i class="fa-solid fa-clipboard"></i></i></i> Inlägg</a>
 </div>
     
 </head>
@@ -179,20 +202,16 @@ include 'Includes/courseview.php';
         <div class="modal-content">
             <form id="form" action="#" method="post">
             <span class="close">&times;</span>
-                <input type="radio" id="uppgift" name="typAv" value="Uppgift" checked="checked">
-                <label for="uppgift">Uppgift</label>
-                <input type="radio" id="meddelande" name="typAv" value="Meddelande">
-                <label for="meddelande">Meddelande</label>
-                <div class="header-pop">
-                    <h2>Skapa uppgift</h2>
-                </div>
-                <input name="name" id="name" class="upp-titel" type="text" placeholder="Titel på uppgift" required>
-                <textarea name="name" id="name" class="upp-besk" type="text"
-                    placeholder="Beskrivning av uppgift..."></textarea>
-
-                    <a class="bifoga-filer" href="#"><i class="fa-solid fa-plus"></i> Bifoga filer (0/9)</a>
-                <input type="submit" class="c-btn" value="Skapa uppgift">
-            </form>
+            <input name="search" id="search" class="upp-titel" type="text">
+            <div class="users">
+            <h2 class="elev-titel">Deltagare</h2>
+            <table id="inviteTable">
+            <?php 
+            
+            echo '<script type="text/javascript">getInviteList('.$_GET['kursid'].');</script>';
+            
+            
+            ?>
         </div>
 
     </div>
