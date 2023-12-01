@@ -62,16 +62,6 @@ if (!isset($_SESSION['uid'])) { //switch this out
         <a href="#" class="deltagare"><i class="fa-solid fa-users"></i> Deltagare</a>
 </div>
 
-
-
-
-
-
-
-
-
-
-
 <div class="ruta">
 
     <div class="uppnamn">
@@ -92,18 +82,6 @@ if (!isset($_SESSION['uid'])) { //switch this out
     </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 
