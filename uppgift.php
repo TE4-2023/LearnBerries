@@ -300,7 +300,7 @@ function postExists() {
 
 <script>
 function goCourse(extra) {
-    let url = window.location.protocol + "//" + window.location.host + "/webschool/kursvy.php?kursid=" + extra;
+    let url = window.location.protocol + "//" + window.location.host + "/LearnBerries/kursvy.php?kursid=" + extra;
     window.location.href = url;
 }
 </script>

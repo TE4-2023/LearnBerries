@@ -89,7 +89,7 @@ function updateGrade(grade, enrolledID)
 function getInviteList(courseID, searchstr)
 {
     const xhr = new XMLHttpRequest();
-
+    search = searchstr;
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
@@ -118,7 +118,7 @@ function inviteUser(userID, courseID) {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 //alert('Enrollment successful!');
-                getInviteList(courseID)
+                getInviteList(courseID, search)
                 getUsers(courseID)
                 // Optionally, you can redirect the user or perform other actions here
             } else {
@@ -129,6 +129,7 @@ function inviteUser(userID, courseID) {
 
     var data = 'userID=' + encodeURIComponent(userID) + '&courseID=' + encodeURIComponent(courseID);
     xhr.send(data);
+    
 }
 function openModal()
 {
