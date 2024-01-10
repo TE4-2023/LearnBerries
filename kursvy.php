@@ -246,6 +246,8 @@ include 'Includes/courseview.php';
                 <label for="uppgift">Uppgift</label>
                 <input type="radio" id="meddelande" name="typAv" value="Meddelande">
                 <label for="meddelande">Meddelande</label>
+                <input type="radio" id="prov" name="typAv" value="Prov">
+                <label for="prov">Prov</label>
                 <div class="header-pop">
                     <h2>Skapa uppgift</h2>
                 </div>

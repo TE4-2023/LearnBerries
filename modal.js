@@ -11,12 +11,25 @@ var span = document.getElementsByClassName("close")[0];
 
 var dateTime = document.getElementById("deadline");
 
-var radioButton = document.getElementById("meddelande");
-radioButton.onchange = function() {
-  if (radioButton.checked){
+var meddelandeRadioButton = document.getElementById("meddelande");
+var uppgiftRadioButton = document.getElementById("uppgift");
+var provRadioButton = document.getElementById("prov");
+meddelandeRadioButton.onchange = function() {
+  if (meddelandeRadioButton.checked){
     dateTime.disabled = true;
   } 
 }
+uppgiftRadioButton.onchange = function() {
+  if (uppgiftRadioButton.checked){
+    dateTime.disabled = false;
+  } 
+}
+provRadioButton.onchange = function() {
+  if (provRadioButton.checked){
+    dateTime.disabled = false;
+  } 
+}
+
 // When the user clicks the button, open the modal 
 btn.onclick = function() {
   modal.style.display = "block";
