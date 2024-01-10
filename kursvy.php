@@ -41,6 +41,7 @@
         xhr.send(data);
     }
 
+    
     function getForm(postid) {
     const xhr = new XMLHttpRequest();
 
@@ -154,6 +155,7 @@ include 'Includes/courseview.php';
 <div class="uppgifter" id="uppgifter">
 
 <?php
+
         // Fetch and display posts
         try {
             $query = $pdo->prepare('
@@ -167,6 +169,8 @@ include 'Includes/courseview.php';
             $data = array(':courseID' => $_GET['kursid']);
 
             $query->execute($data);
+
+           
 
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
         echo '<div class="uppgift">';
