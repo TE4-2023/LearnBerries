@@ -20,6 +20,9 @@
     //     xhr.send(data);
     // }
 
+    
+    
+
     function deletePosts(courseid, postid){
         console.log(courseid, postid)
         const xhr = new XMLHttpRequest();
@@ -41,6 +44,7 @@
         xhr.send(data);
     }
 
+    
     
     function getForm(postid) {
     const xhr = new XMLHttpRequest();
@@ -151,9 +155,61 @@ include 'Includes/courseview.php';
     <button class="btn">Sortera <i class="fa-solid fa-caret-down"></i></button>
 </div>
 
+<div class="uppgifter" id="uppgifter-exam">
+     <!-- Fetches and displays exams -->
+<?php
+
+    try{
+        $query = $pdo->prepare('
+        SELECT exam.*, name.name
+        FROM exam
+        INNER JOIN name
+        ON exam.name_ID = name.name_ID
+        WHERE exam.course_ID = :courseID
+        ORDER BY exam.examinationDate ASC;
+        ');
+        $data = array(':courseID' => $_GET['kursid']);
+
+        $query->execute($data);
+        
+        while($row = $query->fetch(PDO::FETCH_ASSOC)){
+            echo'<div class="uppgift">';
+            echo '<div class="uppgift-right">';
+            echo '<p class="uppgift-deadline">Provtid: '. $row['examinationDate'] . '</p>';
+            echo '<div class="edits">';
+            if ($_SESSION['role'] > 2) {
+                echo '<a class="edit-trash" onClick="deleteExam('.$row['course_ID'].', ' .$row['exam_ID'].')"><i class="fa-regular fa-trash-can"></i></a>';
+          }
+            echo '</div>';
+            echo '</div>';
+            echo '<div class="uppgift-content">';
+            echo '<i class="fa-solid fa-clipboard"></i>';
+            echo '<div class="uppgift-title">';
+            echo '<h2>'. $row['name'] . '</h2>';
+            echo '<p class="meddelande">' . $row['description'] . '</p>';
+            echo "</div>";
+            echo '</div>';
+
+            echo '</div>';
+
+        }
+        echo'</div>';
+    }
+    
+    catch(PDOException $e){
+        //Errorhandling
+    }
+
+
+
+
+
+?>
+</div>
 
 <div class="uppgifter" id="uppgifter">
 
+ <!-- Fetches and displays posts -->
 <?php
 
         // Fetch and display posts
@@ -290,6 +346,28 @@ include 'Includes/courseview.php';
         let url = window.location.protocol + "//" + window.location.host + "/LearnBerries/uppgift.php?uppgiftid=" + extra;
         window.location.href = url;
     }
+
+    function deleteExam(courseid, examid){
+        console.log(courseid, examid)
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Optionally, you can redirect the user or perform other actions here
+                    var dom = new DOMParser().parseFromString(xhr.responseText, 'text/html')
+                    document.getElementById("uppgifter-exam").innerHTML = (dom.getElementById('uppgifter-exam').innerHTML)
+                } else {
+                    alert('Error during enrollment: ' + xhr.responseText);
+                }
+            }
+        };
+        xhr.open('POST', "Includes/deleteExam.php", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        var data = 'courseID=' + encodeURIComponent(courseid) + '&examID=' + encodeURIComponent(examid);
+        xhr.send(data);
+    }
+
 </script>
 <script src="datetime.js"></script>
 <!-- div for members and leader? -->
