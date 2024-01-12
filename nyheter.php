@@ -129,7 +129,7 @@ function closeEditModal() {
         <div class="nyheter-grid">
 
         <?php
-                // Assuming this code is placed after fetching and displaying news
+             //Displays news
                 while ($row = $newsResult->fetch(PDO::FETCH_ASSOC)) {
                     echo '<div class="nyheter">';
                     echo '<h2>' . $row['title'] . '</h2>';
