@@ -1,5 +1,7 @@
 <?php
-
+require 'Includes/connect.php';
+require 'Includes/functions.php';
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +19,30 @@
         }
     </style>
     <title>Nyheter</title>
+   <script>
+    function confirmDelete() {
+    return confirm("Är du säker att du vill radera nyheten?");
+}
+   </script>
+   <script>
+    
+function openEditModal(postID, currentTitle, currentDescription) {
+    // Populate the edit modal with current news details
+    document.getElementById('editTitle').value = currentTitle;
+    document.getElementById('editDescription').value = currentDescription;
+    document.getElementById('editPostID').value = postID;
+
+    // Show the edit modal
+    document.getElementById('EditNewsModal').style.display = 'block';
+}
+
+function closeEditModal() {
+    // Close the edit modal
+    document.getElementById('EditNewsModal').style.display = 'none';
+}
+
+
+   </script>
 </head>
 
 <body>
@@ -36,26 +62,86 @@
             </div>
         </nav>
 
+        
+
+
+      <button onclick="openNewsModal()" class="skapa-nyhet" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa Nyhet</button>
+
+
+        <div id="NewsModal" class="modal">
+
+                        <!-- News Modal  -->
+                <div class="modal-content">
+                    <form id="form" action="Includes/add-news.php" method="post">
+                        <div class="header-pop">
+                            <h2>Skapa nyhet</h2>
+                            <span class="close" onclick="closeNewsModal()">&times;</span>
+                        </div>
+
+                        <div class="input-container">
+                            <label for="title">Rubrik:</label>
+                            <input name="title" id="title" class="kurs-titel" type="text" placeholder="Skriv rubrik här" required>
+                        </div>
+
+                        <div class="input-container">
+                            <label for="description">Beskrivning:</label>
+                            <textarea name="description" id="description" class="kurs-titel" placeholder="Skriv beskrivning här" required></textarea>
+                        </div>
+
+                        <input type="submit" class="c-btn" value="Publicera">
+                    </form>
+                </div>
+
+
+       </div>
+
+        <!-- Edit News Modal -->
+        <div id="EditNewsModal" class="modal">
+                <div class="modal-content">
+                    <form id="editForm" action="Includes/edit-news.php" method="post">
+                        <div class="header-pop">
+                            <h2>Redigera nyhet</h2>
+                            <span class="close" onclick="closeEditModal()">&times;</span>
+                        </div>
+
+                        <div class="input-container">
+                            <label for="editTitle">Ny Rubrik:</label>
+                            <input name="editTitle" id="editTitle" class="kurs-titel" type="text" required>
+                        </div>
+
+                        <div class="input-container">
+                            <label for="editDescription">Ny Beskrivning:</label>
+                            <textarea name="editDescription" id="editDescription" class="kurs-titel" required></textarea>
+                        </div>
+
+                        <input type="hidden" id="editPostID" name="editPostID" value="">
+                        <input type="submit" class="c-btn" value="Uppdatera">
+                    </form>
+                </div>
+            </div>
+
+      
+            <?php
+            // Fetch news from the database
+            $newsQuery = "SELECT * FROM news";
+            $newsResult = $pdo->query($newsQuery); 
+                ?>
         <div class="nyheter-grid">
 
-            <div class="nyheter kurs-1">
-                <div class="top-color">
-                <h2>Nyheter</h2>
-                </div>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cupiditate sit quas quo necessitatibus ea accusantium laudantium quasi consectetur delectus!</span>
-                <a href="">Gå till kurs</a>
-            </div>
-
-            <div class="nyheter kurs-2">
-                <h2>Nyheter</h2>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis mollitia iure quasi adipisci blanditiis veniam rerum qui similique necessitatibus doloribus, nesciunt voluptatem hic quam dolorem atque neque itaque reprehenderit quod at aliquid, reiciendis ab, animi alias. Nulla, consequuntur porro corrupti nesciunt molestias saepe placeat dolorum ab iusto quo quis asperiores!</span>
-            </div>
-
-            <div class="nyheter kurs-3">
-                <h2>Nyheter</h2>
-                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat nulla commodi earum tenetur, corrupti cupiditate quis modi velit alias repudiandae, animi numquam officiis eos soluta quaerat sint enim sunt labore iusto iure ad fuga iste. Consectetur esse facere alias saepe quibusdam eaque! Dolorum, eius? Possimus quo corporis blanditiis dolore nemo?
-                </span>
-            </div>
+        <?php
+                // Assuming this code is placed after fetching and displaying news
+                while ($row = $newsResult->fetch(PDO::FETCH_ASSOC)) {
+                    echo '<div class="nyheter">';
+                    echo '<h2>' . $row['title'] . '</h2>';
+                    echo '<p class="description">' . $row['description'] . '</p>';
+                    echo '<button onclick="openEditModal(' . $row['post_ID'] . ', \'' . htmlspecialchars($row['title'], ENT_QUOTES) . '\', \'' . htmlspecialchars($row['description'], ENT_QUOTES) . '\')" class="edit-btn"><i class="fa-solid fa-pencil"></i></button>';
+                    echo '<form action="Includes/delete-news.php" method="post" onsubmit="return confirmDelete()">';
+                    echo '<input type="hidden" name="post_ID" value="' . $row['post_ID'] . '">';
+                    echo '<button type="submit" class="delete-btn"><i class="fa-solid fa-trash"></i></button>';
+                    echo '</form>';
+                    echo '</div>';
+                }
+                ?>
 
 
 
@@ -75,6 +161,10 @@
         </nav>
 
     </div>
+
+
+            
+            <script src="news-modal.js"></script>
 
 </body>
 
