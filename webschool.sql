@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 23 nov 2023 kl 14:02
--- Serverversion: 10.4.28-MariaDB
--- PHP-version: 8.2.4
+-- Tid vid skapande: 12 jan 2024 kl 10:27
+-- Serverversion: 10.4.24-MariaDB
+-- PHP-version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `course` (
   `name_ID` int(11) NOT NULL,
   `color` binary(3) NOT NULL,
   `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumpning av Data i tabell `course`
@@ -48,7 +48,11 @@ INSERT INTO `course` (`course_ID`, `name_ID`, `color`, `active`) VALUES
 (7, 21, 0x8f8f8f, 1),
 (8, 22, 0xffadad, 1),
 (9, 23, 0xa33333, 1),
-(10, 3, 0x71feb5, 1);
+(10, 3, 0x71feb5, 1),
+(11, 26, 0xff409f, 1),
+(12, 25, 0x00ff40, 1),
+(13, 28, 0x6026b8, 1),
+(14, 29, 0xff0000, 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +65,7 @@ CREATE TABLE `course_enrollments` (
   `course_ID` int(11) NOT NULL,
   `user_ID` int(11) NOT NULL,
   `grade` char(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumpning av Data i tabell `course_enrollments`
@@ -76,7 +80,13 @@ INSERT INTO `course_enrollments` (`courseEnrollment_ID`, `course_ID`, `user_ID`,
 (7, 3, 22, ''),
 (8, 5, 17, ''),
 (9, 9, 0, ''),
-(10, 10, 1, '');
+(10, 10, 1, ''),
+(11, 11, 26, ''),
+(12, 11, 25, ''),
+(13, 12, 26, ''),
+(14, 13, 26, ''),
+(15, 14, 26, ''),
+(16, 11, 27, '');
 
 -- --------------------------------------------------------
 
@@ -87,7 +97,7 @@ INSERT INTO `course_enrollments` (`courseEnrollment_ID`, `course_ID`, `user_ID`,
 CREATE TABLE `name` (
   `name_ID` int(11) NOT NULL,
   `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumpning av Data i tabell `name`
@@ -116,7 +126,37 @@ INSERT INTO `name` (`name_ID`, `name`) VALUES
 (20, 'Tyska 2'),
 (21, 'svenska 6'),
 (22, 'Kos 7'),
-(23, 'Kos 8');
+(23, 'Kos 8'),
+(24, 'präst'),
+(25, 'ost'),
+(26, 'webb'),
+(27, 'lol'),
+(28, 'yes'),
+(29, 'ww'),
+(30, 'priest'),
+(31, 'p');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `news`
+--
+
+CREATE TABLE `news` (
+  `post_ID` int(11) NOT NULL,
+  `user_ID` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumpning av Data i tabell `news`
+--
+
+INSERT INTO `news` (`post_ID`, `user_ID`, `title`, `description`) VALUES
+(4, 0, 'Det var fryx på fest', '6'),
+(10, 0, 'gg game', 'gggg'),
+(11, 0, 'Finns det 1080p skärmar som är 4K', 'Kan man se det osynliga');
 
 -- --------------------------------------------------------
 
@@ -132,7 +172,14 @@ CREATE TABLE `posts` (
   `publishingDate` datetime NOT NULL,
   `deadlineDate` datetime NOT NULL,
   `description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumpning av Data i tabell `posts`
+--
+
+INSERT INTO `posts` (`post_ID`, `course_ID`, `user_ID`, `name_ID`, `publishingDate`, `deadlineDate`, `description`) VALUES
+(1, 11, 26, 27, '2024-01-09 14:04:26', '2024-03-15 00:00:00', 'min fru lämna mig lol');
 
 -- --------------------------------------------------------
 
@@ -143,7 +190,7 @@ CREATE TABLE `posts` (
 CREATE TABLE `role` (
   `role_ID` int(11) NOT NULL,
   `name_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumpning av Data i tabell `role`
@@ -164,7 +211,7 @@ CREATE TABLE `submissions` (
   `user_ID` int(11) NOT NULL,
   `post_ID` int(11) NOT NULL,
   `date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -180,7 +227,7 @@ CREATE TABLE `users` (
   `ssn` text NOT NULL,
   `role_ID` int(11) NOT NULL,
   `password` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumpning av Data i tabell `users`
@@ -193,7 +240,10 @@ INSERT INTO `users` (`user_ID`, `name_ID`, `lastname_ID`, `email`, `ssn`, `role_
 (21, 10, 10, 'abdi@abdi', '010101-0101', 3, 'ac5da1eca9af0de80a7f135970e6357b75d940bd'),
 (22, 11, 11, 's@s.com', '222222-2222', 2, '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
 (23, 12, 13, 'kevin@k.com', '111111-1111', 3, '056eafe7cf52220de2df36845b8ed170c67e23e3'),
-(24, 3, 4, 'hej@h.com', '202020-2020', 3, '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+(24, 3, 4, 'hej@h.com', '202020-2020', 3, '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
+(25, 24, 24, 'hej@sdfdsf.com', '041106-7777', 2, '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
+(26, 25, 25, 'tjoho@hej.com', '112233-1122', 3, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220'),
+(27, 30, 31, 'nej@s.com', '555555-5555', 2, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220');
 
 --
 -- Index för dumpade tabeller
@@ -216,6 +266,12 @@ ALTER TABLE `course_enrollments`
 --
 ALTER TABLE `name`
   ADD PRIMARY KEY (`name_ID`);
+
+--
+-- Index för tabell `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`post_ID`);
 
 --
 -- Index för tabell `posts`
@@ -249,25 +305,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT för tabell `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `course_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT för tabell `course_enrollments`
 --
 ALTER TABLE `course_enrollments`
-  MODIFY `courseEnrollment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `courseEnrollment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT för tabell `name`
 --
 ALTER TABLE `name`
-  MODIFY `name_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `name_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT för tabell `news`
+--
+ALTER TABLE `news`
+  MODIFY `post_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT för tabell `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `post_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT för tabell `role`
@@ -285,7 +347,7 @@ ALTER TABLE `submissions`
 -- AUTO_INCREMENT för tabell `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

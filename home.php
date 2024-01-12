@@ -15,60 +15,65 @@
 </head>
 
 <body>
-        <nav>
-            <div class="navbar">
-                <ul>
-                    <li><img class="bild" src="logga.png" alt="logga" /></li>
-                    <li>
-                        <h1 class="header">Hem</h1>
+    <nav>
+        <div class="navbar">
+            <ul>
+                <li><img class="bild" src="logga.png" alt="logga" /></li>
+                <li>
+                    <h1 class="header">Hem</h1>
+                </li>
+
+                <div class="left-nav">
+                    <li><a href="Includes/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a>
                     </li>
+                </div>
+            </ul>
+        </div>
+    </nav>
 
-                    <div class="left-nav">
-                        <li><a href="Includes/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a></li>
-                    </div>
-                </ul>
-            </div>
-        </nav>
+    <nav>
+        <div class="vert-nav">
+            <ul>
+                <li class="active"><a href="home.php"><i class="fa-solid fa-house"></i> Hem</a></li>
+                <li><a href="kurser.php"><i class="fa-solid fa-scroll"></i> Kurser</a></li>
+                <li><a href=""><i class="fa-regular fa-calendar-days"></i> Scheman</a></li>
+                <li><a href=""><i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
+                <li><a href="nyheter.php"><i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
+                <li><a href="kontakter.php"><i class="fa-solid fa-address-book"></i> Kontakter</a></li>
+            </ul>
+        </div>
+    </nav>
 
-        <nav>
-            <div class="vert-nav">
-                <ul>
-                    <li class="active"><a href="home.php"><i class="fa-solid fa-house"></i> Hem</a></li>
-                    <li><a href="kurser.php"><i class="fa-solid fa-scroll"></i> Kurser</a></li>
-                    <li><a href=""><i class="fa-regular fa-calendar-days"></i> Scheman</a></li>
-                    <li><a href=""><i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
-                    <li><a href="nyheter.php"><i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
-                    <li><a href="kontakter.php"><i class="fa-solid fa-address-book"></i> Kontakter</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <div class="home-container">
+    <div class="home-container">
 
         <div class="nyheter">
             <div class="nyhet nyhet-1">
-            <h2>Rubrik</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi sed voluptates optio quasi deleniti ab?</p>
-        <span>2023-01-24 - Tis 00:00</span>
-        </div>
-        <hr>
-        <div class="nyhet nyhet-2">
-            <h2>Rubrik</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi sed voluptates optio quasi deleniti ab?</p>
-        <span>2023-01-24 - Tis 00:00</span>
-        </div>
-        <hr>
-        <div class="nyhet nyhet-3">
-            <h2>Rubrik</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi sed voluptates optio quasi deleniti ab?</p>
-        <span>2023-01-24 - Tis 00:00</span>
-        </div>
-        <hr>
-        <div class="nyhet nyhet-3">
-            <h2>Rubrik</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi sed voluptates optio quasi deleniti ab?</p>
-        <span>2023-01-24 - Tis 00:00</span>
-        </div>
+                <h2>Rubrik</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi
+                    sed voluptates optio quasi deleniti ab?</p>
+                <span>2023-01-24 - Tis 00:00</span>
+            </div>
+            <hr>
+            <div class="nyhet nyhet-2">
+                <h2>Rubrik</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi
+                    sed voluptates optio quasi deleniti ab?</p>
+                <span>2023-01-24 - Tis 00:00</span>
+            </div>
+            <hr>
+            <div class="nyhet nyhet-3">
+                <h2>Rubrik</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi
+                    sed voluptates optio quasi deleniti ab?</p>
+                <span>2023-01-24 - Tis 00:00</span>
+            </div>
+            <hr>
+            <div class="nyhet nyhet-3">
+                <h2>Rubrik</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto animi fuga maiores cumque modi
+                    sed voluptates optio quasi deleniti ab?</p>
+                <span>2023-01-24 - Tis 00:00</span>
+            </div>
 
         </div>
 
@@ -78,7 +83,7 @@
 
         <div class="todo-list">
             <h2 class="todo-title">Att göra lista</h2>
-            <?php 
+            <?php
 
             require "Includes/functions.php";
             session_start();
@@ -97,23 +102,24 @@
 
             );
             $users->execute($data);
-        
+
             // Fetch and display the results
             while ($posts = $users->fetch(PDO::FETCH_ASSOC)) {
                 echo '
-                <div class="list-item item-1" style="background-color: #'.$posts['HEX(course.color)'].';">
-                <span>'.$posts['posName'].'</span>
-                <span>'.$posts['courseN'].'</span>
-                <span style="font-weight: bold;">'.$posts['deadlineDate'].'</span>
+                <div class="list-item item-1" style="background-color: #' . $posts['HEX(course.color)'] . ';">
+                <span>' . $posts['posName'] . '</span>
+                <span>' . $posts['courseN'] . '</span>
+                <span style="font-weight: bold;">' . $posts['deadlineDate'] . '</span>
                 </div>
                 ';
             }
-            
+
             ?>
 
 
         </div>
 
+        <!-- Kommentar -->
         <div class="todo-prov-list">
 
             <h2 class="prov-title">Kommande prov</h2>
@@ -152,8 +158,9 @@
         
 
            
-            </div>
-
         </div>
+
+    </div>
 </body>
+
 </html>
