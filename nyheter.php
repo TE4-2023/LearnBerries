@@ -153,7 +153,7 @@ function closeEditModal() {
                     <li><a href="home.php"><i class="fa-solid fa-house"></i> Hem</a></li>
                     <li><a href="kurser.php"><i class="fa-solid fa-scroll"></i> Kurser</a></li>
                     <li><a href=""><i class="fa-regular fa-calendar-days"></i> Scheman</a></li>
-                    <li><a href=""><i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
+                    <li><a href="närvaro.php"><i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
                     <li class="active"><a href="nyheter.php"><i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
                     <li><a href="kontakter.php"><i class="fa-solid fa-address-book"></i> Kontakter</a></li>
                 </ul>
