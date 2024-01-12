@@ -131,13 +131,17 @@ body {
   align-items: center;
 }
 
+.närvaro-header {
+  margin-top: 1rem;
+}
+
 .närvaro-content {
   width: 80%;
   min-height: 80vh;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
 }
 
 .närvaro-content-header {
@@ -148,6 +152,8 @@ body {
 
 .närvaro-content form {
   width: 80%;
+  padding: 1rem;
+  background-color: #dec6b4;
 }
 
 .närvaro-content form input[type="submit"] {
@@ -181,7 +187,16 @@ body {
   margin-left: 1rem;
 }
 
+.user-absence-container input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
 .group-elements {
   display: flex;
   align-items: center;
+}
+
+.p-message {
+  font-size: 1.2rem;
+  align-self: center;
 }
