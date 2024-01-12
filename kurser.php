@@ -112,7 +112,7 @@
                 <form id="form" action="Includes/addcourse.php" method="post">
                 <div class="header-pop">
                 <h2>Skapa ny kurs</h2>
-                <span class="close">&times;</span>
+                <span class="close" onclick="closeModal()">&times;</span>
                 </div>
                 <input name="name" id="name" class="kurs-titel" type="text" placeholder="Kurstitel" required>
                 <span id="closeSpan" class="pick-color-text">Välj färg</span>
