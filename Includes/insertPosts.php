@@ -15,12 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $description = $_POST['description'];
     $userID = $_SESSION['userid'];
-
+    $radioValue = $_POST['typAv'];
     // Check if the form is for a post or a message
-    if (isset($_POST['deadline'])) {
+    if ($radioValue == "Uppgift") {
         // It's a post
         $deadline = $_POST['deadline'];
-
         try {
             $query = $pdo->prepare('INSERT INTO posts (course_ID, user_ID, name_ID, publishingDate, deadlineDate, description) 
                                    VALUES (:courseID, :userID, :nameID, NOW(), :deadline, :description)');
@@ -39,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
-    } else {
+    } else if($radioValue == "Meddelande") {
         // It's a message
         try {
             $query = $pdo->prepare('INSERT INTO posts (course_ID, user_ID, name_ID, publishingDate, description) 
@@ -48,6 +47,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ':courseID' => $courseID,
                 ':userID' => $userID,
                 ':nameID' => checkName($name),  
+                ':description' => $description
+            );
+
+            $query->execute($data);
+
+            header('Location: ../kursvy.php?kursid='.$courseID);
+
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    } else if($radioValue == "Prov"){
+        $deadline = $_POST['deadline'];
+        try {
+            $query = $pdo->prepare('INSERT INTO exam (course_ID, name_ID, examinationDate, description) 
+                                   VALUES (:courseID, :nameID, :examinationDate, :description)');
+            $data = array(
+                ':courseID' => $courseID,
+                ':nameID' => checkName($name),  
+                ':examinationDate' => $deadline,
                 ':description' => $description
             );
 
