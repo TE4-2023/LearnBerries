@@ -117,24 +117,41 @@
         <div class="todo-prov-list">
 
             <h2 class="prov-title">Kommande prov</h2>
+            <?php 
 
-        <div class="prov-item item-1" style="background-color: #86B867;">
-                <span>Kapiteltest - Aritmetik Ma1a</span>
-                <span>Matte 1A</span>
-                <span style="font-weight: bold;">V42 Tisdag 12:00 - 13:00</span>
-            </div>
+            
+            
+            $pdo = $GLOBALS['pdo'];
+            $users = $pdo->prepare("
+            SELECT *, HEX(course.color), name.name AS examName, courseName.name AS courseN, exam.examinationDate AS examDate FROM exam
+            JOIN course ON exam.course_ID = course.course_ID
+            JOIN name ON exam.name_ID = name.name_ID
+            JOIN name AS courseName ON course.name_ID = courseName.name_ID
+            WHERE exam.course_ID IN (SELECT course_enrollments.course_ID FROM course_enrollments WHERE course_enrollments.user_ID = :userID)
+            AND exam.examinationDate > NOW();
+            ");
 
-            <div class="prov-item item-2" style="background-color: #86B867;">
-                <span>Kapiteltest - Procent Ma1a</span>
-                <span>Matte 1A</span>
-                <span style="font-weight: bold;">V45 Tisdag 12:00 - 13:00</span>
-            </div>
+            $data = array(
+                ':userID' => $_SESSION['userid']
 
-            <div class="prov-item item-3" style="background-color: #86B867;">
-                <span>Kapiteltest - Algebra Ma1a</span>
-                <span>Matte 1A</span>
-                <span style="font-weight: bold;">V47 Tisdag 12:00 - 13:00</span>
-            </div>
+            );
+            $users->execute($data);
+        
+            // Fetch and display the results
+            while ($exam = $users->fetch(PDO::FETCH_ASSOC)) {
+                echo '
+                <div class="prov-item item-1" style="background-color: #'. $exam['HEX(course.color)'] .'">
+                <span>'. $exam['examName'] .'</span>
+                <span>'. $exam['courseN'] .'</span>
+                <span style="font-weight: bold;">'. $exam['examDate'] .'</span>
+                </div>
+                ';
+            }
+            
+            ?>
+        
+
+           
             </div>
 
         </div>
