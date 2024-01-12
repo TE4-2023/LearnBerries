@@ -205,7 +205,7 @@ function openModal()
     </nav>
 
     <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
-        <h1 style="color:white;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
+        <h1 style="color:white;font-size: 80px;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
         <p style="color:white;text-decoration:none !important;">Lärare A</p>
         <a href="kursvy.php?kursid=<?php echo $_GET['kursid']; ?>" class="deltagare"><i class="fa-solid fa-clipboard"></i></i></i> Inlägg</a>
     </div>
