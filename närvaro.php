@@ -178,8 +178,12 @@ function getName($userID, $pdo)
                             </div>
                         </div>
                     <?php endforeach; ?>
-
                     <input type="submit" value="Skicka in">
+                    <?php if (isset($insertMessage)): ?>
+                        <p class="p-message">
+                            <?php echo $insertMessage; ?>
+                        </p>
+                    <?php endif; ?>
                 </form>
             <?php elseif (empty($users)): ?>
                 <h1>Inga elever är tillagda i kursen</h1>
