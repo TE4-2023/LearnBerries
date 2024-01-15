@@ -1,16 +1,17 @@
 <?php
-        // Fetch and display posts
-
+        // Fetch and display exams
+        // make sure that you have the latest database
         require 'functions.php';
         $pdo = $GLOBALS['pdo'];
         try {
+            // deletes the exam from the database that has the same examID
             $deltequery = $pdo->prepare('
             DELETE FROM `exam`
             WHERE exam_ID = :examID; ');
-
+            // gets examID from xhr on kursvy.php
             $deleteData = array(':examID' => $_POST['examID']);
             $deltequery->execute($deleteData);
-
+            // query to get all info of remaining exams 
             $query = $pdo->prepare('
             SELECT exam.*, name.name 
             FROM exam 
@@ -23,7 +24,7 @@
 
             $query->execute($data);
             echo '<div class="uppgifter-exam" id="uppgifter-exam">';
-            
+            // adds in the div that showcases remaining exams
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             echo'<div class="uppgift">';
             echo '<div class="uppgift-right">';
