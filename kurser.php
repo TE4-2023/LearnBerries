@@ -12,6 +12,35 @@
     <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="kurser_style.css">
     <title>Document</title>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var kursdiv = document.getElementById('kurserDIV');
+            var kursElements = kursdiv.querySelectorAll('.kurs');
+
+            kursElements.forEach(function (kursElement) {
+                var kursTop = kursElement.querySelector('.kurs-top');
+                var backgroundColor = getComputedStyle(kursTop).getPropertyValue('background-color');
+
+                // Kontrollera kontrast och ändra textfärgen inom .kurs
+                var textElements = kursElement.querySelectorAll('.kurs-top h2, .kurs-top span');
+                textElements.forEach(function (textElement) {
+                    if (isDarkColor(backgroundColor)) {
+                        textElement.style.color = 'white'; // Vit text för mörk bakgrund
+                    } else {
+                        textElement.style.color = 'black'; // Svart text för ljus bakgrund (kan ändras efter behov)
+                    }
+                });
+            });
+        });
+
+        function isDarkColor(color) {
+            // Enkelt sätt att bedöma om en färg är mörk eller ljus baserat på dess ljusstyrka (brightness)
+            var rgb = color.match(/\d+/g);
+            var brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
+            return brightness < 128; // Anpassa tröskelvärdet efter behov
+        }
+    </script>    
 </head>
 
 <body>
@@ -161,5 +190,6 @@ var span = document.getElementById("closeSpan");
 </script>
 
 <script src="modal.js" defer></script>
+
 
 </html>
