@@ -1,5 +1,6 @@
 <?php
 require 'Includes/connect.php';
+require 'Includes/functions.php';
 session_start();
 
 if (!isset($_SESSION['uid'])) { //switch this out
@@ -206,7 +207,7 @@ function openModal()
 
     <div class="kurs" style="background-color:<?php getCourseColor(); ?>;">
         <h1 style="color:white;font-size: 80px;text-decoration:none !important;"><?php getCourseName(); ?></h1><br>
-        <p style="color:white;text-decoration:none !important;">Lärare A</p>
+        <p class="text" style="color:white;text-decoration:none !important;">kurs lärare: <?php echo getAllTeachers($_GET['kursid'])?></p>
         <a href="kursvy.php?kursid=<?php echo $_GET['kursid']; ?>" class="deltagare"><i class="fa-solid fa-clipboard"></i></i></i> Inlägg</a>
     </div>
 
