@@ -29,38 +29,52 @@ $insertMessage = "";
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST)) {
     // Datan i $_POST sparas som $_POST['time-user_ID'] för varje elev
 
+    var_dump($_POST);
+
     // Loopa genom users och för in datan i databasen för varje elev
     foreach ($users as $key => $user) {
-
         // Lägg in datan i variabler
         $user_ID = $user['user_ID'];
         $course_ID = $_GET['kursid'];
-        // Kolla om frånvaro är satt annars sätt den till 0
-        if (empty($_POST['time-' . $key])) {
-            $absence = 0;
-        } else {
-            $absence = $_POST['time-' . $key];
-        }
+        $present = null;
+        $preRegistered = null;
+        $absence = null;
 
-        // Sätt true eller false på om eleven är föranmäld
-        $preRegisteredVarName = "pre-registered-" . $key;
-        $preRegistered = isset($_POST[$preRegisteredVarName]) && $_POST[$preRegisteredVarName] === "True";
+        // Kolla vilken radio button som är ifylld
+        switch ($_POST['status-' . $key]) {
+            case "present":
+                // Sätt true eller false eftersom datatypen i db är bit
+                $present = true;
+                break;
+            case "pre-registered":
+                $preRegistered = true;
+                break;
+            case "absent":
+                $absence = $_POST['time-' . $key];
+                break;
+        }
 
         $absenceSetAt = date("Y-m-d h:i");
 
-        $sql = "INSERT INTO absence (user_ID, course_ID, pre_registered, absence, absence_set_at) VALUES (:user_ID, :course_ID, :pre_registered, :absence, :absence_set_at)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(":user_ID", $user_ID);
-        $stmt->bindParam(":course_ID", $course_ID);
-        $stmt->bindParam(":pre_registered", $preRegistered);
-        $stmt->bindParam(":absence", $absence);
-        $stmt->bindParam(":absence_set_at", $absenceSetAt);
-        $stmt->execute();
+        try {
+            $sql = "INSERT INTO absence (user_ID, course_ID, present, pre_registered, absence, absence_set_at) VALUES (:user_ID, :course_ID, :present, :pre_registered, :absence, :absence_set_at)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(":user_ID", $user_ID);
+            $stmt->bindParam(":course_ID", $course_ID);
+            $stmt->bindParam(":present", $present);
+            $stmt->bindParam(":pre_registered", $preRegistered);
+            $stmt->bindParam(":absence", $absence);
+            $stmt->bindParam(":absence_set_at", $absenceSetAt);
+            $stmt->execute();
 
-        $insertMessage = "Närvaron lades in";
+            $insertMessage = "Närvaron lades in";
+        } catch (PDOException $e) {
+            $insertMessage = "Error : " . $e->getMessage();
+        }
     }
 }
 
+// Hämtar namnet på en användare genom dess user_ID
 function getName($userID, $pdo)
 {
     $sql = "SELECT name.name FROM users JOIN name ON users.name_ID = name.name_ID WHERE users.user_ID = :userID";
@@ -93,9 +107,10 @@ function getName($userID, $pdo)
     <link rel="stylesheet" href="närvaro.css">
     <title>LearnBerries</title>
     <script>
-        function toggleDisabledInput(id) {
+        // Inaktivera och aktivera inputfältet
+        function handleInput(id, action) {
             let input = document.getElementById("time-" + id);
-            if (input.disabled == true) {
+            if (action == "enable") {
                 input.disabled = false;
             } else {
                 input.disabled = true;
@@ -145,47 +160,58 @@ function getName($userID, $pdo)
         <div class="närvaro-content">
             <div class="närvaro-content-header">
                 <h1>Elev</h1>
+                <h1>Närvarande</h1>
+                <h1>Föranmäld</h1>
                 <h1>Frånvaro (min)</h1>
             </div>
+            <!-- Visa olika innehåll beroende om kursid är satt i URL:en -->
             <?php if (isset($_GET['kursid'])): ?>
                 <form action="närvaro.php?kursid=<?php echo $_GET['kursid']; ?>" method="POST">
-
+                    <!-- Loopa genom $users och skapa rader för varje elev -->
                     <?php foreach ($users as $key => $user): ?>
                         <div class="user-absence-container">
 
+                            <!-- Namnet -->
                             <label for="">
                                 <?php echo getName($user['user_ID'], $pdo); ?>
                             </label>
 
-                            <div class="group-elements">
+                            <!-- Radioknappar -->
+                            <input type="radio" name="status-<?php echo $key; ?>" value="present" id="pre-registered"
+                                onclick="handleInput(<?php echo $key; ?>, 'disable')" checked>
 
-                                <input type="checkbox" name="pre-registered-<?php echo $key; ?>" value="True"
-                                    id="pre-registered" onclick="toggleDisabledInput(<?php echo $key; ?>)">
+                            <input type="radio" name="status-<?php echo $key; ?>" value="pre-registered" id="pre-registered"
+                                onclick="handleInput(<?php echo $key; ?>, 'disable')">
 
-                                <label for="pre-registered">Föranmäld</label>
+                            <input type="radio" name="status-<?php echo $key; ?>" value="absent" id="pre-registered"
+                                onclick="handleInput(<?php echo $key; ?>, 'enable')">
 
-                                <input list="absence" name="time-<?php echo $key; ?>" id="time-<?php echo $key; ?>"
-                                    class="input-field">
-                                <datalist id="absence">
-                                    <option value="5"></option>
-                                    <option value="10"></option>
-                                    <option value="15"></option>
-                                    <option value="20"></option>
-                                    <option value="30"></option>
-                                    <option value="45"></option>
-                                </datalist>
-                            </div>
+                            <!-- Frånvaroinputen -->
+                            <input list="absence" name="time-<?php echo $key; ?>" id="time-<?php echo $key; ?>"
+                                class="input-field" disabled>
+                            <datalist id="absence">
+                                <option value="5"></option>
+                                <option value="10"></option>
+                                <option value="15"></option>
+                                <option value="20"></option>
+                                <option value="30"></option>
+                                <option value="45"></option>
+                            </datalist>
+
                         </div>
                     <?php endforeach; ?>
                     <input type="submit" value="Skicka in">
+                    <!-- Visa meddelande om det finns -->
                     <?php if (isset($insertMessage)): ?>
                         <p class="p-message">
                             <?php echo $insertMessage; ?>
                         </p>
                     <?php endif; ?>
                 </form>
+                <!-- Visa felmeddelande om inga elever finns -->
             <?php elseif (empty($users)): ?>
                 <h1>Inga elever är tillagda i kursen</h1>
+                <!-- Visa felmeddelande om kursid ej finns eller inte är kopplat till befintlig kurs -->
             <?php else: ?>
                 <h1>Ingen kurs vald/kursen existerar ej</h1>
             <?php endif; ?>
