@@ -4,11 +4,14 @@
 require 'Includes/connect.php';
 
 // Hämta information om lektionen för kursen
-$sql = "SELECT * FROM lessons WHERE course_ID = :course_ID";
+$sql = "SELECT * FROM lesson WHERE courseID = :course_ID";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(":course_ID", $_GET['kursid']);
 $stmt->execute();
 $lesson = $stmt->fetch(PDO::FETCH_ASSOC);
+
+var_dump($lesson);
+var_dump($lesson['lessonTimeMin']);
 
 // Hämta eleverna som är med i kursen samt namn på kursen och lektionen
 if (isset($_GET['kursid'])) {
@@ -197,18 +200,8 @@ function getName($userID, $pdo)
                             <input type="radio" name="status-<?php echo $key; ?>" value="absent" id="pre-registered"
                                 onclick="handleInput(<?php echo $key; ?>, 'enable')">
 
-                            <!-- Frånvaroinputen -->
-                            <input list="absence" name="time-<?php echo $key; ?>" id="time-<?php echo $key; ?>"
-                                class="input-field" disabled>
-                            <datalist id="absence">
-                                <option value="5"></option>
-                                <option value="10"></option>
-                                <option value="15"></option>
-                                <option value="20"></option>
-                                <option value="30"></option>
-                                <option value="45"></option>
-                            </datalist>
-
+                            <input type="number" name="time-<?php echo $key; ?>" id="time-<?php echo $key; ?>"
+                                class="input-field" min="0" max="<?php echo $lesson['lessonTimeMin'] ?>" disabled>
                         </div>
                     <?php endforeach; ?>
                     <input type="submit" value="Skicka in">
