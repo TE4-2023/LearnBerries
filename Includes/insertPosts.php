@@ -21,14 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // It's a post
         $deadline = $_POST['deadline'];
         try {
-            $query = $pdo->prepare('INSERT INTO posts (course_ID, user_ID, name_ID, publishingDate, deadlineDate, description) 
-                                   VALUES (:courseID, :userID, :nameID, NOW(), :deadline, :description)');
+            $query = $pdo->prepare('INSERT INTO posts (course_ID, user_ID, name_ID, publishingDate, deadlineDate, description, postType) 
+                                   VALUES (:courseID, :userID, :nameID, NOW(), :deadline, :description, :type)');
             $data = array(
                 ':courseID' => $courseID,
                 ':userID' => $userID,
                 ':nameID' => checkName($name),  
                 ':deadline' => $deadline,
-                ':description' => $description
+                ':description' => $description,
+                ':type' => 1
             );
 
             $query->execute($data);
@@ -41,13 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else if($radioValue == "Meddelande") {
         // It's a message
         try {
-            $query = $pdo->prepare('INSERT INTO posts (course_ID, user_ID, name_ID, publishingDate, description) 
-                                   VALUES (:courseID, :userID, :nameID, NOW(), :description)');
+            $query = $pdo->prepare('INSERT INTO posts (course_ID, user_ID, name_ID, publishingDate, description, postType) 
+                                   VALUES (:courseID, :userID, :nameID, NOW(), :description, :type)');
             $data = array(
                 ':courseID' => $courseID,
                 ':userID' => $userID,
                 ':nameID' => checkName($name),  
-                ':description' => $description
+                ':description' => $description,
+                ':type' => 2
             );
 
             $query->execute($data);
