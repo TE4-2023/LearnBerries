@@ -150,22 +150,26 @@ function getName($userID, $pdo)
     </nav>
 
     <section class="närvaro-section">
-        <div class="närvaro-header">
-            <!-- Byt till lektion och tid -->
-            <h1>Ta närvaro för
-                <?php echo $className['name']; ?>
-            </h1>
-        </div>
-        <!-- Kolla om kursID är satt i URL:en -->
-        <div class="närvaro-content">
-            <div class="närvaro-content-header">
-                <h1>Elev</h1>
-                <h1>Närvarande</h1>
-                <h1>Föranmäld</h1>
-                <h1>Frånvaro (min)</h1>
+        <?php if (isset($_GET['kursid'])): ?>
+
+            <div class="närvaro-header">
+                <!-- Byt till lektion och tid -->
+                <h1>Ta närvaro för
+                    <?php if (isset($className)) {
+                        echo $className['name'];
+                    }
+                    ?>
+                </h1>
             </div>
-            <!-- Visa olika innehåll beroende om kursid är satt i URL:en -->
-            <?php if (isset($_GET['kursid'])): ?>
+            <!-- Kolla om kursID är satt i URL:en -->
+            <div class="närvaro-content">
+                <div class="närvaro-content-header">
+                    <h1>Elev</h1>
+                    <h1>Närvarande</h1>
+                    <h1>Föranmäld</h1>
+                    <h1>Frånvaro (min)</h1>
+                </div>
+                <!-- Visa olika innehåll beroende om kursid är satt i URL:en -->
                 <form action="närvaro.php?kursid=<?php echo $_GET['kursid']; ?>" method="POST">
                     <!-- Loopa genom $users och skapa rader för varje elev -->
                     <?php foreach ($users as $key => $user): ?>
@@ -209,7 +213,7 @@ function getName($userID, $pdo)
                     <?php endif; ?>
                 </form>
                 <!-- Visa felmeddelande om inga elever finns -->
-            <?php elseif (empty($users)): ?>
+            <?php elseif (empty($users) && isset($_GET['kursid'])): ?>
                 <h1>Inga elever är tillagda i kursen</h1>
                 <!-- Visa felmeddelande om kursid ej finns eller inte är kopplat till befintlig kurs -->
             <?php else: ?>
