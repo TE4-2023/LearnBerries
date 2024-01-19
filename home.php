@@ -11,9 +11,12 @@
     <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="kurser_style.css">
     <link rel="stylesheet" href="home_style.css">
+    <link rel="stylesheet" href="schedule.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
     <script src="navbar-responsive.js"></script>
+    <script src="schedule.js"></script>
+
 </head>
 
 <body>
@@ -89,9 +92,10 @@
         </div>
 
         <div class="schema">
-            <img src="Screenshot_1.png" alt="Schema">
+            <div class="container-main">
+                <div class="container-grid"></div>
+            </div>
         </div>
-
         <div class="todo-list">
             <h2 class="todo-title">Att göra lista</h2>
             <?php
