@@ -3,6 +3,13 @@
 <?php
 require 'Includes/connect.php';
 
+// Hämta information om lektionen för kursen
+$sql = "SELECT * FROM lessons WHERE course_ID = :course_ID";
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(":course_ID", $_GET['kursid']);
+$stmt->execute();
+$lesson = $stmt->fetch(PDO::FETCH_ASSOC);
+
 // Hämta eleverna som är med i kursen samt namn på kursen och lektionen
 if (isset($_GET['kursid'])) {
     // Hämta elever
@@ -27,9 +34,7 @@ if (isset($_GET['kursid'])) {
 $insertMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST)) {
-    // Datan i $_POST sparas som $_POST['time-user_ID'] för varje elev
-
-    var_dump($_POST);
+    // Datan i $_POST sparas som $_POST['time-user_ID'] för varje elev 
 
     // Loopa genom users och för in datan i databasen för varje elev
     foreach ($users as $key => $user) {
@@ -50,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST)) {
                 $preRegistered = true;
                 break;
             case "absent":
+                if (true) {
+                }
                 $absence = $_POST['time-' . $key];
                 break;
         }
