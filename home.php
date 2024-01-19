@@ -11,10 +11,13 @@
     <script src="https://kit.fontawesome.com/ef1241843c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="kurser_style.css">
     <link rel="stylesheet" href="home_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
+    <script src="navbar-responsive.js"></script>
 </head>
 
 <body>
+
     <nav>
         <div class="navbar">
             <ul>
@@ -22,28 +25,36 @@
                 <li>
                     <h1 class="header">Hem</h1>
                 </li>
-
+               
                 <div class="left-nav">
                     <li><a href="Includes/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logga ut</a>
                     </li>
                 </div>
             </ul>
+           
         </div>
     </nav>
-
+    <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+                <i class="fa fa-bars"></i>
+                </a>
     <nav>
-        <div class="vert-nav">
+        <div class="vert-nav" id="myVertnav">
             <ul>
+              
                 <li class="active"><a href="home.php"><i class="fa-solid fa-house"></i> Hem</a></li>
                 <li><a href="kurser.php"><i class="fa-solid fa-scroll"></i> Kurser</a></li>
                 <li><a href=""><i class="fa-regular fa-calendar-days"></i> Scheman</a></li>
                 <li><a href="närvaro.php"><i class="fa-solid fa-file-pen"></i> Närvaro</a></li>
                 <li><a href="nyheter.php"><i class="fa-solid fa-newspaper"></i> Nyheter</a></li>
                 <li><a href="kontakter.php"><i class="fa-solid fa-address-book"></i> Kontakter</a></li>
+                
             </ul>
         </div>
     </nav>
 
+
+
+    
     <div class="home-container">
 
         <div class="nyheter">
@@ -161,6 +172,8 @@
         </div>
 
     </div>
+
+
 </body>
 
 </html>
