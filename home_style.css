@@ -1,5 +1,5 @@
 body {
-    overflow: hidden;
+    overflow: auto;
 }
 
 .home-container {
@@ -7,18 +7,19 @@ body {
     flex-direction: column;
     width: 100%;
     margin-left: auto;
-    height: 100%;
+    margin-right: auto;
+    padding: 1rem;
 }
 
 .home-container .nyheter {
-    background-color: #DEC6B4;
-    padding: 12px 18px;
-    display: block;
-    margin-left: 14rem;
-    margin-top: 4rem;
-    overflow-y: auto;
-    max-height: 430px; /* Adjust the value as needed */
-    width: 55vw;
+  background-color: #DEC6B4;
+  padding: 12px 18px;
+  display: block;
+  margin-left: 12rem; /* Use rem units for margin */
+  margin-top: 2rem; /* Adjust as needed */
+  overflow-y: auto;
+  max-height: 430px;
+  width: 85%; /* Use percentage for responsiveness */
 }
 
 .nyheter::-webkit-scrollbar {
@@ -45,31 +46,31 @@ body {
   .home-container .schema {
     display: flex;
     flex-direction: column; /* Stack children vertically */
-    height: 440px;
-    width: 37.5vw;
+    height: 470px;
+    width: 70%;
     background-color: #DEC6B4;
-    margin-left: 14rem;
+    margin-left: 18rem;
     margin-top: 2rem;
   }
 
   .schema img {
-    display: flex;
-    align-self: center;
+    display: block; /* Adjust image display property */
     margin: auto;
-    width: 36.5vw;
-  }
+    max-width: 100%; /* Ensure images are responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
 
   .home-container .todo-list {
-    height: 540px;
+    height: auto;
     display: block;
-    width: 360px;
+    width: 90%;
     margin-left: auto;
-    margin-right: 8rem;
-    margin-top: -58rem;
+    margin-right: auto;
+    margin-top: 2rem;
     border: 1px solid #a0a0a0;
     overflow: auto;
-    border-top-left-radius: 24px;
-    border-bottom-left-radius: 24px;
+    border-radius: 24px;
   }
 
   .todo-list::-webkit-scrollbar {
@@ -105,18 +106,17 @@ body {
 
 
   .home-container .todo-prov-list {
-    height: 300px;
+    height: auto; /* Allow content to determine height */
     display: flex;
     flex-direction: column;
-    width: 720px;
+    width: 90%;
     margin-left: auto;
+    margin-right: auto;
     overflow: auto;
-    margin-right: 8rem;
-    margin-top: 4rem;
+    margin-top: 2rem;
     border: 1px solid #a0a0a0;
-    border-top-left-radius: 24px;
-    border-bottom-left-radius: 24px;
-  }
+    border-radius: 24px;
+}
 
   .prov-title {
     text-align: center;
@@ -147,3 +147,20 @@ body {
     background-color: #606060;
     border-radius: 100px;
   }
+
+
+
+  @media only screen and (max-width: 600px) {
+    .home-container {
+        padding: 0.5rem;
+    }
+
+    .nyheter,
+    .schema,
+    .todo-list,
+    .todo-prov-list {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

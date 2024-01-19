@@ -79,8 +79,11 @@ session_start();
             </div>
         </nav>
 
-        <!-- Knapp för att skapa nyhet -->
-        <button onclick="openNewsModal()" class="skapa-nyhet" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa Nyhet</button>
+        <!-- Knapp för att skapa nyhet. Syns inte om man är elev -->
+        <?php if ($_SESSION['role'] > 2) {
+            echo '<button onclick="openNewsModal()" class="skapa-nyhet" id="myBtn"><i class="fa-solid fa-file-circle-plus"></i> Skapa Nyhet</button>';
+        }
+        ?>
 
         <!-- Modal för att skapa nyhet -->
         <div id="NewsModal" class="modal">
@@ -155,11 +158,13 @@ session_start();
                 echo '<div class="nyheter">';
                 echo '<h2>' . $row['title'] . '</h2>';
                 echo '<p class="description">' . $row['description'] . '</p>';
+                if ($_SESSION['role'] > 2) {
                 echo '<button onclick="openEditModal(' . $row['post_ID'] . ', \'' . htmlspecialchars($row['title'], ENT_QUOTES) . '\', \'' . htmlspecialchars($row['description'], ENT_QUOTES) . '\')" class="edit-btn"><i class="fa-solid fa-pencil"></i></button>';
                 echo '<form action="Includes/delete-news.php" method="post" onsubmit="return confirmDelete()">';
                 echo '<input type="hidden" name="post_ID" value="' . $row['post_ID'] . '">';
                 echo '<button type="submit" class="delete-btn"><i class="fa-solid fa-trash"></i></button>';
                 echo '</form>';
+                }
                 echo '</div>';
             }
             ?>

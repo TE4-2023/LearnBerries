@@ -84,6 +84,17 @@ body {
     flex-direction: column;
 }
 
+
+
+.icon {
+  color: black;
+  margin-left: 0rem;
+  font-size: 30px;
+  background-color: #dec6b4;
+  display: none;
+}
+
+
 /* Vertical navigation styles */
 .vert-nav ul {
   list-style-type: none;
@@ -99,7 +110,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align items from the left */
+  
 }
+
 
 .vert-nav li a {
   display: block;
@@ -122,6 +135,8 @@ body {
 .vert-nav li a.active {
   background-size: 100% 0.1em;
 }
+
+
 
 /* Kurser grid styles */
 .kurser-grid {
@@ -369,3 +384,14 @@ body {
     border: 1px solid #000000;
     cursor: pointer;
 }
+
+ /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+ @media screen and (max-width: 600px) {
+  .vert-nav {
+    display: none;
+  }
+  .icon {
+    display: block;
+  }
+}
+
