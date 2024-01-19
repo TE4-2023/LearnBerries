@@ -58,6 +58,7 @@ body {
     margin: auto;
     max-width: 100%; /* Ensure images are responsive */
     height: auto; /* Maintain aspect ratio */
+    align-items: center;
 }
 
 
