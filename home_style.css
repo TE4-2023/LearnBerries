@@ -15,11 +15,10 @@ body {
   background-color: #DEC6B4;
   padding: 12px 18px;
   display: block;
-  margin-left: 12rem; /* Use rem units for margin */
-  margin-top: 2rem; /* Adjust as needed */
+  margin: 2rem auto; /* Center the element and adjust margin */
   overflow-y: auto;
   max-height: 430px;
-  width: 85%; /* Use percentage for responsiveness */
+  width: 70%; /* Use percentage for responsiveness */
 }
 
 .nyheter::-webkit-scrollbar {
@@ -46,14 +45,15 @@ body {
   .home-container .schema {
     display: flex;
     flex-direction: column; /* Stack children vertically */
-    height: 470px;
+    height: auto;
     width: 70%;
     background-color: #DEC6B4;
-    margin-left: 18rem;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 2rem;
   }
 
-  .schema img {
+  .schema {
     display: block; /* Adjust image display property */
     margin: auto;
     max-width: 100%; /* Ensure images are responsive */
@@ -160,7 +160,6 @@ body {
     .todo-list,
     .todo-prov-list {
         width: 100%;
-        margin-left: 0;
-        margin-right: 0;
+        margin: 0;
     }
 }
