@@ -224,6 +224,7 @@ function postExists() {
     $name = "";
     $desc = "";
     $dld = "";
+    $type = "";
 
     try {
         $userquery = $pdo->prepare(
@@ -241,6 +242,7 @@ function postExists() {
             $name = $row['name'];
             $desc = $row['description'];
             $dld = $row['deadlineDate'];
+            $type = $row['postType'];
         }
     }
     catch (PDOException $e) {
@@ -250,7 +252,7 @@ function postExists() {
 <div class="ruta">
     <div class="uppnamn">
         <h1 class="rubrik"><?php echo $name; ?> </h1>
-        <?php 
+        <?php if($type == 1){
             $query = $GLOBALS['pdo']->prepare(
                 'SELECT * 
                 FROM users
@@ -284,8 +286,7 @@ function postExists() {
                           //Lämna in
                 }
             }
-
-            
+        }
         ?>
     </div>
     <div class="info">
@@ -300,7 +301,7 @@ function postExists() {
 
 <script>
 function goCourse(extra) {
-    let url = window.location.protocol + "//" + window.location.host + "/webschool/kursvy.php?kursid=" + extra;
+    let url = window.location.protocol + "//" + window.location.host + "/LearnBerries/kursvy.php?kursid=" + extra;
     window.location.href = url;
 }
 </script>

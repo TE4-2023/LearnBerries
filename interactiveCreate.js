@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Get references to the radio buttons, the h2 tag, and the form
     const uppgiftRadioButton = document.getElementById("uppgift");
     const meddelandeRadioButton = document.getElementById("meddelande");
+    const provRadioButton = document.getElementById("prov");
     const titleInput = document.querySelector(".upp-titel");
     const descInput = document.querySelector(".upp-besk");
     const createBtn = document.querySelector(".c-btn");
@@ -22,13 +23,19 @@ document.addEventListener("DOMContentLoaded", function() {
         titleInput.placeholder = "Titel på meddelande";
         descInput.placeholder = "Meddelande...";
         createBtn.value = "Skicka meddelande";
+      } else if(provRadioButton.checked){
+        modalTitle.innerText = "Skapa prov";
+        titleInput.value = ""; // Clear titleInput when switching to meddelande
+        titleInput.placeholder = "Titel på prov";
+        descInput.placeholder = "Beskrivning av prov...";
+        createBtn.value = "Skicka prov";
       }
     }
   
     // Add event listeners to the radio buttons
     uppgiftRadioButton.addEventListener("change", updateContent);
     meddelandeRadioButton.addEventListener("change", updateContent);
-  
+    provRadioButton.addEventListener("change", updateContent);
     // Update heading and placeholders initially based on the default checked state
     updateContent();
   });
